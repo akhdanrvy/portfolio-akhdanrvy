@@ -1,26 +1,208 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* ─── Tailwind v4 Theme ────────────────────────────────────────────── */
+@theme {
+  /* Colors */
+  --color-neon-cyan:          #00f5ff;
+  --color-neon-magenta:       #ff0090;
+  --color-neon-amber:         #ffb700;
+  --color-dark-primary:       #050508;
+  --color-dark-secondary:     #0a0a10;
+  --color-dark-card:          #0f0f18;
+  --color-text-primary:       #e8e8f0;
+  --color-text-secondary:     #7a7a8c;
+  --color-text-muted:         #3a3a50;
+  --color-border-subtle:      rgba(255, 255, 255, 0.06);
+  --color-border-glow:        rgba(0, 245, 255, 0.3);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Fonts */
+  --font-display: var(--font-noto);
+  --font-mono:    var(--font-jetbrains);
+  --font-body:    var(--font-jakarta);
+
+  /* Animations */
+  --animate-glow-pulse:  glow-pulse 3s ease-in-out infinite;
+  --animate-scan-line:   scan-line 8s linear infinite;
+  --animate-float:       float 6s ease-in-out infinite;
+  --animate-blink:       blink 1s step-end infinite;
+  --animate-fade-up:     fade-up 0.6s ease-out forwards;
+
+  /* Keyframes */
+  @keyframes glow-pulse {
+    0%, 100% { box-shadow: 0 0 8px rgba(0, 245, 255, 0.3),  0 0 20px rgba(0, 245, 255, 0.1); }
+    50%       { box-shadow: 0 0 16px rgba(0, 245, 255, 0.6), 0 0 40px rgba(0, 245, 255, 0.2); }
+  }
+
+  @keyframes scan-line {
+    0%   { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px);   }
+    50%       { transform: translateY(-12px); }
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+  }
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0);    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ─── CSS Custom Properties ────────────────────────────────────────── */
+:root {
+  --bg-primary:      #050508;
+  --bg-secondary:    #0a0a10;
+  --bg-card:         #0f0f18;
+  --border-subtle:   rgba(255, 255, 255, 0.06);
+  --border-glow:     rgba(0, 245, 255, 0.3);
+  --neon-cyan:       #00f5ff;
+  --neon-magenta:    #ff0090;
+  --neon-amber:      #ffb700;
+  --text-primary:    #e8e8f0;
+  --text-secondary:  #7a7a8c;
+  --text-muted:      #3a3a50;
+  --font-display:    "Noto Serif JP", serif;
+  --font-mono:       "JetBrains Mono", monospace;
 }
+
+/* ─── Global Styles ───────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: #050508;
+  color: #e8e8f0;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── Scrollbar Styling ────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neon-cyan);
+  border-radius: 2px;
+  opacity: 0.4;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  opacity: 1;
+}
+
+/* ─── Selection ────────────────────────────────────────────────────── */
+::selection {
+  background-color: rgba(0, 245, 255, 0.2);
+  color: #fff;
+}
+
+/* ─── Focus Ring ───────────────────────────────────────────────────── */
+*:focus-visible {
+  outline: 1px solid var(--neon-cyan);
+  outline-offset: 2px;
+}
+
+/* ─── Utility: Clip ────────────────────────────────────────────────── */
+.text-gradient-cyan {
+  background: linear-gradient(135deg, var(--neon-cyan) 0%, rgba(0, 245, 255, 0.5) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-magenta {
+  background: linear-gradient(135deg, var(--neon-magenta) 0%, rgba(255, 0, 144, 0.5) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-amber {
+  background: linear-gradient(135deg, var(--neon-amber) 0%, rgba(255, 183, 0, 0.5) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ─── Glow Border Utilities ─────────────────────────────────────────── */
+.glow-border-cyan {
+  border: 1px solid rgba(0, 245, 255, 0.3);
+  box-shadow: 0 0 12px rgba(0, 245, 255, 0.15), inset 0 0 12px rgba(0, 245, 255, 0.03);
+}
+
+.glow-border-magenta {
+  border: 1px solid rgba(255, 0, 144, 0.3);
+  box-shadow: 0 0 12px rgba(255, 0, 144, 0.15), inset 0 0 12px rgba(255, 0, 144, 0.03);
+}
+
+.glow-border-amber {
+  border: 1px solid rgba(255, 183, 0, 0.3);
+  box-shadow: 0 0 12px rgba(255, 183, 0, 0.15), inset 0 0 12px rgba(255, 183, 0, 0.03);
+}
+
+/* ─── Scanline Overlay ──────────────────────────────────────────────── */
+.scanline-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.08) 2px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── Grid Background ───────────────────────────────────────────────── */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ─── Section Container ─────────────────────────────────────────────── */
+/* Guaranteed centered container — bulletproof against Tailwind token issues */
+.section-container {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .section-container {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-container {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+}
+
