@@ -112,7 +112,7 @@ export default function CertificationSection() {
   return (
     <section
       id="certifications"
-      className="relative py-16 md:py-20 lg:py-24 overflow-hidden"
+      className="relative py-14 md:py-18 lg:py-24 overflow-hidden"
     >
       <SectionPulse variant="pink-gold" topLeft="50%" topRight="50%" scale={1.1} />
 
