@@ -155,10 +155,25 @@
     "email_label": "Send an Email",
     "linkedin_label": "Connect on LinkedIn",
     "form": {
-      "name": "Your Name",
-      "email": "Your Email",
+      "name": "Full Name",
+      "email": "Email Address",
       "message": "Your Message",
-      "submit": "Send Message"
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "success_title": "Message Sent!",
+      "success_message": "Thanks for reaching out! I'll get back to you within 1\u20132 business days.",
+      "send_another": "Send Another Message",
+      "error_generic": "Something went wrong. Please email me directly at akhdanravy@gmail.com",
+      "error_validation": "Please check the form and try again.",
+      "name_placeholder": "Your full name",
+      "email_placeholder": "your@email.com",
+      "message_placeholder": "Tell me about your project or just say hi...",
+      "name_error_required": "Name is required",
+      "name_error_min": "Name must be at least 2 characters",
+      "email_error_required": "Email is required",
+      "email_error_invalid": "Please enter a valid email address",
+      "message_error_required": "Message is required",
+      "message_error_min": "Message must be at least 10 characters"
     },
     "toast_copied": "Email copied to clipboard!",
     "modal_message": "Thanks for reaching out! I'll get back to you as soon as possible."
