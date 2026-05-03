@@ -1,73 +1,104 @@
 import type { Metadata } from "next";
-import { Noto_Serif_JP, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { Noto_Serif_JP, Syne } from "next/font/google";
+import { I18nProvider } from "@/context/i18nContext";
+import Navbar from "@/components/Navbar";
 import "./globals.css";
 
+/* ─── Google Fonts ────────────────────────────────────────────── */
 const notoSerifJP = Noto_Serif_JP({
-  weight: ["300", "400", "500", "700", "900"],
+  variable: "--font-noto-serif-jp",
   subsets: ["latin"],
-  variable: "--font-noto",
+  weight: ["300", "400", "700"],
+  display: "swap",
+  preload: false, // large font — load on demand
+});
+
+const syne = Syne({
+  variable: "--font-syne",
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
   display: "swap",
 });
 
-const jetBrainsMono = JetBrains_Mono({
-  weight: ["300", "400", "500", "700"],
-  subsets: ["latin"],
-  variable: "--font-jetbrains",
-  display: "swap",
-});
-
-const plusJakartaSans = Plus_Jakarta_Sans({
-  weight: ["300", "400", "500", "600", "700", "800"],
-  subsets: ["latin"],
-  variable: "--font-jakarta",
-  display: "swap",
-});
-
+/* ─── SEO Metadata ────────────────────────────────────────────── */
 export const metadata: Metadata = {
-  title: "Akhdan Ravi Andaman — App & Fullstack Developer",
+  metadataBase: new URL("https://akhdanravi.dev"),
+  title: {
+    default: "Akhdan Ravi Andaman — Frontend Developer & UI/UX Designer",
+    template: "%s — Akhdan Ravi Andaman",
+  },
   description:
-    "Portfolio of Akhdan Ravi Andaman, App Developer specializing in React Native, Flutter, Kotlin, and Fullstack Web Development with Next.js and Vue.js",
+    "Portfolio of Akhdan Ravi Andaman — Frontend Developer and UI/UX Designer crafting elegant, performant web experiences with a passion for Japanese-inspired aesthetics.",
   keywords: [
-    "React Native",
-    "Flutter",
-    "Kotlin",
+    "Akhdan Ravi Andaman",
+    "frontend developer",
+    "UI UX designer",
     "Next.js",
-    "Mobile Developer",
-    "App Developer",
-    "Fullstack Developer",
-    "Vue.js",
-    "TypeScript",
+    "React",
+    "portfolio",
+    "web development",
+    "glassmorphism",
+    "Japanese design",
   ],
-  authors: [{ name: "Akhdan Ravi Andaman" }],
+  authors: [{ name: "Akhdan Ravi Andaman", url: "https://akhdanravi.dev" }],
   creator: "Akhdan Ravi Andaman",
   openGraph: {
     type: "website",
     locale: "en_US",
-    title: "Akhdan Ravi Andaman — App & Fullstack Developer",
+    url: "https://akhdanravi.dev",
+    siteName: "Akhdan Ravi Andaman",
+    title: "Akhdan Ravi Andaman — Frontend Developer & UI/UX Designer",
     description:
-      "Building experiences across every screen — from pocket to browser.",
-    siteName: "Akhdan Ravi Andaman Portfolio",
+      "Portfolio of Akhdan Ravi Andaman — Frontend Developer and UI/UX Designer crafting elegant, performant web experiences.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Akhdan Ravi Andaman — Portfolio",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Akhdan Ravi Andaman — App & Fullstack Developer",
+    title: "Akhdan Ravi Andaman — Frontend Developer & UI/UX Designer",
     description:
-      "Building experiences across every screen — from pocket to browser.",
+      "Portfolio of Akhdan Ravi Andaman — Frontend Developer and UI/UX Designer crafting elegant, performant web experiences.",
+    images: ["/og-image.png"],
+    creator: "@akhdanravi",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
   },
 };
 
+/* ─── Root Layout ────────────────────────────────────────────── */
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="en"
-      className={`${notoSerifJP.variable} ${jetBrainsMono.variable} ${plusJakartaSans.variable} h-full antialiased`}
+      className={`${notoSerifJP.variable} ${syne.variable}`}
     >
-      <body className="min-h-full flex flex-col">
-        {children}
+      <body className="min-h-dvh antialiased">
+        <I18nProvider>
+          <Navbar />
+          {children}
+        </I18nProvider>
       </body>
     </html>
   );
