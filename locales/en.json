@@ -1,0 +1,171 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "skills": "Skills",
+    "experience": "Experience",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+
+  "hero": {
+    "greeting": "Hello, I'm",
+    "title": "Akhdan Ravi Andaman",
+    "subtitle": "App Developer & Fullstack Web Developer",
+    "description": "I build polished mobile applications and scalable web experiences — from React Native and Flutter to Next.js and Vue.js. Based in Bogor, Indonesia, I'm passionate about writing clean, purposeful code that puts the user first.",
+    "cta_primary": "View My Work",
+    "cta_secondary": "Get In Touch"
+  },
+
+  "about": {
+    "title": "About Me",
+    "paragraph_1": "I'm Akhdan Ravi Andaman, an App Developer and Fullstack Web Developer based in Bogor, Indonesia. I hold a Bachelor of Applied Science in Software Engineering from IPB University (GPA 3.67/4.00), where I developed a deep foundation in both mobile and web engineering.",
+    "paragraph_2": "My primary focus is mobile development — I work across React Native, Kotlin, and Flutter to build intuitive, high-performance applications for iOS and Android. On the web side, I enjoy crafting modern frontends with Next.js and Vue.js, backed by solid fullstack architecture.",
+    "paragraph_3": "Beyond the code, I care about the details that make a product feel truly great: thoughtful UI, smooth interactions, and reliable performance. I'm always exploring new technologies and challenging myself to grow as an engineer and problem-solver."
+  },
+
+  "skills": {
+    "title": "Skills & Technologies",
+    "subtitle": "A toolkit built across mobile, web, and cloud — refined through real projects and continuous learning.",
+    "categories": {
+      "mobile": {
+        "label": "Mobile Development",
+        "items": ["React Native", "Kotlin", "Flutter", "Swift", "Android Studio", "Xcode", "Unity (AR/3D)"]
+      },
+      "frontend": {
+        "label": "Frontend & Web",
+        "items": ["Next.js", "Vue.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"]
+      },
+      "backend": {
+        "label": "Backend & Database",
+        "items": ["Node.js", "Laravel", "Prisma ORM", "MySQL", "PostgreSQL", "REST API"]
+      },
+      "tools": {
+        "label": "Tools & Cloud",
+        "items": ["Git", "GitHub", "Google Cloud Platform", "Apps Script", "Figma", "Postman"]
+      }
+    }
+  },
+
+  "experience": {
+    "title": "Experience & Education",
+    "subtitle": "A journey of building, learning, and shipping — across startups, corporates, and academia.",
+    "items": [
+      {
+        "id": 1,
+        "role": "App Developer",
+        "company": "PT. Mitra Graha Integrasi",
+        "period": "Nov 2025 – Present",
+        "type": "Full-time",
+        "description": [
+          "Developing and maintaining iOS applications using Swift for enterprise IT consulting clients.",
+          "Collaborating with cross-functional teams to translate business requirements into polished mobile features.",
+          "Participating in the full software development lifecycle, from planning and design to deployment and support."
+        ],
+        "tags": ["iOS", "Swift", "IT Consulting"]
+      },
+      {
+        "id": 2,
+        "role": "Mobile Developer",
+        "company": "Bangkit Academy by Google, Tokopedia, Gojek & Traveloka",
+        "period": "Feb 2024 – Jun 2024",
+        "type": "Independent Study",
+        "description": [
+          "Selected for the prestigious Bangkit Academy cohort — a Google-led program in partnership with Tokopedia, Gojek, and Traveloka.",
+          "Specialized in the Android path with a focus on Kotlin and Machine Learning integration in mobile apps.",
+          "Collaborated on a capstone project, applying ML models to an Android application with a team of six.",
+          "Strengthened version control and collaborative development practices through intensive GitHub workflows."
+        ],
+        "tags": ["Kotlin", "Android", "Machine Learning", "GitHub"]
+      },
+      {
+        "id": 3,
+        "role": "Mobile Developer",
+        "company": "PT. Godongijo Asri – The Waterfall Resto & Monster Fishing Lake",
+        "period": "Jul 2024 – Dec 2024",
+        "type": "Internship",
+        "description": [
+          "Led the development of an Augmented Reality mobile experience for a nature-based hospitality business.",
+          "Designed and built interactive 3D assets integrated into an Android application using Unity.",
+          "Delivered an AR feature that enhanced the visitor experience and was presented to company stakeholders.",
+          "Gained hands-on experience bridging creative design and mobile engineering in a real business context."
+        ],
+        "tags": ["Augmented Reality", "Unity", "3D Assets", "Android"]
+      },
+      {
+        "id": 4,
+        "role": "Bachelor of Applied Science – Software Engineering",
+        "company": "IPB University, Bogor",
+        "period": "Aug 2021 – Aug 2025",
+        "type": "Education",
+        "description": [
+          "Graduated with a GPA of 3.67 / 4.00 in Applied Software Engineering.",
+          "Coursework covered mobile development, web engineering, software architecture, databases, and UI/UX design.",
+          "Active contributor to campus tech communities and software project teams throughout the program."
+        ],
+        "tags": ["Software Engineering", "Mobile Dev", "Web Dev"]
+      }
+    ]
+  },
+
+  "projects": {
+    "title": "Projects",
+    "subtitle": "Selected work from real-world clients and personal builds — each one a story of a problem worth solving.",
+    "items": [
+      {
+        "id": 1,
+        "name": "Company Profile – PT Mitra Graha Integrasi",
+        "year": "2026",
+        "image": "/images/projects/project-1.jpg",
+        "description": "A modern, responsive company profile website built for an IT consulting firm. Features a clean content management system, dynamic service and project showcases, and optimized performance using Next.js and Prisma ORM with a MySQL database.",
+        "tech": ["Next.js", "Prisma", "MySQL"],
+        "featured": true
+      },
+      {
+        "id": 2,
+        "name": "Serverless Monitoring System",
+        "year": "2025",
+        "image": "/images/projects/project-2.jpg",
+        "description": "A lightweight, serverless system for real-time operational monitoring, built entirely on Google Cloud infrastructure. Uses Apps Script for automation and logic, with a Google Sites-based dashboard for zero-maintenance deployment.",
+        "tech": ["Google Cloud", "Apps Script", "Google Sites"]
+      },
+      {
+        "id": 3,
+        "name": "Trash Sorting Android Game",
+        "year": "2024",
+        "image": "/images/projects/project-3.jpg",
+        "description": "An educational Android game that teaches waste sorting through interactive gameplay. Built with Unity and recognized with an official Intellectual Property (HKI) certificate, demonstrating its originality and impact in environmental education.",
+        "tech": ["Unity", "Android"],
+        "hki": true
+      },
+      {
+        "id": 4,
+        "name": "Company Profile – Training & Certification",
+        "year": "2024",
+        "image": "/images/projects/project-4.jpg",
+        "description": "A full-featured web application for a training and certification service provider. Includes course catalog management, participant registration, and an admin dashboard built with Laravel and MySQL.",
+        "tech": ["Laravel", "MySQL"]
+      }
+    ]
+  },
+
+  "contact": {
+    "title": "Get In Touch",
+    "subtitle": "Have a project in mind, or just want to say hello? My inbox is always open.",
+    "email_label": "Send an Email",
+    "linkedin_label": "Connect on LinkedIn",
+    "form": {
+      "name": "Your Name",
+      "email": "Your Email",
+      "message": "Your Message",
+      "submit": "Send Message"
+    },
+    "toast_copied": "Email copied to clipboard!",
+    "modal_message": "Thanks for reaching out! I'll get back to you as soon as possible."
+  },
+
+  "footer": {
+    "rights": "© {year} Akhdan Ravi Andaman. All rights reserved.",
+    "built_with": "Built with Next.js, Tailwind CSS & Framer Motion"
+  }
+}
