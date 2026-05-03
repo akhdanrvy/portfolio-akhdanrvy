@@ -1,0 +1,171 @@
+{
+  "nav": {
+    "home": "Beranda",
+    "about": "Tentang",
+    "skills": "Keahlian",
+    "experience": "Pengalaman",
+    "projects": "Proyek",
+    "contact": "Kontak"
+  },
+
+  "hero": {
+    "greeting": "Halo, saya",
+    "title": "Akhdan Ravi Andaman",
+    "subtitle": "App Developer & Fullstack Web Developer",
+    "description": "Saya membangun aplikasi mobile yang rapi dan pengalaman web yang skalabel — mulai dari React Native dan Flutter hingga Next.js dan Vue.js. Berbasis di Bogor, Indonesia, saya percaya bahwa kode yang baik adalah kode yang berpihak pada penggunanya.",
+    "cta_primary": "Lihat Karya Saya",
+    "cta_secondary": "Hubungi Saya"
+  },
+
+  "about": {
+    "title": "Tentang Saya",
+    "paragraph_1": "Saya Akhdan Ravi Andaman, seorang App Developer dan Fullstack Web Developer yang tinggal di Bogor, Indonesia. Saya merupakan lulusan Sarjana Terapan Rekayasa Perangkat Lunak dari IPB University dengan IPK 3,67/4,00 — sebuah perjalanan akademik yang memperkuat fondasi saya di bidang pengembangan mobile maupun web.",
+    "paragraph_2": "Fokus utama saya adalah pengembangan aplikasi mobile menggunakan React Native, Kotlin, dan Flutter — membangun pengalaman yang intuitif dan berperforma tinggi untuk platform iOS maupun Android. Di sisi web, saya senang merancang antarmuka modern dengan Next.js dan Vue.js, didukung oleh arsitektur fullstack yang solid.",
+    "paragraph_3": "Di luar kode, saya peduli pada detail-detail kecil yang membuat sebuah produk terasa benar-benar istimewa: UI yang penuh pertimbangan, interaksi yang mulus, dan performa yang bisa diandalkan. Saya terus belajar, terus bertumbuh, dan selalu antusias menghadapi tantangan baru."
+  },
+
+  "skills": {
+    "title": "Keahlian & Teknologi",
+    "subtitle": "Bekal yang dibangun lintas mobile, web, dan cloud — diasah melalui proyek nyata dan pembelajaran yang tak pernah berhenti.",
+    "categories": {
+      "mobile": {
+        "label": "Pengembangan Mobile",
+        "items": ["React Native", "Kotlin", "Flutter", "Swift", "Android Studio", "Xcode", "Unity (AR/3D)"]
+      },
+      "frontend": {
+        "label": "Frontend & Web",
+        "items": ["Next.js", "Vue.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"]
+      },
+      "backend": {
+        "label": "Backend & Database",
+        "items": ["Node.js", "Laravel", "Prisma ORM", "MySQL", "PostgreSQL", "REST API"]
+      },
+      "tools": {
+        "label": "Tools & Cloud",
+        "items": ["Git", "GitHub", "Google Cloud Platform", "Apps Script", "Figma", "Postman"]
+      }
+    }
+  },
+
+  "experience": {
+    "title": "Pengalaman & Pendidikan",
+    "subtitle": "Sebuah perjalanan membangun, belajar, dan merilis — di startup, korporasi, maupun dunia akademik.",
+    "items": [
+      {
+        "id": 1,
+        "role": "App Developer",
+        "company": "PT. Mitra Graha Integrasi",
+        "period": "Nov 2025 – Sekarang",
+        "type": "Penuh Waktu",
+        "description": [
+          "Mengembangkan dan memelihara aplikasi iOS menggunakan Swift untuk klien-klien di industri konsultasi IT.",
+          "Berkolaborasi dengan tim lintas fungsi untuk menerjemahkan kebutuhan bisnis menjadi fitur mobile yang terpolish.",
+          "Terlibat dalam seluruh siklus pengembangan perangkat lunak, mulai dari perencanaan dan desain hingga deployment dan dukungan teknis."
+        ],
+        "tags": ["iOS", "Swift", "IT Consulting"]
+      },
+      {
+        "id": 2,
+        "role": "Mobile Developer",
+        "company": "Bangkit Academy by Google, Tokopedia, Gojek & Traveloka",
+        "period": "Feb 2024 – Jun 2024",
+        "type": "Studi Mandiri",
+        "description": [
+          "Terpilih mengikuti program Bangkit Academy — program bergengsi yang dipimpin Google bersama Tokopedia, Gojek, dan Traveloka.",
+          "Mengambil jalur Android dengan fokus pada Kotlin dan integrasi Machine Learning ke dalam aplikasi mobile.",
+          "Berkolaborasi dalam proyek capstone bersama tim beranggotakan enam orang, menerapkan model ML ke dalam aplikasi Android.",
+          "Mengasah praktik version control dan pengembangan kolaboratif melalui alur kerja GitHub yang intensif."
+        ],
+        "tags": ["Kotlin", "Android", "Machine Learning", "GitHub"]
+      },
+      {
+        "id": 3,
+        "role": "Mobile Developer",
+        "company": "PT. Godongijo Asri – The Waterfall Resto & Monster Fishing Lake",
+        "period": "Jul 2024 – Des 2024",
+        "type": "Magang",
+        "description": [
+          "Memimpin pengembangan pengalaman mobile berbasis Augmented Reality untuk bisnis wisata alam dan kuliner.",
+          "Merancang dan membangun aset 3D interaktif yang diintegrasikan ke dalam aplikasi Android menggunakan Unity.",
+          "Menghadirkan fitur AR yang meningkatkan pengalaman pengunjung dan dipresentasikan langsung kepada manajemen perusahaan.",
+          "Mendapatkan pengalaman nyata dalam menjembatani desain kreatif dan rekayasa mobile dalam konteks bisnis sesungguhnya."
+        ],
+        "tags": ["Augmented Reality", "Unity", "3D Assets", "Android"]
+      },
+      {
+        "id": 4,
+        "role": "Sarjana Terapan – Rekayasa Perangkat Lunak",
+        "company": "IPB University, Bogor",
+        "period": "Agu 2021 – Agu 2025",
+        "type": "Pendidikan",
+        "description": [
+          "Lulus dengan IPK 3,67 / 4,00 pada program Rekayasa Perangkat Lunak Terapan.",
+          "Kurikulum mencakup pengembangan mobile, rekayasa web, arsitektur perangkat lunak, basis data, dan desain UI/UX.",
+          "Aktif berkontribusi dalam komunitas teknologi kampus dan tim proyek perangkat lunak sepanjang masa studi."
+        ],
+        "tags": ["Software Engineering", "Mobile Dev", "Web Dev"]
+      }
+    ]
+  },
+
+  "projects": {
+    "title": "Proyek",
+    "subtitle": "Karya pilihan dari klien nyata dan proyek personal — masing-masing adalah cerita tentang masalah yang layak dipecahkan.",
+    "items": [
+      {
+        "id": 1,
+        "name": "Company Profile – PT Mitra Graha Integrasi",
+        "year": "2026",
+        "image": "/images/projects/project-1.jpg",
+        "description": "Website company profile modern dan responsif yang dibangun untuk perusahaan konsultasi IT. Dilengkapi sistem manajemen konten yang intuitif, tampilan layanan dan proyek yang dinamis, serta performa optimal menggunakan Next.js dan Prisma ORM dengan database MySQL.",
+        "tech": ["Next.js", "Prisma", "MySQL"],
+        "featured": true
+      },
+      {
+        "id": 2,
+        "name": "Sistem Monitoring Serverless",
+        "year": "2025",
+        "image": "/images/projects/project-2.jpg",
+        "description": "Sistem monitoring operasional ringan dan serverless yang dibangun di atas infrastruktur Google Cloud. Memanfaatkan Apps Script untuk otomasi dan logika bisnis, dengan dasbor berbasis Google Sites yang bebas perawatan.",
+        "tech": ["Google Cloud", "Apps Script", "Google Sites"]
+      },
+      {
+        "id": 3,
+        "name": "Game Android Pemilah Sampah",
+        "year": "2024",
+        "image": "/images/projects/project-3.jpg",
+        "description": "Game Android edukatif yang mengajarkan cara memilah sampah melalui gameplay interaktif. Dibangun menggunakan Unity dan telah mendapatkan sertifikat Hak Kekayaan Intelektual (HKI) resmi, yang menegaskan orisinalitas dan dampaknya dalam pendidikan lingkungan.",
+        "tech": ["Unity", "Android"],
+        "hki": true
+      },
+      {
+        "id": 4,
+        "name": "Company Profile – Pelatihan & Sertifikasi",
+        "year": "2024",
+        "image": "/images/projects/project-4.jpg",
+        "description": "Aplikasi web lengkap untuk penyedia layanan pelatihan dan sertifikasi. Mencakup manajemen katalog kursus, pendaftaran peserta, dan dasbor admin yang dibangun dengan Laravel dan MySQL.",
+        "tech": ["Laravel", "MySQL"]
+      }
+    ]
+  },
+
+  "contact": {
+    "title": "Hubungi Saya",
+    "subtitle": "Punya proyek yang ingin dibahas, atau sekadar ingin menyapa? Saya selalu siap mendengar.",
+    "email_label": "Kirim Email",
+    "linkedin_label": "Terhubung di LinkedIn",
+    "form": {
+      "name": "Nama Anda",
+      "email": "Email Anda",
+      "message": "Pesan Anda",
+      "submit": "Kirim Pesan"
+    },
+    "toast_copied": "Email berhasil disalin!",
+    "modal_message": "Terima kasih sudah menghubungi saya! Saya akan segera membalas pesan Anda."
+  },
+
+  "footer": {
+    "rights": "© {year} Akhdan Ravi Andaman. Seluruh hak cipta dilindungi.",
+    "built_with": "Dibangun dengan Next.js, Tailwind CSS & Framer Motion"
+  }
+}
