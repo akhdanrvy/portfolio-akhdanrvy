@@ -4,27 +4,22 @@ import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { TbChevronLeft, TbChevronRight, TbCertificate, TbExternalLink } from 'react-icons/tb';
 import SectionPulse from '@/components/effects/SectionPulse';
+import { useTranslation } from '@/hooks/useTranslation';
+import enLocale from '@/locales/en.json';
+import idLocale from '@/locales/id.json';
 
 /* ------------------------------------------------------------------ */
-/* Data — ganti src dengan path gambar nyata di /public/certs/         */
+/* Types                                                                */
 /* ------------------------------------------------------------------ */
 interface Cert {
   id: number;
   title: string;
   issuer: string;
   year: string;
-  src: string | null; /* null = tampilkan placeholder SVG */
-  url?: string;
+  category: string;
+  src: string | null;
+  link?: string;
 }
-
-const CERTS: Cert[] = [
-  { id: 1, title: 'Android Developer Fundamentals',  issuer: 'Google',       year: '2023', src: null },
-  { id: 2, title: 'Flutter & Dart – The Complete Guide', issuer: 'Udemy',    year: '2023', src: null },
-  { id: 3, title: 'Associate Cloud Engineer',         issuer: 'Google Cloud', year: '2024', src: null },
-  { id: 4, title: 'React – The Complete Guide',       issuer: 'Udemy',        year: '2024', src: null },
-  { id: 5, title: 'Laravel From Scratch',             issuer: 'Laracasts',    year: '2024', src: null },
-  { id: 6, title: 'Figma UI/UX Design Essentials',   issuer: 'Udemy',        year: '2023', src: null },
-];
 
 /* ------------------------------------------------------------------ */
 /* Placeholder card face (shown when src is null)                      */
@@ -77,6 +72,10 @@ function getSlots(active: number, total: number) {
 }
 
 export default function CertificationSection() {
+  const { language } = useTranslation();
+  const locale = language === 'id' ? idLocale : enLocale;
+  const CERTS = locale.certifications.items as unknown as Cert[];
+
   const [active, setActive] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -89,13 +88,15 @@ export default function CertificationSection() {
     return () => mq.removeEventListener('change', listener);
   }, []);
 
+  const total = CERTS.length;
+
   const prev = useCallback(() => {
-    setActive((a) => (a - 1 + CERTS.length) % CERTS.length);
-  }, []);
+    setActive((a) => (a - 1 + total) % total);
+  }, [total]);
 
   const next = useCallback(() => {
-    setActive((a) => (a + 1) % CERTS.length);
-  }, []);
+    setActive((a) => (a + 1) % total);
+  }, [total]);
 
   /* Keyboard navigation */
   useEffect(() => {
@@ -136,7 +137,7 @@ export default function CertificationSection() {
           className="flex items-center gap-3 mb-4"
         >
           <span className="text-xs tracking-[0.2em] uppercase text-accent-pink font-medium">
-            05 / CERTIFICATIONS
+            06 / CERTIFICATIONS
           </span>
           <span className="h-px w-10 bg-accent-pink/40" />
         </motion.div>
@@ -148,7 +149,7 @@ export default function CertificationSection() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="font-heading text-4xl md:text-5xl font-bold text-white mb-3"
         >
-          Certifications
+          {locale.certifications.title}
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -157,7 +158,7 @@ export default function CertificationSection() {
           transition={{ duration: 0.5, delay: 0.15 }}
           className="text-white/45 text-sm mb-14 max-w-xl"
         >
-          Continuous learning through structured programs and industry-recognized credentials.
+          {locale.certifications.subtitle}
         </motion.p>
 
         {/* ── carousel ──────────────────────────────────────── */}
@@ -302,14 +303,14 @@ export default function CertificationSection() {
               <p className="text-sm text-white/45 mt-1 uppercase tracking-widest">
                 {CERTS[active].issuer} · {CERTS[active].year}
               </p>
-              {CERTS[active].url && (
+              {CERTS[active].link && (
                 <a
-                  href={CERTS[active].url}
+                  href={CERTS[active].link}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 mt-3 text-xs px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-white/55 hover:text-white hover:bg-white/10 transition-colors"
                 >
-                  <TbExternalLink size={13} /> View credential
+                  <TbExternalLink size={13} /> {locale.certifications.view_certificate}
                 </a>
               )}
             </motion.div>

@@ -19,7 +19,7 @@ const SECTION_IDS = NAV_ITEMS.map((item) => item.href.replace("#", ""));
 
 /* ─── Sub-components ─────────────────────────────────────────────────────── */
 
-/** Animated "ARA" logo with a gold dot accent */
+/** Animated "RVY" logo with a gold dot accent */
 function Logo() {
   return (
     <a
@@ -32,7 +32,7 @@ function Logo() {
         className="font-heading text-xl font-bold tracking-widest text-white/90
                    transition-colors duration-300 group-hover:text-white"
       >
-        ARA
+        RVY
       </span>
       {/* Gold dot accent */}
       <span

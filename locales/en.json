@@ -12,21 +12,23 @@
     "greeting": "Hello, I'm",
     "title": "Akhdan Ravi Andaman",
     "subtitle": "App Developer & Fullstack Web Developer",
-    "description": "I build polished mobile applications and scalable web experiences — from React Native and Flutter to Next.js and Vue.js. Based in Bogor, Indonesia, I'm passionate about writing clean, purposeful code that puts the user first.",
+    "description": "Software engineer with a passion for building products at the intersection of mobile and web. From Bangkit Academy to production apps — I bring ideas to life, love unique experiences, and have a sharp design sense.",
     "cta_primary": "View My Work",
-    "cta_secondary": "Get In Touch"
+    "cta_secondary": "Viwe My CV"
   },
 
   "about": {
     "title": "About Me",
-    "paragraph_1": "I'm Akhdan Ravi Andaman, an App Developer and Fullstack Web Developer based in Bogor, Indonesia. I hold a Bachelor of Applied Science in Software Engineering from IPB University (GPA 3.67/4.00), where I developed a deep foundation in both mobile and web engineering.",
-    "paragraph_2": "My primary focus is mobile development — I work across React Native, Kotlin, and Flutter to build intuitive, high-performance applications for iOS and Android. On the web side, I enjoy crafting modern frontends with Next.js and Vue.js, backed by solid fullstack architecture.",
-    "paragraph_3": "Beyond the code, I care about the details that make a product feel truly great: thoughtful UI, smooth interactions, and reliable performance. I'm always exploring new technologies and challenging myself to grow as an engineer and problem-solver."
+    "paragraph_1": "I'm Akhdan Ravi Andaman — an Mobile and Fullstack Web Developer based in Bogor, Indonesia. I hold a Bachelor of Applied Science in Software Engineering from IPB University (GPA 3.67/4.00), with hands-on experience at Bangkit Academy led by Google, Tokopedia, Gojek & Traveloka, and as an App Developer at PT Mitra Graha Integrasi.",
+
+    "paragraph_2": "My core focus is mobile development using React Native, Kotlin, and Flutter — building intuitive, high-performance apps for iOS and Android. On the web side, I craft modern frontends with Next.js and Vue.js, backed by solid fullstack architecture.",
+
+    "paragraph_3": "But I'm more than just a developer. I've guided international travel groups as a Tour Leader — sharpening my communication, adaptability, and cross-cultural skills. I'm comfortable collaborating with global teams as I am shipping production-ready code."
   },
 
   "skills": {
     "title": "Skills & Technologies",
-    "subtitle": "A toolkit built across mobile, web, and cloud — refined through real projects and continuous learning.",
+    "subtitle": "From mobile to web — here's what powers my work.",
     "categories": {
       "mobile": {
         "label": "Mobile Development",
@@ -55,33 +57,24 @@
         "id": 1,
         "role": "App Developer",
         "company": "PT. Mitra Graha Integrasi",
+        "companyUrl": "https://migrasi.co.id",
+        "companyLogo": "/assets/logos/migrasi.png",
         "period": "Nov 2025 – Present",
-        "type": "Full-time",
+        "type": "Internship",
+        "current": true,
         "description": [
-          "Developing and maintaining iOS applications using Swift for enterprise IT consulting clients.",
+          "Developing and maintaining iOS applications using React Native for enterprise IT consulting clients.",
           "Collaborating with cross-functional teams to translate business requirements into polished mobile features.",
           "Participating in the full software development lifecycle, from planning and design to deployment and support."
         ],
-        "tags": ["iOS", "Swift", "IT Consulting"]
+        "tags": ["iOS", "Mobile Dev", "IT Consulting", "Github", "Teamwork"]
       },
       {
         "id": 2,
         "role": "Mobile Developer",
-        "company": "Bangkit Academy by Google, Tokopedia, Gojek & Traveloka",
-        "period": "Feb 2024 – Jun 2024",
-        "type": "Independent Study",
-        "description": [
-          "Selected for the prestigious Bangkit Academy cohort — a Google-led program in partnership with Tokopedia, Gojek, and Traveloka.",
-          "Specialized in the Android path with a focus on Kotlin and Machine Learning integration in mobile apps.",
-          "Collaborated on a capstone project, applying ML models to an Android application with a team of six.",
-          "Strengthened version control and collaborative development practices through intensive GitHub workflows."
-        ],
-        "tags": ["Kotlin", "Android", "Machine Learning", "GitHub"]
-      },
-      {
-        "id": 3,
-        "role": "Mobile Developer",
         "company": "PT. Godongijo Asri – The Waterfall Resto & Monster Fishing Lake",
+        "companyUrl": "https://godongijo.com",
+        "companyLogo": "/assets/logos/godongijo.png",
         "period": "Jul 2024 – Dec 2024",
         "type": "Internship",
         "description": [
@@ -93,14 +86,33 @@
         "tags": ["Augmented Reality", "Unity", "3D Assets", "Android"]
       },
       {
+        "id": 3,
+        "role": "Mobile Developer",
+        "company": "Bangkit Academy by Google, Tokopedia, Gojek & Traveloka",
+        "companyUrl": "https://grow.google/intl/id_id/bangkit/",
+        "companyLogo": "/assets/logos/bangkit.png",
+        "period": "Feb 2024 – Jun 2024",
+        "type": "Independent Study",
+        "description": [
+          "Selected for the prestigious Bangkit Academy cohort — a Google-led program in partnership with Tokopedia, Gojek, and Traveloka.",
+          "Specialized in the Android path with a focus on Kotlin and Machine Learning integration in mobile apps.",
+          "Collaborated on a capstone project, applying ML models to an Android application with a team of six.",
+          "Strengthened version control and collaborative development practices through intensive GitHub workflows."
+        ],
+        "tags": ["Kotlin", "Android", "Machine Learning", "GitHub"]
+      },
+      {
         "id": 4,
         "role": "Bachelor of Applied Science – Software Engineering",
         "company": "IPB University, Bogor",
+        "companyUrl": "https://ipb.ac.id",
+        "companyLogo": "/assets/logos/ipb.png",
         "period": "Aug 2021 – Aug 2025",
         "type": "Education",
         "description": [
           "Graduated with a GPA of 3.67 / 4.00 in Applied Software Engineering.",
           "Coursework covered mobile development, web engineering, software architecture, databases, and UI/UX design.",
+          "Actively involved in campus organizations. Served as vice chairman of the IT organization on campus.",
           "Active contributor to campus tech communities and software project teams throughout the program."
         ],
         "tags": ["Software Engineering", "Mobile Dev", "Web Dev"]
@@ -110,41 +122,162 @@
 
   "projects": {
     "title": "Projects",
-    "subtitle": "Selected work from real-world clients and personal builds — each one a story of a problem worth solving.",
+    "subtitle": "A selection of work I've built — from mobile apps to web platforms.",
     "items": [
       {
         "id": 1,
-        "name": "Company Profile – PT Mitra Graha Integrasi",
+        "name": "Company Profile Website — PT Mitra Graha Integrasi",
         "year": "2026",
-        "image": "/images/projects/project-1.jpg",
-        "description": "A modern, responsive company profile website built for an IT consulting firm. Features a clean content management system, dynamic service and project showcases, and optimized performance using Next.js and Prisma ORM with a MySQL database.",
-        "tech": ["Next.js", "Prisma", "MySQL"],
-        "featured": true
+        "type": "Web Dev",
+        "image": "/assets/projects/migrasi_web.png",
+        "description": "Built the frontend interface for an IT Solution company specializing in audio visual and system integration. Developed using Next.js and NestJS, with Prisma ORM and MySQL as the database. Collaborated with the team via GitLab and hosted on a private VPS.",
+        "tech": ["Next.js", "NestJS", "Prisma ORM", "MySQL", "GitLab", "TypeScript"],
+        "featured": true,
+        "links": {
+          "live": "https://migrasi.id/"
+        }
       },
       {
         "id": 2,
-        "name": "Serverless Monitoring System",
+        "name": "ReflectQ iOS & Mobile",
         "year": "2025",
-        "image": "/images/projects/project-2.jpg",
-        "description": "A lightweight, serverless system for real-time operational monitoring, built entirely on Google Cloud infrastructure. Uses Apps Script for automation and logic, with a Google Sites-based dashboard for zero-maintenance deployment.",
-        "tech": ["Google Cloud", "Apps Script", "Google Sites"]
+        "type": "Mobile Dev",
+        "image": "/assets/projects/reflectq_mobile.png",
+        "description": "Developed a cross-platform mobile application for Android and iOS focused on enhancing users' spiritual well-being. Built with React Native and Expo Framework, with Supabase as the backend database and TypeScript for type safety.",
+        "tech": ["React Native", "Expo", "Supabase", "TypeScript", "iOS", "Android"],
+        "links": {
+          "live": "https://rflq.netlify.app/"
+        }
       },
       {
         "id": 3,
-        "name": "Trash Sorting Android Game",
+        "name": "Caloriewise",
         "year": "2024",
-        "image": "/images/projects/project-3.jpg",
-        "description": "An educational Android game that teaches waste sorting through interactive gameplay. Built with Unity and recognized with an official Intellectual Property (HKI) certificate, demonstrating its originality and impact in environmental education.",
-        "tech": ["Unity", "Android"],
-        "hki": true
+        "type": "Mobile Dev",
+        "image": "/assets/projects/caloriewise_mobile.png",
+        "description": "A Kotlin-based Android application developed during Bangkit Academy led by Google, Tokopedia, Gojek & Traveloka. The app helps users track calorie intake using machine learning and TensorFlow Lite for food recognition. Collaborated via GitHub as an Android Developer.",
+        "tech": ["Kotlin", "Android", "TensorFlow Lite", "Machine Learning", "GitHub"]
       },
       {
         "id": 4,
-        "name": "Company Profile – Training & Certification",
+        "name": "Company Profile Website",
         "year": "2024",
-        "image": "/images/projects/project-4.jpg",
-        "description": "A full-featured web application for a training and certification service provider. Includes course catalog management, participant registration, and an admin dashboard built with Laravel and MySQL.",
-        "tech": ["Laravel", "MySQL"]
+        "type": "Web Dev",
+        "image": "/assets/projects/tsu_web.png",
+        "description": "Built the frontend interface for a professional training and certification company. Designed to present the company's services and credentials in a clean, professional layout. Developed using Laravel with a MySQL database.",
+        "tech": ["Laravel", "PHP", "MySQL", "HTML", "CSS", "Bootstrap"],
+        "links": {
+          "live": "https://technosain.com/home"
+        }
+      }
+    ]
+  },
+
+  "innovations": {
+    "title": "Innovations",
+    "subtitle": "Research-driven projects — award-winning work, published journals, and community impact.",
+    "items": [
+      {
+        "id": 1,
+        "name": "Village Waste Bank Calculation Website",
+        "year": "2023",
+        "type": "Web Dev",
+        "award": "2nd Place — National Competition",
+        "image": "/assets/innovations/banksampah_web.png",
+        "description": "Design and development of a waste bank recording website themed 'Empowerment of Sukajaya Village Youth Using Digital Based Waste Bank through Program Clean Up the Village'. This project was awarded 2nd place at a national level competition (P2MD) held by the Ministry of Education and Culture.",
+        "tech": ["Laravel", "PHP", "MySQL", "HTML", "CSS", "Bootstrap"],
+        "links": {
+          "live": "https://micro-p2md.vercel.app"
+        }
+      },
+      {
+        "id": 2,
+        "name": "Android-based Trash Sorting Game",
+        "year": "2024",
+        "type": "Mobile Dev",
+        "award": "© Copyrighted / HKI",
+        "image": "/assets/innovations/erush_mobile.png",
+        "description": "A Unity-based Android mobile game designed to educate players on how to sort different types of trash through engaging gameplay with multiple difficulty levels. This research has been officially registered and copyrighted under Indonesian Intellectual Property (HKI).",
+        "tech": ["Unity", "Android", "C#", "Game Development", "OOP"],
+        "links": {
+          "hki": "https://pdki-indonesia.dgip.go.id:/link/45433030323032343230393139387c636f70797269676874"
+        }
+      },
+      {
+        "id": 3,
+        "name": "Serverless Information Monitoring System (MONIKA)",
+        "year": "2025",
+        "type": "Web Dev",
+        "award": "Published — Journal",
+        "image": "/assets/innovations/monika_web.png",
+        "description": "Developed a serverless monitoring system utilizing Google Workspace tools, with Google Cloud for storage, Google Apps Script for backend scripting, and Google Sites for the web interface. This research was presented at Seminar Nasional Karsa Nusantara and published in the Melekit journal.",
+        "tech": ["Google Workspace", "Google Cloud", "Google Apps Script", "Google Sites", "Google Sheets"],
+        "links": {
+          "live": "https://sites.google.com/view/monikasvipb/beranda",
+          "journal": "https://melekit-if.uwks.ac.id/melekit/article/view/411"
+        }
+      }
+    ]
+  },
+
+  "certifications": {
+    "title": "Certifications",
+    "subtitle": "Verified credentials and achievements across development, cloud, and leadership.",
+    "view_certificate": "View Certificate",
+    "items": [
+      {
+        "id": 1,
+        "title": "Software Engineer",
+        "issuer": "Badan Nasional Sertifikasi Profesi (BNSP)",
+        "year": "2025",
+        "category": "Professional",
+        "src": "/assets/certificates/cert_softwareengineer.png",
+        "link": "https://drive.google.com/file/d/1ULr3Z-09kLK6gOktJdlNm5Ujx9xYQta-/view?usp=drive_link"
+      },
+      {
+        "id": 2,
+        "title": "Google AI Essentials",
+        "issuer": "Google",
+        "year": "2026",
+        "category": "AI & Cloud",
+        "src": "/assets/certificates/cert_googleai.png",
+        "link": "https://drive.google.com/file/d/1D_v3bv4j1Bh3SsGvrVSIgtrUrjAnu9Iu/view?usp=drive_link"
+      },
+      {
+        "id": 3,
+        "title": "Mobile Development",
+        "issuer": "Bangkit Academy by Google, GoTo, Tokopedia & Traveloka",
+        "year": "2024",
+        "category": "Mobile Dev",
+        "src": "/assets/certificates/cert_mdbangkit.png",
+        "link": "https://drive.google.com/file/d/1UgYFYcWs56flJ-D5fUip60Jd0092Ya-s/view?usp=drive_link"
+      },
+      {
+        "id": 4,
+        "title": "Vice President — HIMAVO Micro IT",
+        "issuer": "HIMAVO Micro IT Student Association, IPB University",
+        "year": "2023",
+        "category": "Leadership",
+        "src": "/assets/certificates/cert_vicepresidentmicroit.png",
+        "link": "https://drive.google.com/file/d/1Y0Z5JusZcZYnMhnIKgq6Z4hZJVbLWsUU/view?usp=drive_link"
+      },
+      {
+        "id": 5,
+        "title": "Presenter — Seminar Nasional Karsa Nusantara",
+        "issuer": "Seminar Nasional Karsa Nusantara",
+        "year": "2025",
+        "category": "Achievement",
+        "src": "/assets/certificates/cert_karsanusantara.png",
+        "link": "https://drive.google.com/file/d/1uMXsAs6MoYj0RizQSvHarFJN5nstZtP-/view?usp=drive_link"
+      },
+      {
+        "id": 6,
+        "title": "English Proficiency — C2 Proficient (72/100)",
+        "issuer": "EF SET",
+        "year": "2025",
+        "category": "Language",
+        "src": "/assets/certificates/cert_efset.png",
+        "link": "https://drive.google.com/file/d/10axyDFcmiiD0jsCwVpOiFJCi9Ja0xz40/view?usp=drive_link"
       }
     ]
   },

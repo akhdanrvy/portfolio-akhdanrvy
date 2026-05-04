@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { useTranslation } from "@/hooks/useTranslation";
 import SectionPulse from "@/components/effects/SectionPulse";
@@ -26,9 +27,9 @@ const STATS = [
 
 /* ─── Fun items ──────────────────────────────────────────────────────────── */
 const FUN_ITEMS = [
-  "🎮  Unity Game Dev",
-  "📱  AR Enthusiast",
-  "🌏  Tour Leader",
+  "🌏 Tour Leader",
+  "🎮 Video Gamer",
+  "🎌 Japanese Culture"
 ];
 
 /* ─── Highlight tags ─────────────────────────────────────────────────────── */
@@ -36,7 +37,7 @@ const HIGHLIGHT_TAGS = [
   "IPB University",
   "GPA 3.67",
   "Bogor, Indonesia",
-  "Tour Leader 🗺️",
+  "Mobile & Web Dev",
 ];
 
 /* ─── Animation variants ─────────────────────────────────────────────────── */
@@ -106,7 +107,7 @@ export default function AboutSection() {
                          before:w-0.75 before:rounded-full
                          before:bg-linear-to-b before:from-(--color-accent-gold) before:to-(--color-accent-pink)"
             >
-              &ldquo;I build things that feel as good as they look.&rdquo;
+              &ldquo;I navigate codebases the same way I navigate new cities — with curiosity, adaptability, and the will to explore the unknown. - Akhdan&rdquo;
             </blockquote>
 
             {/* Highlight tags */}
@@ -129,28 +130,6 @@ export default function AboutSection() {
           {/* ── RIGHT ────────────────────────────────────────────────── */}
           <div className="relative flex flex-col gap-4 lg:gap-0">
 
-            {/* Stats card */}
-            <motion.div
-              variants={cardVariant(0)}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: "-60px" }}
-              className="lg:relative lg:z-30"
-            >
-              <GlassCard className="flex justify-around gap-4 py-6">
-                {STATS.map(({ value, label }) => (
-                  <div key={value} className="flex flex-col items-center gap-1 text-center">
-                    <span className="font-heading text-3xl font-bold text-(--color-accent-gold)">
-                      {value}
-                    </span>
-                    <span className="whitespace-pre-line text-[11px] uppercase tracking-widest text-white/40">
-                      {label}
-                    </span>
-                  </div>
-                ))}
-              </GlassCard>
-            </motion.div>
-
             {/* Status card */}
             <motion.div
               variants={cardVariant(0.15)}
@@ -162,13 +141,16 @@ export default function AboutSection() {
               <GlassCard className="flex flex-col gap-3">
                 <div className="flex items-start gap-3">
                   {/* Building icon */}
-                  <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg
-                                  border border-white/10 bg-white/5 text-white/50">
-                    <svg viewBox="0 0 16 16" fill="currentColor" className="h-4 w-4">
-                      <path d="M2 2h5v5H2V2zm0 7h5v5H2V9zm7-7h5v5H9V2zm0 7h5v5H9V9z"
-                            fillOpacity="0.7" />
-                    </svg>
-                  </div>
+                <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg
+                                  border border-white/10 bg-white/5">
+                  <Image
+                    src="/icons/logo_migrasi-new-rect.png"
+                    alt="Building icon"
+                    width={16}
+                    height={16}
+                    className="h-6 w-6 object-contain"
+                  />
+                </div>
                   <div>
                     <p className="text-[11px] uppercase tracking-widest text-white/35">
                       Current Position
@@ -176,12 +158,12 @@ export default function AboutSection() {
                     <p className="mt-0.5 text-sm font-semibold text-white/80">
                       PT. Mitra Graha Integrasi
                     </p>
-                    <p className="text-xs text-white/45">App Developer · Full-time</p>
+                    <p className="text-xs text-white/45">App Developer</p>
                   </div>
                 </div>
 
                 {/* Availability badge */}
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 mt-2">
                   {/* Pulsing green dot */}
                   <span className="relative flex h-2.5 w-2.5">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full
@@ -205,7 +187,7 @@ export default function AboutSection() {
                 <p className="text-[11px] uppercase tracking-widest text-white/35">
                   Beyond the Code
                 </p>
-                <ul className="flex flex-col gap-2.5">
+                <ul className="flex flex-col gap-2.5 mt-2">
                   {FUN_ITEMS.map((item) => (
                     <li
                       key={item}

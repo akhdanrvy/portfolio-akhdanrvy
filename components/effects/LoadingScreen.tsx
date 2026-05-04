@@ -132,7 +132,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
               匠
             </span>
             <span style={{ fontFamily: 'var(--font-noto-serif-jp,"Noto Serif JP",serif)', fontSize: '1rem', fontWeight: 700, letterSpacing: '0.35em', color: 'rgba(255,255,255,0.88)', userSelect: 'none', textTransform: 'uppercase' }}>
-              ARA
+              RVY
             </span>
           </motion.div>
         </div>

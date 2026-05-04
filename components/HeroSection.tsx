@@ -260,7 +260,7 @@ export default function HeroSection() {
 
                     {/* Download CV */}
                     <a
-                      href="/assets/cv.pdf"
+                      href="https://drive.google.com/file/d/1P8so8OLR0XsfbyerpP2mB0ipOzK5yMUp/view?usp=drive_link"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 rounded-full
@@ -404,7 +404,7 @@ export default function HeroSection() {
                           className="font-heading text-7xl font-bold text-white/90 select-none"
                           style={{ textShadow: '0 0 40px rgba(201,168,76,0.5)' }}
                         >
-                          ARA
+                          RVY
                         </span>
                         <span
                           className="font-heading text-2xl mt-1 select-none"
