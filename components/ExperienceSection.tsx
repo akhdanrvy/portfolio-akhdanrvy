@@ -1,10 +1,12 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import {
   motion,
   useScroll,
   useTransform,
+  AnimatePresence,
 } from 'framer-motion';
 import { TbExternalLink, TbSchool } from 'react-icons/tb';
 import { GlassCard } from '@/components/ui/GlassCard';
@@ -20,8 +22,11 @@ interface ExperienceItem {
   id: number;
   role: string;
   company: string;
+  companyUrl?: string;
+  companyLogo?: string;
   period: string;
   type: 'Full-time' | 'Independent Study' | 'Internship' | 'Education';
+  current?: boolean;
   description: string[];
   tags: string[];
 }
@@ -36,6 +41,117 @@ const TYPE_STYLES: Record<string, string> = {
   'Education':         'text-purple-300              border-purple-400/40              bg-purple-400/10',
 };
 
+/** Returns 2-letter abbreviation from a company name */
+function getInitials(name: string): string {
+  const words = name.trim().split(/\s+/);
+  if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
+  return (words[0][0] + words[1][0]).toUpperCase();
+}
+
+/* ------------------------------------------------------------------ */
+/* Company Logo w/ fallback                                             */
+/* ------------------------------------------------------------------ */
+function CompanyLogo({ src, name }: { src?: string; name: string }) {
+  const [errored, setErrored] = useState(false);
+
+  if (!src || errored) {
+    return (
+      <div className="w-12 h-12 rounded-full bg-accent-gold/20 border border-accent-gold/40 flex items-center justify-center shrink-0">
+        <span className="font-heading text-sm font-bold text-(--color-accent-gold)">
+          {getInitials(name)}
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="w-12 h-12 rounded-full overflow-hidden border border-(--glass-border) bg-white/10 shrink-0 flex items-center justify-center">
+      <Image
+        src={src}
+        alt={name}
+        width={48}
+        height={48}
+        className="object-contain w-full h-full"
+        onError={() => setErrored(true)}
+      />
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Company Popover                                                      */
+/* ------------------------------------------------------------------ */
+function CompanyPopover({
+  item,
+  onClose,
+}: {
+  item: ExperienceItem;
+  onClose: () => void;
+}) {
+  return (
+    <>
+      {/* scoped blur overlay — fills the card's stacking context */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.2 }}
+        className="absolute inset-0 rounded-xl backdrop-blur-[2px] bg-black/20 z-10"
+        onClick={onClose}
+      />
+
+      {/* popover bubble */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8, y: 10 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.8, y: 10 }}
+        transition={{ duration: 0.22, ease: 'easeOut' }}
+        /* position above the company text row; centered horizontally */
+        className={[
+          'absolute z-20 bottom-[calc(100%+0.5rem)]',
+          /* center on the anchor; clamp so it never overflows viewport */
+          'left-1/2 -translate-x-1/2',
+          'w-56 max-w-[calc(100vw-2rem)]',
+          /* glass style */
+          'rounded-xl border border-(--color-accent-gold)/40',
+          'bg-black/70 backdrop-blur-xl shadow-xl',
+          'p-4 flex flex-col items-center gap-3',
+        ].join(' ')}
+        /* stop clicks inside from bubbling to the overlay */
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* caret */}
+        <span
+          className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-black/70 border-r border-b border-accent-gold/40"
+          aria-hidden
+        />
+
+        <CompanyLogo src={item.companyLogo} name={item.company} />
+
+        <p className="font-heading font-bold text-white text-sm text-center leading-snug">
+          {item.company}
+        </p>
+
+        {item.companyUrl && (
+          <a
+            href={item.companyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={[
+              'flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full',
+              'border border-accent-gold/50 text-(--color-accent-gold)',
+              'hover:bg-(--color-accent-gold)/10 transition-colors duration-150',
+            ].join(' ')}
+          >
+            Visit Website
+            <TbExternalLink size={12} />
+          </a>
+        )}
+      </motion.div>
+    </>
+  );
+}
+
 /* ------------------------------------------------------------------ */
 /* Timeline Card                                                        */
 /* ------------------------------------------------------------------ */
@@ -43,13 +159,23 @@ function TimelineCard({
   item,
   side,
   index,
+  openId,
+  setOpenId,
 }: {
   item: ExperienceItem;
   side: 'left' | 'right';
   index: number;
+  openId: number | null;
+  setOpenId: (id: number | null) => void;
 }) {
   const isLeft = side === 'left';
   const isEducation = item.type === 'Education';
+  const isOpen = openId === item.id;
+
+  function handleCompanyClick(e: React.MouseEvent) {
+    e.stopPropagation();
+    setOpenId(isOpen ? null : item.id);
+  }
 
   return (
     <motion.div
@@ -68,7 +194,11 @@ function TimelineCard({
         }`}
       />
 
-      <GlassCard className="relative overflow-visible">
+      {/* clicking the card background closes popover */}
+      <GlassCard
+        className="relative overflow-visible"
+        onClick={() => isOpen && setOpenId(null)}
+      >
         {/* type badge */}
         <span
           className={`absolute top-4 right-4 text-xs px-2 py-0.5 rounded-full border font-medium tracking-wide ${
@@ -77,6 +207,17 @@ function TimelineCard({
         >
           {item.type}
         </span>
+
+        {/* current position badge */}
+        {item.current && (
+          <span className="absolute top-4 text-xs px-2.5 py-0.5 rounded-full border border-green-400/50 bg-green-400/10 text-green-400 font-semibold tracking-wide flex items-center gap-1.5 mt-4">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-60" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-green-400" />
+            </span>
+            CURRENT
+          </span>
+        )}
 
         {/* role */}
         <h3 className="font-heading text-lg font-bold text-white pr-28 leading-snug mb-1">
@@ -89,11 +230,24 @@ function TimelineCard({
           {item.role}
         </h3>
 
-        {/* company */}
-        <p className="flex items-center gap-1 text-sm text-white/50 mb-1">
-          {item.company}
-          <TbExternalLink size={12} className="shrink-0" />
-        </p>
+        {/* company — clickable anchor for the popover */}
+        <div className="relative mt-8 mb-1 w-fit">
+          <button
+            type="button"
+            onClick={handleCompanyClick}
+            className="flex items-center gap-1 text-sm text-white/50 hover:text-white/80 transition-colors duration-150 cursor-pointer"
+          >
+            {item.company}
+            <TbExternalLink size={12} className="shrink-0" />
+          </button>
+
+          {/* popover portal — rendered relative to this anchor */}
+          <AnimatePresence>
+            {isOpen && (
+              <CompanyPopover item={item} onClose={() => setOpenId(null)} />
+            )}
+          </AnimatePresence>
+        </div>
 
         {/* period */}
         <p className="text-xs text-white/35 mb-3 tracking-wide">{item.period}</p>
@@ -132,6 +286,30 @@ export default function ExperienceSection() {
 
   const sectionRef = useRef<HTMLDivElement>(null);
   const lineRef    = useRef<HTMLDivElement>(null);
+
+  /* which card's company popover is open (by item.id, or null) */
+  const [openId, setOpenId] = useState<number | null>(null);
+
+  /* close on Escape or scroll */
+  const closePopover = useCallback(() => setOpenId(null), []);
+
+  useEffect(() => {
+    if (openId === null) return;
+
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') closePopover();
+    }
+    function onScroll() {
+      closePopover();
+    }
+
+    window.addEventListener('keydown', onKeyDown);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, [openId, closePopover]);
 
   /* Animate the vertical timeline line as the section scrolls in */
   const { scrollYProgress } = useScroll({
@@ -219,7 +397,13 @@ export default function ExperienceSection() {
 
                   {/* card — on mobile always pushed right; on desktop alternate */}
                   <div className="w-full pl-8 md:pl-0">
-                    <TimelineCard item={item} side={side} index={index} />
+                    <TimelineCard
+                      item={item}
+                      side={side}
+                      index={index}
+                      openId={openId}
+                      setOpenId={setOpenId}
+                    />
                   </div>
                 </div>
               );

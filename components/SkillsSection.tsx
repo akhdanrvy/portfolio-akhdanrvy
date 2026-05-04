@@ -61,7 +61,7 @@ const SKILLS: Skill[] = [
 
 const TABS: TabKey[] = ["All", "Mobile", "Frontend", "Backend & DB", "Tools"];
 
-const LEARNING_BADGES = ["TypeScript Advanced", "AI Integration", "Docker"];
+const LEARNING_BADGES = ["Go/Golang", "Automation Testing", "DevOps", "Vibe Coding 0-5"];
 
 /* ─── Section label ──────────────────────────────────────────────────────── */
 function SectionLabel({ label }: { label: string }) {
@@ -85,7 +85,7 @@ function SkillRadar() {
     { label: "Frontend",   score: 5, angle: -30  },
     { label: "Backend",    score: 4, angle: 30   },
     { label: "QA",         score: 4, angle: 90   },
-    { label: "Teamwork",   score: 4, angle: 150  },
+    { label: "Teamwork",   score: 5, angle: 150  },
     { label: "Security",   score: 3, angle: 210  },
   ];
 
@@ -162,25 +162,6 @@ function SkillRadar() {
         );
       })}
 
-      {/* Score badge on top vertex (Mobile = 5) */}
-      {(() => {
-        const [px, py] = pt(-90, maxR);
-        return (
-          <g>
-            <rect x={px - 13} y={py - 19} width={26} height={15} rx={4}
-              fill="#1a5c3a" fillOpacity="0.9"
-              stroke="rgba(52,211,153,0.35)" strokeWidth="0.8"
-            />
-            <text x={px} y={py - 11}
-              textAnchor="middle" dominantBaseline="middle"
-              fill="#6ee7b7" fontSize="7.5" fontWeight="700"
-              fontFamily="var(--font-syne, sans-serif)"
-            >
-              5 / 5
-            </text>
-          </g>
-        );
-      })()}
 
       {/* Axis labels */}
       {stats.map((s, i) => {
@@ -374,7 +355,6 @@ export default function SkillsSection() {
                     animation: `shimmerSweep 2.8s ease-in-out ${i * 0.5}s infinite`,
                   }}
                 />
-                <span className="relative">✨</span>
                 <span className="relative">{badge}</span>
               </div>
             ))}

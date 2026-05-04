@@ -28,6 +28,10 @@ interface ProjectItem {
   tech: string[];
   featured?: boolean;
   hki?: boolean;
+  links?: {
+    github?: string;
+    live?: string;
+  };
 }
 
 /* ------------------------------------------------------------------ */
@@ -217,22 +221,32 @@ function ProjectModal({
             </div>
 
             {/* links */}
-            <div className="flex gap-3">
-              <a
-                href="#"
-                className="flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-white/60 hover:text-white hover:bg-white/10 transition-colors"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <TbBrandGithub size={15} /> GitHub
-              </a>
-              <a
-                href="#"
-                className="flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-white/60 hover:text-white hover:bg-white/10 transition-colors"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <TbExternalLink size={15} /> Live
-              </a>
-            </div>
+            {project.links && (project.links.github || project.links.live) && (
+              <div className="flex gap-3">
+                {project.links.github && (
+                  <a
+                    href={project.links.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <TbBrandGithub size={15} /> GitHub
+                  </a>
+                )}
+                {project.links.live && (
+                  <a
+                    href={project.links.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <TbExternalLink size={15} /> Live
+                  </a>
+                )}
+              </div>
+            )}
           </div>
         </GlassCard>
       </motion.div>
@@ -359,7 +373,7 @@ function CardBody({
         </p>
 
         {/* tech tags */}
-        <div className="flex flex-wrap gap-1.5 mb-5">
+        <div className="flex flex-wrap gap-1.5 mb-5 mt-auto">
           {project.tech.map((tech) => (
             <span
               key={tech}
@@ -371,24 +385,34 @@ function CardBody({
         </div>
 
         {/* links row */}
-        <div className="flex items-center gap-2 mt-auto">
-          <a
-            href="#"
-            aria-label="GitHub"
-            onClick={(e) => e.stopPropagation()}
-            className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-lg border border-white/10 bg-white/5 text-white/50 hover:text-white hover:bg-white/10 transition-colors"
-          >
-            <TbBrandGithub size={14} /> GitHub
-          </a>
-          <a
-            href="#"
-            aria-label="Live"
-            onClick={(e) => e.stopPropagation()}
-            className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-lg border border-white/10 bg-white/5 text-white/50 hover:text-white hover:bg-white/10 transition-colors"
-          >
-            <TbExternalLink size={14} /> Live
-          </a>
-        </div>
+        {project.links && (project.links.github || project.links.live) && (
+          <div className="flex items-center gap-2 mt-auto">
+            {project.links.github && (
+              <a
+                href={project.links.github}
+                aria-label="GitHub"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-lg border border-white/10 bg-white/5 text-white/50 hover:text-white hover:bg-white/10 transition-colors"
+              >
+                <TbBrandGithub size={14} /> GitHub
+              </a>
+            )}
+            {project.links.live && (
+              <a
+                href={project.links.live}
+                aria-label="Live"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-lg border border-white/10 bg-white/5 text-white/50 hover:text-white hover:bg-white/10 transition-colors"
+              >
+                <TbExternalLink size={14} /> Live
+              </a>
+            )}
+          </div>
+        )}
       </div>
     </GlassCard>
   );

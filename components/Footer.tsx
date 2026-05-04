@@ -23,13 +23,13 @@ export default function Footer() {
         {/* left — rights */}
         <p className="text-xs text-white/35 order-2 sm:order-1">{rights}</p>
 
-        {/* center — ARA logo */}
+        {/* center — RVY logo */}
         <a
           href="#hero"
           className="font-heading text-base font-bold tracking-widest text-white/70 hover:text-white transition-colors order-1 sm:order-2"
           aria-label="Back to top"
         >
-          ARA
+          RVY
           <span className="inline-block w-1 h-1 rounded-full bg-accent-gold ml-0.5 align-middle" />
         </a>
 
