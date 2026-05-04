@@ -1,19 +1,45 @@
-name: Semgrep Security Scan
+# .github/workflows/semgrep.yml
+name: Semgrep SAST
 
 on:
+  pull_request: {}           # Scan setiap PR (diff-aware, hanya file yang berubah)
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    branches: ["main", "staging"]  # Scan full setiap push ke main/staging
+  workflow_dispatch: {}      # Bisa trigger manual dari GitHub UI
+  schedule:
+    - cron: '0 7 * * 1'     # Scan otomatis setiap Senin jam 7 pagi
+
+permissions:
+  contents: read
 
 jobs:
   semgrep:
+    name: semgrep-oss/scan
     runs-on: ubuntu-latest
     container:
-      image: semgrep/semgrep
+      image: semgrep/semgrep   # Pakai Docker image resmi Semgrep
+    if: github.actor != 'dependabot[bot]'
     steps:
       - uses: actions/checkout@v4
-      - name: Run Semgrep
-        run: semgrep ci --config=p/javascript --config=p/react --config=p/owasp-top-ten
-        env:
-          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+
+      - name: Run Semgrep Scan
+        run: |
+          semgrep scan \
+            --config p/typescript \
+            --config p/nodejs \
+            --config p/owasp-top-ten \
+            --config p/jwt \
+            --config p/sql-injection \
+            --config p/secrets \
+            --error \
+            --verbose \
+            --text \
+            2>&1 | tee semgrep-result.txt
+
+      - name: Upload hasil scan sebagai artifact
+        if: always()   # Upload meski scan gagal/ada temuan
+        uses: actions/upload-artifact@v4
+        with:
+          name: semgrep-results
+          path: semgrep-result.txt
+          retention-days: 30
