@@ -231,11 +231,11 @@ function TimelineCard({
         </h3>
 
         {/* company — clickable anchor for the popover */}
-        <div className="relative mt-8 mb-1 w-fit">
+        <div className="relative mt-8 mb-1 w-full">
           <button
             type="button"
             onClick={handleCompanyClick}
-            className="flex items-center gap-1 text-sm text-white/50 hover:text-white/80 transition-colors duration-150 cursor-pointer"
+            className="flex items-center gap-1 text-sm text-left text-white/50 hover:text-white/80 transition-colors duration-150 cursor-pointer justify-start"
           >
             {item.company}
             <TbExternalLink size={12} className="shrink-0" />

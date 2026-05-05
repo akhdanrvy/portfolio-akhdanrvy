@@ -14,7 +14,7 @@
     "subtitle": "App Developer & Fullstack Web Developer",
     "description": "Software engineer with a passion for building products at the intersection of mobile and web. From Bangkit Academy to production apps — I bring ideas to life, love unique experiences, and have a sharp design sense.",
     "cta_primary": "View My Work",
-    "cta_secondary": "Viwe My CV"
+    "cta_secondary": "View My CV"
   },
 
   "about": {
@@ -57,7 +57,7 @@
         "id": 1,
         "role": "App Developer",
         "company": "PT. Mitra Graha Integrasi",
-        "companyUrl": "https://migrasi.co.id",
+        "companyUrl": "https://migrasi.id",
         "companyLogo": "/assets/logos/migrasi.png",
         "period": "Nov 2025 – Present",
         "type": "Internship",
@@ -89,7 +89,7 @@
         "id": 3,
         "role": "Mobile Developer",
         "company": "Bangkit Academy by Google, Tokopedia, Gojek & Traveloka",
-        "companyUrl": "https://grow.google/intl/id_id/bangkit/",
+        "companyUrl": "https://www.dicoding.com/programs/bangkit",
         "companyLogo": "/assets/logos/bangkit.png",
         "period": "Feb 2024 – Jun 2024",
         "type": "Independent Study",
@@ -246,7 +246,7 @@
       {
         "id": 3,
         "title": "Mobile Development",
-        "issuer": "Bangkit Academy by Google, GoTo, Tokopedia & Traveloka",
+        "issuer": "Bangkit Academy by Google, Tokopedia, Gojek & Traveloka",
         "year": "2024",
         "category": "Mobile Dev",
         "src": "/assets/certificates/cert_mdbangkit.png",
