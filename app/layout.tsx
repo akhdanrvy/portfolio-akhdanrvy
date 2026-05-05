@@ -24,15 +24,15 @@ const syne = Syne({
 export const metadata: Metadata = {
   metadataBase: new URL("https://akhdanravi.dev"),
   title: {
-    default: "Akhdan Ravi Andaman — Frontend Developer & UI/UX Designer",
+    default: "Akhdan Ravi Andaman — Mobile & Fullstack Developer",
     template: "%s — Akhdan Ravi Andaman",
   },
   description:
-    "Portfolio of Akhdan Ravi Andaman — Frontend Developer and UI/UX Designer crafting elegant, performant web experiences with a passion for Japanese-inspired aesthetics.",
+    "Portfolio of Akhdan Ravi Andaman — Mobile & Fullstack Developer crafting elegant, performant web experiences with a passion for Japanese-inspired aesthetics.",
   keywords: [
     "Akhdan Ravi Andaman",
-    "frontend developer",
-    "UI UX designer",
+    "mobile developer",
+    "fullstack developer",
     "Next.js",
     "React",
     "portfolio",
@@ -47,9 +47,9 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://akhdanravi.dev",
     siteName: "Akhdan Ravi Andaman",
-    title: "Akhdan Ravi Andaman — Frontend Developer & UI/UX Designer",
+    title: "Akhdan Ravi Andaman — Mobile & Fullstack Developer",
     description:
-      "Portfolio of Akhdan Ravi Andaman — Frontend Developer and UI/UX Designer crafting elegant, performant web experiences.",
+      "Portfolio of Akhdan Ravi Andaman — Mobile & Fullstack Developer crafting elegant, performant mobile & web experiences.",
     images: [
       {
         url: "/og-image.png",
@@ -61,9 +61,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Akhdan Ravi Andaman — Frontend Developer & UI/UX Designer",
+    title: "Akhdan Ravi Andaman — Mobile & Fullstack Developer",
     description:
-      "Portfolio of Akhdan Ravi Andaman — Frontend Developer and UI/UX Designer crafting elegant, performant web experiences.",
+      "Portfolio of Akhdan Ravi Andaman — Mobile & Fullstack Developer crafting elegant, performant web experiences.",
     images: ["/og-image.png"],
     creator: "@akhdanravi",
   },
