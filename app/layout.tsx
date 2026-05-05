@@ -57,7 +57,7 @@ export const metadata: Metadata = {
       "Portfolio of Akhdan Ravi Andaman — App Developer & Fullstack Web Developer from Bogor, Indonesia. Specializing in mobile development and modern web platforms.",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Akhdan Ravi Andaman — App Developer & Fullstack Web Developer",
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     title: "Akhdan Ravi Andaman — App Developer & Fullstack Web Developer",
     description:
       "Portfolio of Akhdan Ravi Andaman — App Developer & Fullstack Web Developer from Bogor, Indonesia.",
-    images: ["/og-image.png"],
+    images: ["/og-image.jpg"],
     creator: "@akhdanravi",
   },
   robots: {
