@@ -10,7 +10,7 @@ const notoSerifJP = Noto_Serif_JP({
   subsets: ["latin"],
   weight: ["300", "400", "700"],
   display: "swap",
-  preload: false, // large font — load on demand
+  preload: false,
 });
 
 const syne = Syne({
@@ -22,48 +22,53 @@ const syne = Syne({
 
 /* ─── SEO Metadata ────────────────────────────────────────────── */
 export const metadata: Metadata = {
-  metadataBase: new URL("https://akhdanravi.dev"),
+  metadataBase: new URL("https://portfolio-akhdanrvy.vercel.app"),
   title: {
-    default: "Akhdan Ravi Andaman — Mobile & Fullstack Developer",
+    default: "Akhdan Ravi Andaman — App Developer & Fullstack Web Developer",
     template: "%s — Akhdan Ravi Andaman",
   },
   description:
-    "Portfolio of Akhdan Ravi Andaman — Mobile & Fullstack Developer crafting elegant, performant web experiences with a passion for Japanese-inspired aesthetics.",
+    "Portfolio of Akhdan Ravi Andaman — App Developer & Fullstack Web Developer from Bogor, Indonesia. Specializing in mobile development with React Native, Kotlin, and Flutter, and modern web with Next.js and Vue.js.",
   keywords: [
     "Akhdan Ravi Andaman",
-    "mobile developer",
-    "fullstack developer",
+    "App Developer",
+    "Mobile Developer",
+    "Fullstack Developer",
+    "React Native",
+    "Flutter",
+    "Kotlin",
     "Next.js",
-    "React",
+    "Vue.js",
+    "Android Developer",
+    "iOS Developer",
+    "Bogor",
+    "Indonesia",
     "portfolio",
-    "web development",
-    "glassmorphism",
-    "Japanese design",
   ],
-  authors: [{ name: "Akhdan Ravi Andaman", url: "https://akhdanravi.dev" }],
+  authors: [{ name: "Akhdan Ravi Andaman", url: "https://portfolio-akhdanrvy.vercel.app" }],
   creator: "Akhdan Ravi Andaman",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://akhdanravi.dev",
+    url: "https://portfolio-akhdanrvy.vercel.app",
     siteName: "Akhdan Ravi Andaman",
-    title: "Akhdan Ravi Andaman — Mobile & Fullstack Developer",
+    title: "Akhdan Ravi Andaman — App Developer & Fullstack Web Developer",
     description:
-      "Portfolio of Akhdan Ravi Andaman — Mobile & Fullstack Developer crafting elegant, performant mobile & web experiences.",
+      "Portfolio of Akhdan Ravi Andaman — App Developer & Fullstack Web Developer from Bogor, Indonesia. Specializing in mobile development and modern web platforms.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Akhdan Ravi Andaman — Portfolio",
+        alt: "Akhdan Ravi Andaman — App Developer & Fullstack Web Developer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Akhdan Ravi Andaman — Mobile & Fullstack Developer",
+    title: "Akhdan Ravi Andaman — App Developer & Fullstack Web Developer",
     description:
-      "Portfolio of Akhdan Ravi Andaman — Mobile & Fullstack Developer crafting elegant, performant web experiences.",
+      "Portfolio of Akhdan Ravi Andaman — App Developer & Fullstack Web Developer from Bogor, Indonesia.",
     images: ["/og-image.png"],
     creator: "@akhdanravi",
   },
