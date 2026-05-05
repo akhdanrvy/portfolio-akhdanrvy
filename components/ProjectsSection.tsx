@@ -435,7 +435,7 @@ export default function ProjectsSection() {
       {/* ── decorative kanji ──────────────────────────────────── */}
       <span
         aria-hidden
-        className="pointer-events-none select-none absolute left-4 top-24 font-heading text-[10rem] leading-none font-bold text-accent-gold opacity-[0.04]"
+        className="pointer-events-none select-none absolute left-4 top-24 font-heading text-[10rem] leading-none font-bold text-accent-gold opacity-[0.08]"
         style={{ writingMode: 'vertical-rl' }}
       >
         作品
@@ -462,10 +462,20 @@ export default function ProjectsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="font-heading text-4xl md:text-5xl font-bold text-white mb-12"
+          className="font-heading text-4xl md:text-5xl font-bold text-white mb-4"
         >
           {t('projects.title') as string}
         </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="text-base text-white/45 max-w-2xl mb-12"
+        >
+          {locale.projects.subtitle}
+        </motion.p>
 
         {/* ── featured card ─────────────────────────────────── */}
         <motion.div

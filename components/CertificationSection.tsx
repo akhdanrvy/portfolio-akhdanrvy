@@ -121,7 +121,7 @@ export default function CertificationSection() {
       <span
         aria-hidden
         className="pointer-events-none select-none absolute right-0 top-1/2 -translate-y-1/2
-                   font-heading font-bold leading-none text-[18vw] text-accent-pink opacity-[0.04]"
+                   font-heading font-bold leading-none text-[18vw] text-accent-pink opacity-[0.08]"
         style={{ writingMode: 'vertical-rl' }}
       >
         資格
@@ -147,7 +147,7 @@ export default function CertificationSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="font-heading text-4xl md:text-5xl font-bold text-white mb-3"
+          className="font-heading text-4xl md:text-5xl font-bold text-white mb-4"
         >
           {locale.certifications.title}
         </motion.h2>
@@ -156,7 +156,7 @@ export default function CertificationSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          className="text-white/45 text-sm mb-14 max-w-xl"
+          className="text-base text-white/45 max-w-2xl mb-12"
         >
           {locale.certifications.subtitle}
         </motion.p>

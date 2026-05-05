@@ -51,7 +51,7 @@
 
   "experience": {
     "title": "Experience & Education",
-    "subtitle": "A journey of building, learning, and shipping — across startups, corporates, and academia.",
+    "subtitle": "The roles and experiences that shaped who I am as a developer.",
     "items": [
       {
         "id": 1,
@@ -175,7 +175,7 @@
 
   "innovations": {
     "title": "Innovations",
-    "subtitle": "Research-driven projects — award-winning work, published journals, and community impact.",
+    "subtitle": "Research-driven work that goes beyond the screen — awarded, published, and impactful.",
     "items": [
       {
         "id": 1,
@@ -222,7 +222,7 @@
 
   "certifications": {
     "title": "Certifications",
-    "subtitle": "Verified credentials and achievements across development, cloud, and leadership.",
+    "subtitle": "Continuous learning, formally recognized.",
     "view_certificate": "View Certificate",
     "items": [
       {
@@ -284,7 +284,7 @@
 
   "contact": {
     "title": "Get In Touch",
-    "subtitle": "Have a project in mind, or just want to say hello? My inbox is always open.",
+    "subtitle": "Whether it's a collaboration, freelance opportunity, or just a conversation — I'd love to hear from you.",
     "email_label": "Send an Email",
     "linkedin_label": "Connect on LinkedIn",
     "form": {

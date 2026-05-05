@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   SiReact, SiKotlin, SiFlutter, SiDart, SiUnity, SiSwift,
@@ -10,6 +10,7 @@ import {
   SiGit, SiGithub, SiGitlab, SiWordpress,
 } from "react-icons/si";
 import { TbApi, TbScript } from "react-icons/tb";
+import { useSpring, animated, to } from "@react-spring/web";
 import { useTranslation } from "@/hooks/useTranslation";
 import SectionPulse from "@/components/effects/SectionPulse";
 
@@ -70,6 +71,7 @@ function SectionLabel({ label }: { label: string }) {
       <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-(--color-accent-pink)">
         {label}
       </span>
+      
       <div className="h-px w-10 bg-linear-to-r from-(--color-accent-pink) to-transparent" />
     </div>
   );
@@ -81,12 +83,12 @@ function SkillRadar() {
   const toRad = (d: number) => (d * Math.PI) / 180;
 
   const stats = [
-    { label: "Mobile",     score: 5, angle: -90  },
-    { label: "Frontend",   score: 5, angle: -30  },
-    { label: "Backend",    score: 4, angle: 30   },
-    { label: "QA",         score: 4, angle: 90   },
-    { label: "Teamwork",   score: 5, angle: 150  },
-    { label: "Security",   score: 3, angle: 210  },
+    { label: "Mobile",   score: 5, angle: -90  },
+    { label: "Frontend", score: 5, angle: -30  },
+    { label: "Backend",  score: 4, angle: 30   },
+    { label: "QA",       score: 4, angle: 90   },
+    { label: "Teamwork", score: 5, angle: 150  },
+    { label: "Security", score: 3, angle: 210  },
   ];
 
   const pt = (angle: number, r: number): [number, number] => [
@@ -97,90 +99,212 @@ function SkillRadar() {
   const polygonPts = (r: number) =>
     stats.map(s => pt(s.angle, r).join(",")).join(" ");
 
-  const dataPts = stats
-    .map(s => pt(s.angle, (s.score / 5) * maxR).join(","))
-    .join(" ");
-
   const textAnchors = ["middle", "start", "start", "middle", "end", "end"] as const;
 
+  /* ── original vertex positions (score-based) ── */
+  const origins: [number, number][] = stats.map(s =>
+    pt(s.angle, (s.score / 5) * maxR)
+  );
+
+  /* ── per-vertex drag state ── */
+  const [positions, setPositions] = useState<{ x: number; y: number }[]>(
+    () => origins.map(([x, y]) => ({ x, y }))
+  );
+  const [activeIdx, setActiveIdx] = useState<number | null>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
+
+  /* ── per-vertex springs ── */
+  const springs = stats.map((_, i) =>
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useSpring({
+      x: positions[i].x,
+      y: positions[i].y,
+      config: { tension: 180, friction: 12, mass: 1 },
+    })
+  );
+
+  /* interpolate the "points" string from all springs */
+  const animatedPoints = to(
+    springs.flatMap(s => [s.x, s.y]),
+    (...coords) => {
+      const pts: string[] = [];
+      for (let i = 0; i < coords.length; i += 2)
+        pts.push(`${coords[i]},${coords[i + 1]}`);
+      return pts.join(" ");
+    }
+  );
+
+  /* ── pointer helpers ── */
+  const getSVGPoint = (e: React.PointerEvent<SVGSVGElement>) => {
+    const svg = svgRef.current;
+    if (!svg) return { x: e.clientX, y: e.clientY };
+    const pt = svg.createSVGPoint();
+    pt.x = e.clientX;
+    pt.y = e.clientY;
+    const { x, y } = pt.matrixTransform(svg.getScreenCTM()!.inverse());
+    return {
+      x: Math.max(0, Math.min(290, x)),
+      y: Math.max(0, Math.min(280, y)),
+    };
+  };
+
+  const onDotPointerDown = (e: React.PointerEvent<SVGCircleElement>, i: number) => {
+    e.stopPropagation();
+    setActiveIdx(i);
+    svgRef.current?.setPointerCapture(e.pointerId);
+  };
+
+  const onSVGPointerMove = (e: React.PointerEvent<SVGSVGElement>) => {
+    if (activeIdx === null) return;
+    const { x, y } = getSVGPoint(e);
+    setPositions(prev => prev.map((p, i) => (i === activeIdx ? { x, y } : p)));
+    springs[activeIdx].x.set(x);
+    springs[activeIdx].y.set(y);
+  };
+
+  const onSVGPointerUp = (e: React.PointerEvent<SVGSVGElement>) => {
+    if (activeIdx === null) return;
+    svgRef.current?.releasePointerCapture(e.pointerId);
+    const [ox, oy] = origins[activeIdx];
+    setPositions(prev => prev.map((p, i) => (i === activeIdx ? { x: ox, y: oy } : p)));
+    springs[activeIdx].x.start(ox);
+    springs[activeIdx].y.start(oy);
+    setActiveIdx(null);
+  };
+
   return (
-    <svg
-      viewBox="0 0 290 280"
-      className="w-full h-full"
-      style={{ filter: "drop-shadow(0 0 16px rgba(244,184,193,0.10))" }}
-    >
-      <defs>
-        <linearGradient id="radarFill" x1="0.5" y1="0" x2="0.5" y2="1">
-          <stop offset="0%"   stopColor="#f4b8c1" stopOpacity="0.28" />
-          <stop offset="100%" stopColor="#c9a84c" stopOpacity="0.10" />
-        </linearGradient>
-        <linearGradient id="radarStroke" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%"   stopColor="#f4b8c1" stopOpacity="0.85" />
-          <stop offset="100%" stopColor="#c9a84c" stopOpacity="0.65" />
-        </linearGradient>
-      </defs>
+    <>
+      <style>{`
+        @keyframes radarPulse {
+          0%   { opacity: 0.15; }
+          50%  { opacity: 0.40; }
+          100% { opacity: 0.15; }
+        }
+      `}</style>
 
-      {/* Grid hexagons */}
-      {[1, 2, 3, 4, 5].map(l => (
-        <polygon
-          key={l}
-          points={polygonPts((l / 5) * maxR)}
-          fill="none"
-          stroke={l === 5 ? "rgba(255,255,255,0.13)" : "rgba(255,255,255,0.055)"}
-          strokeWidth="1"
+      <svg
+        ref={svgRef}
+        viewBox="0 0 290 280"
+        className="w-full h-full"
+        style={{
+          filter: "drop-shadow(0 0 16px rgba(244,184,193,0.10))",
+          cursor: activeIdx !== null ? "grabbing" : "default",
+          touchAction: "none",
+        }}
+        onPointerMove={onSVGPointerMove}
+        onPointerUp={onSVGPointerUp}
+        onPointerCancel={onSVGPointerUp}
+      >
+        <defs>
+          <linearGradient id="radarFill" x1="0.5" y1="0" x2="0.5" y2="1">
+            <stop offset="0%"   stopColor="#f4b8c1" stopOpacity="0.28" />
+            <stop offset="100%" stopColor="#c9a84c" stopOpacity="0.10" />
+          </linearGradient>
+          <linearGradient id="radarStroke" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%"   stopColor="#f4b8c1" stopOpacity="0.85" />
+            <stop offset="100%" stopColor="#c9a84c" stopOpacity="0.65" />
+          </linearGradient>
+          <linearGradient id="radarGlow" x1="0.5" y1="0" x2="0.5" y2="1">
+            <stop offset="0%"   stopColor="#f4b8c1" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#c9a84c" stopOpacity="0.7" />
+          </linearGradient>
+          <filter id="glowBlur" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="10" result="blur" />
+          </filter>
+        </defs>
+
+        {/* Pulse glow polygon — behind everything */}
+        <animated.polygon
+          points={animatedPoints}
+          fill="url(#radarGlow)"
+          filter="url(#glowBlur)"
+          style={{
+            animation: "radarPulse 2.8s ease-in-out infinite",
+          }}
         />
-      ))}
 
-      {/* Axis lines */}
-      {stats.map(s => {
-        const [x2, y2] = pt(s.angle, maxR);
-        return (
-          <line key={s.label}
-            x1={cx} y1={cy} x2={x2} y2={y2}
-            stroke="rgba(255,255,255,0.07)" strokeWidth="1"
+        {/* Grid hexagons */}
+        {[1, 2, 3, 4, 5].map(l => (
+          <polygon
+            key={l}
+            points={polygonPts((l / 5) * maxR)}
+            fill="none"
+            stroke={l === 5 ? "rgba(255,255,255,0.13)" : "rgba(255,255,255,0.055)"}
+            strokeWidth="1"
           />
-        );
-      })}
+        ))}
 
-      {/* Data polygon */}
-      <polygon
-        points={dataPts}
-        fill="url(#radarFill)"
-        stroke="url(#radarStroke)"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
+        {/* Axis lines */}
+        {stats.map(s => {
+          const [x2, y2] = pt(s.angle, maxR);
+          return (
+            <line key={s.label}
+              x1={cx} y1={cy} x2={x2} y2={y2}
+              stroke="rgba(255,255,255,0.07)" strokeWidth="1"
+            />
+          );
+        })}
 
-      {/* Vertex glow + dots */}
-      {stats.map(s => {
-        const [px, py] = pt(s.angle, (s.score / 5) * maxR);
-        return (
-          <g key={`dot-${s.label}`}>
-            <circle cx={px} cy={py} r={7} fill="rgba(244,184,193,0.10)" />
-            <circle cx={px} cy={py} r={3} fill="#f4b8c1" opacity="0.9" />
-          </g>
-        );
-      })}
+        {/* Spring-animated data polygon */}
+        <animated.polygon
+          points={animatedPoints}
+          fill="url(#radarFill)"
+          stroke="url(#radarStroke)"
+          strokeWidth="1.5"
+          strokeLinejoin="round"
+        />
 
+        {/* Vertex glow + draggable dots */}
+        {stats.map((s, i) => {
+          const spring = springs[i];
+          const isDragging = activeIdx === i;
+          return (
+            <animated.g key={`dot-${s.label}`} transform={to([spring.x, spring.y], (x, y) => `translate(${x},${y})`)}>
+              {/* outer glow circle */}
+              <circle
+                cx={0} cy={0}
+                r={isDragging ? 11 : 7}
+                fill={isDragging ? "rgba(201,168,76,0.18)" : "rgba(244,184,193,0.10)"}
+                style={{ transition: "r 150ms ease, fill 150ms ease" }}
+              />
+              {/* main dot — drag handle */}
+              <circle
+                cx={0} cy={0}
+                r={isDragging ? 5 : 3}
+                fill={isDragging ? "#c9a84c" : "#f4b8c1"}
+                opacity="0.9"
+                style={{
+                  cursor: isDragging ? "grabbing" : "grab",
+                  transition: "r 150ms ease, fill 150ms ease",
+                  filter: isDragging
+                    ? "drop-shadow(0 0 6px rgba(201,168,76,0.8))"
+                    : "none",
+                }}
+                onPointerDown={(e) => onDotPointerDown(e as unknown as React.PointerEvent<SVGCircleElement>, i)}
+              />
+            </animated.g>
+          );
+        })}
 
-      {/* Axis labels */}
-      {stats.map((s, i) => {
-        const [lx, ly] = pt(s.angle, maxR + 26);
-        return (
-          <text key={`lbl-${s.label}`}
-            x={lx} y={ly}
-            textAnchor={textAnchors[i]}
-            dominantBaseline="middle"
-            fill="rgba(255,255,255,0.42)"
-            fontSize="7"
-            fontFamily="var(--font-syne, sans-serif)"
-            style={{ letterSpacing: "0.09em", textTransform: "uppercase" }}
-          >
-            {s.label}
-          </text>
-        );
-      })}
-    </svg>
+        {/* Axis labels */}
+        {stats.map((s, i) => {
+          const [lx, ly] = pt(s.angle, maxR + 26);
+          return (
+            <text key={`lbl-${s.label}`}
+              x={lx} y={ly}
+              textAnchor={textAnchors[i]}
+              dominantBaseline="middle"
+              fill="rgba(255,255,255,0.42)"
+              fontSize="7"
+              fontFamily="var(--font-syne, sans-serif)"
+              style={{ letterSpacing: "0.09em", textTransform: "uppercase", userSelect: "none" }}
+            >
+              {s.label}
+            </text>
+          );
+        })}
+      </svg>
+    </>
   );
 }
 
@@ -230,7 +354,7 @@ export default function SkillsSection() {
         aria-hidden="true"
         className="pointer-events-none select-none absolute left-0 top-1/2
                    -translate-y-1/2 font-heading font-bold leading-none
-                   text-[18vw] text-(--color-accent-gold) opacity-[0.04]
+                   text-[18vw] text-(--color-accent-gold) opacity-[0.08]
                    [writing-mode:vertical-rl]"
       >
         技術
