@@ -1,36 +1,143 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎴 Akhdan Ravi Andaman — Personal Portfolio
 
-## Getting Started
+> App Developer & Fullstack Web Developer · Glassmorphism × Japanese Aesthetic · Bilingual (EN/ID)
 
-First, run the development server:
+**🌐 Live:** [portfolio-akhdanrvy.vercel.app](https://portfolio-akhdanrvy.vercel.app)
+
+---
+
+## 👨‍💻 About This Project
+
+This is my personal portfolio website, built to showcase my work, experience, and skills as an App Developer and Fullstack Web Developer. The site is designed with a **Glassmorphism × Japanese minimalist aesthetic**, featuring smooth animations, interactive components, and full bilingual support (English & Bahasa Indonesia).
+
+---
+
+## ✨ Features
+
+- 🎌 **Glassmorphism × Japanese Theme** — deep navy base, sakura pink & gold accents, decorative kanji elements
+- 🌐 **Bilingual (EN/ID)** — language switcher powered by React Context i18n (no external library)
+- 🎬 **Rich Animations** — kanji rain intro, animate on scroll, hover interactions, spring physics
+- 📱 **Fully Responsive** — optimized for mobile, tablet, and desktop
+- 📧 **Contact Form** — integrated with Resend for real email delivery
+- 🗂️ **Sections** — Hero, About, Skills, Experience, Projects, Innovations, Certifications, Contact
+
+---
+
+## 🧱 Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 14+ (App Router) |
+| Styling | Tailwind CSS + Custom CSS Variables |
+| Animation | Framer Motion + @react-spring/web |
+| i18n | React Context (JSON locale files) |
+| Email | Resend API (Route Handler) |
+| Icons | React Icons |
+| Fonts | Noto Serif JP + Syne (via next/font) |
+| Deployment | Vercel |
+
+---
+
+## 🗂️ Project Structure
+
+```
+/
+├── app/
+│   ├── api/contact/        # Email route handler (Resend)
+│   ├── layout.tsx
+│   ├── page.tsx
+│   └── globals.css
+├── components/
+│   ├── Navbar.tsx
+│   ├── HeroSection.tsx
+│   ├── AboutSection.tsx
+│   ├── SkillsSection.tsx
+│   ├── ExperienceSection.tsx
+│   ├── ProjectsSection.tsx
+│   ├── InnovationSection.tsx
+│   ├── CertificationSection.tsx
+│   ├── ContactSection.tsx
+│   ├── Footer.tsx
+│   ├── ui/                 # GlassCard, LanguageToggle
+│   └── effects/            # LoadingScreen, SakuraFall, ScrollProgress, SectionPulse
+├── context/
+│   └── i18nContext.tsx
+├── locales/
+│   ├── en.json
+│   └── id.json
+├── hooks/
+│   └── useTranslation.ts
+├── lib/
+│   └── utils.ts
+├── types/
+└── public/
+    └── assets/
+        ├── projects/
+        ├── innovations/
+        ├── certificates/
+        ├── logos/
+        └── images/
+```
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+
+- npm / yarn / pnpm
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/akhdanravy/portfolio-akhdan.git
+cd portfolio-akhdan
+
+# Install dependencies
+npm install
+```
+
+### Environment Variables
+
+Create a `.env.local` file in the root directory:
+
+```env
+RESEND_API_KEY=re_xxxxxxxxxx
+CONTACT_EMAIL_TO=akhdanravy@gmail.com
+CONTACT_EMAIL_FROM=onboarding@resend.dev
+```
+
+### Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📦 Deploy
 
-## Learn More
+This project is deployed on **Vercel**. Every push to the current branch triggers an automatic redeployment.
 
-To learn more about Next.js, take a look at the following resources:
+**Live URL:** [https://portfolio-akhdanrvy.vercel.app](https://portfolio-akhdanrvy.vercel.app)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To deploy your own instance:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/akhdanravy/portfolio-akhdan)
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📬 Contact
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Akhdan Ravi Andaman**
+
+- 📧 Email: [akhdanravy@gmail.com](mailto:akhdanravy@gmail.com)
+- 💼 LinkedIn: [linkedin.com/in/akhdan-ravi-andaman](https://www.linkedin.com/in/akhdan-ravi-andaman/)
+- 🌐 Portfolio: [portfolio-akhdanrvy.vercel.app](https://portfolio-akhdanrvy.vercel.app)
+
+---
+
+<p align="center">Crafted with Next.js & ☕ by Akhdan Ravi Andaman · 2026</p>
