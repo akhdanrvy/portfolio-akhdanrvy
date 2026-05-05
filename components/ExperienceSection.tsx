@@ -201,7 +201,7 @@ function TimelineCard({
       >
         {/* type badge */}
         <span
-          className={`absolute top-4 right-4 text-xs px-2 py-0.5 rounded-full border font-medium tracking-wide ${
+          className={`absolute top-4 right-4 text-xs px-2 py-0.5 -mt-2 lg:-mt-2 -mr-4 lg:-mr-2 rounded-full border font-medium tracking-wide ${
             TYPE_STYLES[item.type] ?? TYPE_STYLES['Full-time']
           }`}
         >
@@ -210,7 +210,7 @@ function TimelineCard({
 
         {/* current position badge */}
         {item.current && (
-          <span className="absolute top-4 text-xs px-2.5 py-0.5 rounded-full border border-green-400/50 bg-green-400/10 text-green-400 font-semibold tracking-wide flex items-center gap-1.5 mt-4">
+          <span className="absolute top-4 text-xs px-2.5 py-0.5 rounded-full border border-green-400/50 bg-green-400/10 text-green-400 font-semibold tracking-wide flex items-center gap-1.5 mt-10 lg:mt-4">
             <span className="relative flex h-1.5 w-1.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-60" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-green-400" />
@@ -332,7 +332,7 @@ export default function ExperienceSection() {
       {/* ── decorative kanji ──────────────────────────────────── */}
       <span
         aria-hidden
-        className="pointer-events-none select-none absolute right-4 top-24 font-heading text-[10rem] leading-none font-bold text-(--color-accent-gold) opacity-[0.04] writing-mode-vertical-rl"
+        className="pointer-events-none select-none absolute right-4 top-24 font-heading text-[10rem] leading-none font-bold text-(--color-accent-gold) opacity-[0.08] writing-mode-vertical-rl"
         style={{ writingMode: 'vertical-rl' }}
       >
         経験
@@ -359,10 +359,19 @@ export default function ExperienceSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="font-heading text-4xl md:text-5xl font-bold text-white mb-16"
+          className="font-heading text-4xl md:text-5xl font-bold text-white mb-4"
         >
           {t('experience.title') as string}
         </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="text-base text-white/45 max-w-2xl mb-12"
+        >
+          {locale.experience.subtitle}
+        </motion.p>
 
         {/* ── timeline wrapper ──────────────────────────────── */}
         <div className="relative">

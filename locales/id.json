@@ -51,7 +51,7 @@
 
   "experience": {
     "title": "Pengalaman & Pendidikan",
-    "subtitle": "Sebuah perjalanan membangun, belajar, dan merilis — di startup, korporasi, maupun dunia akademik.",
+    "subtitle": "Peran dan pengalaman yang membentuk saya menjadi developer.",
     "items": [
       {
         "id": 1,
@@ -176,7 +176,7 @@
 
   "innovations": {
     "title": "Inovasi",
-    "subtitle": "Proyek berbasis penelitian — karya berprestasi, jurnal ilmiah, dan dampak nyata bagi masyarakat.",
+    "subtitle": "Karya berbasis penelitian yang melampaui layar — berpenghargaan, dipublikasikan, dan berdampak.",
     "items": [
       {
         "id": 1,
@@ -223,7 +223,7 @@
 
   "certifications": {
     "title": "Sertifikasi",
-    "subtitle": "Kredensial terverifikasi di bidang pengembangan, cloud, dan kepemimpinan.",
+    "subtitle": "Pembelajaran berkelanjutan, secara resmi diakui.",
     "view_certificate": "Lihat Sertifikat",
     "items": [
       {
@@ -285,7 +285,7 @@
 
   "contact": {
     "title": "Hubungi Saya",
-    "subtitle": "Punya proyek yang ingin dibahas, atau sekadar ingin menyapa? Saya selalu siap mendengar.",
+    "subtitle": "Kolaborasi, peluang freelance, atau sekadar saling menyapa — saya ingin sekali mendengar kabar dari Anda.",
     "email_label": "Kirim Email",
     "linkedin_label": "Terhubung di LinkedIn",
     "form": {

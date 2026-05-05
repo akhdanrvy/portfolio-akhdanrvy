@@ -67,7 +67,7 @@ export default function AboutSection() {
         aria-hidden="true"
         className="pointer-events-none select-none absolute right-0 top-1/2
                    -translate-y-1/2 font-heading font-bold leading-none
-                   text-[18vw] text-(--color-accent-gold) opacity-[0.04]
+                   text-[18vw] text-(--color-accent-gold) opacity-[0.08]
                    [writing-mode:vertical-rl]"
       >
         について

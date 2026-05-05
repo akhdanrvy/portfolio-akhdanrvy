@@ -129,8 +129,8 @@ function InnovationCard({ item, index }: { item: InnovationItem; index: number }
         >
           {/* Award chip — positioned at top */}
           {item.award && (
-            <div className="absolute top-40 left-2 z-20 flex items-center gap-1 rounded-full px-3 py-1.5 border border-accent-gold/40 bg-accent-gold/15 text-accent-gold text-xs font-semibold uppercase tracking-widest backdrop-blur-sm">
-              <TbTrophy size={10} /> {item.award}
+            <div className="absolute top-42 left-6 z-20 flex items-center gap-0.5 rounded-full px-1 py-0.5 border border-accent-gold/40 bg-accent-gold/15 text-accent-gold text-xs font-xs tracking-widest backdrop-blur-sm">
+              <TbTrophy size={8} /> {item.award}
             </div>
           )}
 
