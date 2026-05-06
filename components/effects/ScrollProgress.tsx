@@ -21,7 +21,7 @@ export default function ScrollProgress() {
     <div
       aria-hidden
       className="fixed top-0 left-0 right-0 z-200 h-0.75 pointer-events-none"
-      style={{ background: 'rgba(255,255,255,0.04)' }}
+      style={{ background: 'var(--glass-border)' }}
     >
       <div
         className="h-full transition-[width] duration-75 ease-linear"

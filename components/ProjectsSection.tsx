@@ -132,7 +132,7 @@ function ProjectModal({
       exit={{ opacity: 0 }}
       transition={{ duration: 0.2 }}
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      style={{ backdropFilter: 'blur(12px)', backgroundColor: 'rgba(10,10,26,0.7)' }}
+      style={{ backdropFilter: 'blur(12px)', backgroundColor: 'var(--color-bg)' }}
       onClick={onClose}
     >
       <motion.div
@@ -148,7 +148,7 @@ function ProjectModal({
           <button
             onClick={onClose}
             aria-label="Close modal"
-            className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full flex items-center justify-center bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-colors"
+            className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full flex items-center justify-center bg-(--color-glass) hover:bg-(--color-glass-hover) text-(--color-text-muted) hover:text-(--color-text) transition-colors"
           >
             <TbX size={16} />
           </button>
@@ -165,7 +165,7 @@ function ProjectModal({
               />
               <div
                 className="absolute inset-x-0 bottom-0 h-16 pointer-events-none"
-                style={{ background: 'linear-gradient(to bottom, transparent, rgba(10,10,26,0.9))' }}
+                style={{ background: 'linear-gradient(to bottom, transparent, var(--color-bg))' }}
               />
               {/* top accent line */}
               <div
@@ -188,7 +188,7 @@ function ProjectModal({
             <div className="flex items-start gap-3 mb-4 pr-8">
               <div>
                 <div className="flex items-center gap-2 flex-wrap mb-1">
-                  <h3 className="font-heading text-xl font-bold text-white leading-snug">
+                  <h3 className="font-heading text-xl font-bold text-(--color-text) leading-snug">
                     {project.name}
                   </h3>
                   {project.featured && (
@@ -202,11 +202,11 @@ function ProjectModal({
                     </span>
                   )}
                 </div>
-                <span className="text-xs text-white/40 tracking-wide">{project.year}</span>
+                <span className="text-xs text-(--color-text-muted) tracking-wide">{project.year}</span>
               </div>
             </div>
 
-            <p className="text-sm text-white/70 leading-relaxed mb-5">{project.description}</p>
+            <p className="text-sm text-(--color-text-muted) leading-relaxed mb-5">{project.description}</p>
 
             {/* tech tags */}
             <div className="flex flex-wrap gap-1.5 mb-6">
@@ -228,7 +228,7 @@ function ProjectModal({
                     href={project.links.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+                    className="flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-lg border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted) hover:text-(--color-text) hover:bg-(--color-glass-hover) transition-colors"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <TbBrandGithub size={15} /> GitHub
@@ -239,7 +239,7 @@ function ProjectModal({
                     href={project.links.live}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+                    className="flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-lg border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted) hover:text-(--color-text) hover:bg-(--color-glass-hover) transition-colors"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <TbExternalLink size={15} /> Live
@@ -299,7 +299,7 @@ function CardBody({
             style={{ background: fallbackGradient }}
           >
             <span
-              className="font-heading font-bold text-white/10 leading-none select-none"
+              className="font-heading font-bold text-(--color-text) opacity-[0.10] leading-none select-none"
               style={{ fontSize: featured ? '9rem' : '5rem' }}
             >
               {pad(project.id)}
@@ -311,7 +311,7 @@ function CardBody({
           className="absolute inset-x-0 bottom-0 h-16 pointer-events-none"
           style={{
             background:
-              'linear-gradient(to bottom, transparent, rgba(10,10,26,0.85))',
+              'linear-gradient(to bottom, transparent, var(--color-bg))',
           }}
         />
         {/* top accent line */}
@@ -329,7 +329,7 @@ function CardBody({
         {/* faint project number */}
         <span
           aria-hidden
-          className={`absolute select-none pointer-events-none font-heading font-bold text-white/4 leading-none ${
+          className={`absolute select-none pointer-events-none font-heading font-bold text-(--color-text) opacity-[0.04] leading-none ${
             featured ? 'text-[10rem] -bottom-6 -right-4' : 'text-[6rem] -bottom-4 -right-2'
           }`}
         >
@@ -350,25 +350,25 @@ function CardBody({
           )}
           {/* year badge — top-right for non-featured */}
           {!featured && (
-            <span className="ml-auto text-xs px-2 py-0.5 rounded-full border border-white/10 bg-white/5 text-white/40">
+            <span className="ml-auto text-xs px-2 py-0.5 rounded-full border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted)">
               {project.year}
             </span>
           )}
         </div>
 
         {featured && (
-          <span className="block text-xs text-white/40 tracking-wide mb-2">{project.year}</span>
+          <span className="block text-xs text-(--color-text-muted) tracking-wide mb-2">{project.year}</span>
         )}
 
         <h3
-          className={`font-heading font-bold text-white leading-snug mb-3 ${
+          className={`font-heading font-bold text-(--color-text) leading-snug mb-3 ${
             featured ? 'text-2xl md:text-3xl' : 'text-lg'
           }`}
         >
           {project.name}
         </h3>
 
-        <p className={`text-white/60 leading-relaxed mb-5 ${featured ? 'text-base' : 'text-sm'}`}>
+        <p className={`text-(--color-text-muted) leading-relaxed mb-5 ${featured ? 'text-base' : 'text-sm'}`}>
           {project.description}
         </p>
 
@@ -394,7 +394,7 @@ function CardBody({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-lg border border-white/10 bg-white/5 text-white/50 hover:text-white hover:bg-white/10 transition-colors"
+                className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-lg border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted) hover:text-(--color-text) hover:bg-(--color-glass-hover) transition-colors"
               >
                 <TbBrandGithub size={14} /> GitHub
               </a>
@@ -406,7 +406,7 @@ function CardBody({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-lg border border-white/10 bg-white/5 text-white/50 hover:text-white hover:bg-white/10 transition-colors"
+                className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-lg border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted) hover:text-(--color-text) hover:bg-(--color-glass-hover) transition-colors"
               >
                 <TbExternalLink size={14} /> Live
               </a>
@@ -435,7 +435,7 @@ export default function ProjectsSection() {
       {/* ── decorative kanji ──────────────────────────────────── */}
       <span
         aria-hidden
-        className="pointer-events-none select-none absolute left-4 top-24 font-heading text-[10rem] leading-none font-bold text-accent-gold opacity-[0.08]"
+        className="pointer-events-none select-none absolute left-4 top-24 font-heading text-[10rem] leading-none font-bold text-(--color-text) opacity-[0.04]"
         style={{ writingMode: 'vertical-rl' }}
       >
         作品
@@ -462,7 +462,7 @@ export default function ProjectsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="font-heading text-4xl md:text-5xl font-bold text-white mb-4"
+          className="font-heading text-4xl md:text-5xl font-bold text-(--color-text) mb-4"
         >
           {t('projects.title') as string}
         </motion.h2>
@@ -472,7 +472,7 @@ export default function ProjectsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          className="text-base text-white/45 max-w-2xl mb-12"
+          className="text-base text-(--color-text-muted) max-w-2xl mb-12"
         >
           {locale.projects.subtitle}
         </motion.p>

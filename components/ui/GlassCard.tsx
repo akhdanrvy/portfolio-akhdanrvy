@@ -33,6 +33,9 @@ const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
       <Tag
         ref={ref as React.Ref<HTMLDivElement>}
         className={cn(
+          /* ─── Identity class (used for CSS-theme overrides) ── */
+          "glass-card",
+
           /* ─── Glass base ─────────────────────────────── */
           "relative overflow-hidden",
           "rounded-(--radius-glass)",
@@ -53,10 +56,10 @@ const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
           "after:bg-linear-to-r after:from-transparent after:via-white/20 after:to-transparent",
           "after:z-1",
 
-          /* ─── Transition ─────────────────────────────── */
-          "transition-all duration-300 ease-out",
+          /* ─── Theme-aware transitions ────────────────── */
+          "[transition:background_0.4s_ease,border-color_0.4s_ease,box-shadow_0.4s_ease]",
           "hover:bg-(--color-glass-hover)",
-          "hover:border-white/18",
+          "hover:border-(--glass-border)",
           "hover:[box-shadow:var(--shadow-glass),var(--shadow-glow-pink)]",
 
           /* ─── Optional glow (stronger) ──────────────────── */

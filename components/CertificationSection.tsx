@@ -35,7 +35,7 @@ function CertPlaceholder({ cert }: { cert: Cert }) {
     >
       {/* Faint number watermark */}
       <span
-        className="absolute font-heading font-bold text-white/4 leading-none text-[8rem]"
+        className="absolute font-heading font-bold text-(--color-text) opacity-[0.04] leading-none text-[8rem]"
         aria-hidden
       >
         {String(cert.id).padStart(2, '0')}
@@ -47,8 +47,8 @@ function CertPlaceholder({ cert }: { cert: Cert }) {
       >
         <TbCertificate size={28} className="text-accent-gold" />
       </div>
-      <p className="relative text-sm font-semibold text-white/80 leading-snug">{cert.title}</p>
-      <p className="relative text-xs text-white/40 uppercase tracking-widest">{cert.issuer}</p>
+      <p className="relative text-sm font-semibold text-(--color-text) leading-snug">{cert.title}</p>
+      <p className="relative text-xs text-(--color-text-muted) uppercase tracking-widest">{cert.issuer}</p>
       <span
         className="relative text-xs px-2.5 py-0.5 rounded-full border border-accent-pink/30 bg-accent-pink/8 text-accent-pink/80"
       >
@@ -121,7 +121,7 @@ export default function CertificationSection() {
       <span
         aria-hidden
         className="pointer-events-none select-none absolute right-0 top-1/2 -translate-y-1/2
-                   font-heading font-bold leading-none text-[18vw] text-accent-pink opacity-[0.08]"
+                   font-heading font-bold leading-none text-[18vw] text-(--color-text) opacity-[0.04]"
         style={{ writingMode: 'vertical-rl' }}
       >
         資格
@@ -147,7 +147,7 @@ export default function CertificationSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="font-heading text-4xl md:text-5xl font-bold text-white mb-4"
+          className="font-heading text-4xl md:text-5xl font-bold text-(--color-text) mb-4"
         >
           {locale.certifications.title}
         </motion.h2>
@@ -156,7 +156,7 @@ export default function CertificationSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          className="text-base text-white/45 max-w-2xl mb-12"
+          className="text-base text-(--color-text-muted) max-w-2xl mb-12"
         >
           {locale.certifications.subtitle}
         </motion.p>
@@ -211,11 +211,11 @@ export default function CertificationSection() {
                   <div
                     className="relative w-full h-full rounded-2xl overflow-hidden border"
                     style={{
-                      background:     'rgba(255,255,255,0.05)',
+                      background:     'var(--color-glass)',
                       backdropFilter: 'blur(12px)',
                       borderColor:    isActive
                         ? 'rgba(244,184,193,0.35)'
-                        : 'rgba(255,255,255,0.08)',
+                        : 'var(--glass-border)',
                       boxShadow:      isActive
                         ? '0 0 40px rgba(244,184,193,0.18), 0 8px 32px rgba(0,0,0,0.35)'
                         : '0 4px 16px rgba(0,0,0,0.25)',
@@ -252,7 +252,7 @@ export default function CertificationSection() {
             <button
               onClick={prev}
               aria-label="Previous certificate"
-              className="w-10 h-10 rounded-full flex items-center justify-center border border-white/12 bg-white/6 text-white/60 hover:text-white hover:border-accent-pink/50 hover:bg-white/12 transition-colors backdrop-blur-sm"
+              className="w-10 h-10 rounded-full flex items-center justify-center border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted) hover:text-(--color-text) hover:border-accent-pink/50 hover:bg-(--color-glass-hover) transition-colors backdrop-blur-sm"
             >
               <TbChevronLeft size={20} />
             </button>
@@ -271,7 +271,7 @@ export default function CertificationSection() {
                     borderRadius:  '9999px',
                     background:    i === active
                       ? 'linear-gradient(to right, #f4b8c1, #c9a84c)'
-                      : 'rgba(255,255,255,0.20)',
+                      : 'var(--glass-border)',
                   }}
                 />
               ))}
@@ -281,7 +281,7 @@ export default function CertificationSection() {
             <button
               onClick={next}
               aria-label="Next certificate"
-              className="w-10 h-10 rounded-full flex items-center justify-center border border-white/12 bg-white/6 text-white/60 hover:text-white hover:border-accent-pink/50 hover:bg-white/12 transition-colors backdrop-blur-sm"
+              className="w-10 h-10 rounded-full flex items-center justify-center border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted) hover:text-(--color-text) hover:border-accent-pink/50 hover:bg-(--color-glass-hover) transition-colors backdrop-blur-sm"
             >
               <TbChevronRight size={20} />
             </button>
@@ -297,10 +297,10 @@ export default function CertificationSection() {
               transition={{ duration: 0.25 }}
               className="mt-8 text-center"
             >
-              <p className="text-base font-semibold text-white/90 font-heading leading-snug">
+              <p className="text-base font-semibold text-(--color-text) font-heading leading-snug">
                 {CERTS[active].title}
               </p>
-              <p className="text-sm text-white/45 mt-1 uppercase tracking-widest">
+              <p className="text-sm text-(--color-text-muted) mt-1 uppercase tracking-widest">
                 {CERTS[active].issuer} · {CERTS[active].year}
               </p>
               {CERTS[active].link && (
@@ -308,7 +308,7 @@ export default function CertificationSection() {
                   href={CERTS[active].link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 mt-3 text-xs px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-white/55 hover:text-white hover:bg-white/10 transition-colors"
+                  className="inline-flex items-center gap-1.5 mt-3 text-xs px-3 py-1.5 rounded-lg border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted) hover:text-(--color-text) hover:bg-(--color-glass-hover) transition-colors"
                 >
                   <TbExternalLink size={13} /> {locale.certifications.view_certificate}
                 </a>

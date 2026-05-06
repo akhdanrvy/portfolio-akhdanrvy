@@ -152,7 +152,7 @@ function InnovationCard({ item, index }: { item: InnovationItem; index: number }
                 style={{ background: fallbackGradient }}
               >
                 <span
-                  className="font-heading font-bold text-white/10 leading-none select-none"
+                  className="font-heading font-bold text-(--color-text) opacity-[0.10] leading-none select-none"
                   style={{ fontSize: "5rem" }}
                 >
                   {String(item.id).padStart(2, "0")}
@@ -164,7 +164,7 @@ function InnovationCard({ item, index }: { item: InnovationItem; index: number }
               className="absolute inset-x-0 bottom-0 h-16 pointer-events-none"
               style={{
                 background:
-                  "linear-gradient(to bottom, transparent, rgba(10,10,26,0.85))",
+                  "linear-gradient(to bottom, transparent, var(--color-bg))",
               }}
             />
 
@@ -183,26 +183,26 @@ function InnovationCard({ item, index }: { item: InnovationItem; index: number }
             {/* faint number watermark */}
             <span
               aria-hidden
-              className="absolute select-none pointer-events-none font-heading font-bold text-white/4 leading-none text-[6rem] -bottom-4 -right-2"
+              className="absolute select-none pointer-events-none font-heading font-bold text-(--color-text) opacity-[0.04] leading-none text-[6rem] -bottom-4 -right-2"
             >
               {String(item.id).padStart(2, "0")}
             </span>
 
             {/* title */}
-            <h3 className="font-heading text-lg font-bold text-white leading-snug mb-2">
+            <h3 className="font-heading text-lg font-bold text-(--color-text) leading-snug mb-2">
               {item.name}
             </h3>
 
             {/* year + type */}
             <div className="flex items-center gap-2 mb-4">
-              <span className="text-xs text-white/40">{item.year}</span>
-              <span className="text-xs px-2 py-0.5 rounded-full border border-white/10 bg-white/5 text-white/50">
+              <span className="text-xs text-(--color-text-muted)">{item.year}</span>
+              <span className="text-xs px-2 py-0.5 rounded-full border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted)">
                 {item.type}
               </span>
             </div>
 
             {/* description */}
-            <p className="text-sm text-white/60 leading-relaxed mb-5">
+            <p className="text-sm text-(--color-text-muted) leading-relaxed mb-5">
               {item.description}
             </p>
 
@@ -227,7 +227,7 @@ function InnovationCard({ item, index }: { item: InnovationItem; index: number }
                     target="_blank"
                     rel="noopener noreferrer"
                     title="View Live Demo"
-                    className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-lg border border-white/10 bg-white/5 text-white/50 hover:text-white hover:bg-white/10 transition-colors"
+                    className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-lg border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted) hover:text-(--color-text) hover:bg-(--color-glass-hover) transition-colors"
                   >
                     <TbExternalLink size={14} /> Live
                   </a>
@@ -280,7 +280,7 @@ export default function InnovationSection() {
 
       <span
         aria-hidden
-        className="pointer-events-none select-none absolute right-4 top-24 font-heading text-[10rem] leading-none font-bold text-accent-pink opacity-[0.04]"
+        className="pointer-events-none select-none absolute right-4 top-24 font-heading text-[10rem] leading-none font-bold text-(--color-text) opacity-[0.04]"
         style={{ writingMode: "vertical-rl" }}
       >
         革新
@@ -305,7 +305,7 @@ export default function InnovationSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="font-heading text-4xl md:text-5xl font-bold text-white mb-4"
+          className="font-heading text-4xl md:text-5xl font-bold text-(--color-text) mb-4"
         >
           {locale.innovations.title}
         </motion.h2>
@@ -315,7 +315,7 @@ export default function InnovationSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          className="text-base text-white/45 max-w-2xl mb-12"
+          className="text-base text-(--color-text-muted) max-w-2xl mb-12"
         >
           {locale.innovations.subtitle}
         </motion.p>

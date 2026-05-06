@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslation } from "@/hooks/useTranslation";
 import type { Language } from "@/context/i18nContext";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 /* ─── Constants ──────────────────────────────────────────────────────────── */
 const NAV_ITEMS = [
@@ -29,8 +30,8 @@ function Logo() {
       aria-label="Akhdan Ravi Andaman — home"
     >
       <span
-        className="font-heading text-xl font-bold tracking-widest text-white/90
-                   transition-colors duration-300 group-hover:text-white"
+        className="font-heading text-xl font-bold tracking-widest text-(--color-text)
+                   transition-colors duration-300 group-hover:text-(--color-text)"
       >
         RVY
       </span>
@@ -57,8 +58,8 @@ function LanguagePill({
     <div
       role="group"
       aria-label="Language selector"
-      className="relative flex items-center rounded-full border border-white/10
-                 bg-white/5 p-0.75 text-xs font-semibold tracking-widest uppercase"
+      className="relative flex items-center rounded-full border border-(--glass-border)
+                 bg-(--color-glass) p-0.75 text-xs font-semibold tracking-widest uppercase"
     >
       {langs.map((lang) => {
         const isActive = language === lang;
@@ -78,7 +79,7 @@ function LanguagePill({
                 layoutId="lang-pill"
                 className="absolute inset-0 rounded-full border
                            border-accent-gold/60
-                           bg-white/10"
+                           bg-(--color-glass-hover)"
                 transition={{ type: "spring", stiffness: 380, damping: 30 }}
               />
             )}
@@ -86,7 +87,7 @@ function LanguagePill({
               className={`relative transition-colors duration-200 ${
                 isActive
                   ? "text-(--color-accent-gold)"
-                  : "text-white/40 hover:text-white/70"
+                  : "text-(--color-text-muted) hover:text-(--color-text)"
               }`}
             >
               {lang.toUpperCase()}
@@ -170,7 +171,7 @@ export default function Navbar() {
           fixed inset-x-0 top-0 z-50 w-full
           transition-all duration-500 ease-out
           ${scrolled
-            ? "border-b border-white/8 bg-[rgba(10,10,26,0.72)] shadow-glass backdrop-blur-lg py-3"
+            ? "border-b border-(--glass-border) bg-(--color-glass) shadow-glass backdrop-blur-lg py-3"
             : "border-b border-transparent bg-transparent py-6"
           }
         `}
@@ -198,8 +199,8 @@ export default function Navbar() {
                       focus-visible:outline-none focus-visible:ring-2
                       focus-visible:ring-accent-pink/60
                       ${isActive
-                        ? "text-white"
-                        : "text-white/50 hover:text-white/85"
+                        ? "text-(--color-text)"
+                        : "text-(--color-text-muted) hover:text-(--color-text)"
                       }
                     `}
                     aria-current={isActive ? "location" : undefined}
@@ -207,8 +208,8 @@ export default function Navbar() {
                     {isActive && (
                       <motion.span
                         layoutId="nav-indicator"
-                        className="absolute inset-0 rounded-md bg-white/7
-                                   border border-white/10"
+                        className="absolute inset-0 rounded-md bg-(--color-glass-hover)
+                                   border border-(--glass-border)"
                         transition={{ type: "spring", stiffness: 380, damping: 32 }}
                       />
                     )}
@@ -221,6 +222,9 @@ export default function Navbar() {
 
           {/* Right controls */}
           <div className="flex items-center gap-3">
+            {/* Theme toggle */}
+            <ThemeToggle />
+
             {/* Language toggle — always visible */}
             <LanguagePill language={language} setLanguage={setLanguage} />
 
@@ -228,17 +232,17 @@ export default function Navbar() {
             <button
               onClick={() => setMenuOpen(true)}
               className="md:hidden flex flex-col justify-center items-center
-                         h-9 w-9 rounded-lg border border-white/10 bg-white/5
-                         gap-1.25 transition-colors hover:bg-white/10
+                         h-9 w-9 rounded-lg border border-(--glass-border) bg-(--color-glass)
+                         gap-1.25 transition-colors hover:bg-(--color-glass-hover)
                          focus-visible:outline-none focus-visible:ring-2
                          focus-visible:ring-accent-pink/60"
               aria-label="Open navigation menu"
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
             >
-              <span className="h-px w-5 bg-white/80 rounded-full" />
-              <span className="h-px w-5 bg-white/80 rounded-full" />
-              <span className="h-px w-3.5 bg-white/80 rounded-full self-start ml-1.25" />
+              <span className="h-px w-5 bg-(--color-text) rounded-full" />
+              <span className="h-px w-5 bg-(--color-text) rounded-full" />
+              <span className="h-px w-3.5 bg-(--color-text) rounded-full self-start ml-1.25" />
             </button>
           </div>
         </nav>
@@ -273,8 +277,8 @@ export default function Navbar() {
                 w-[min(340px,100vw)]
                 flex flex-col
                 overflow-hidden
-                bg-[rgba(10,10,26,0.96)]
-                border-l border-white/8
+                bg-(--color-bg)
+                border-l border-(--glass-border)
                 backdrop-blur-2xl
                 md:hidden
               "
@@ -289,9 +293,8 @@ export default function Navbar() {
                   pointer-events-none select-none
                   absolute -right-6 bottom-12
                   font-heading text-[11rem] font-bold leading-none
-                  text-white/[0.035] rotate-0
-                "
-              >
+                  text-(--color-text) opacity-[0.035] rotate-0
+                ">
                 メニュー
               </span>
 
@@ -301,8 +304,8 @@ export default function Navbar() {
                 <button
                   onClick={() => setMenuOpen(false)}
                   className="flex h-9 w-9 items-center justify-center rounded-lg
-                             border border-white/10 bg-white/5 text-white/70
-                             transition-colors hover:bg-white/10 hover:text-white
+                             border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted)
+                             transition-colors hover:bg-(--color-glass-hover) hover:text-(--color-text)
                              focus-visible:outline-none focus-visible:ring-2
                              focus-visible:ring-accent-pink/60"
                   aria-label="Close navigation menu"
@@ -322,7 +325,7 @@ export default function Navbar() {
               </div>
 
               {/* Divider */}
-              <div className="mx-8 h-px bg-linear-to-r from-transparent via-white/10 to-transparent" />
+              <div className="mx-8 h-px bg-linear-to-r from-transparent via-(--glass-border) to-transparent" />
 
               {/* Nav links */}
               <nav className="flex flex-1 flex-col justify-center px-8 gap-1">
@@ -348,8 +351,8 @@ export default function Navbar() {
                         focus-visible:outline-none focus-visible:ring-2
                         focus-visible:ring-accent-pink/60
                         ${isActive
-                          ? "text-white bg-white/6 border border-white/9"
-                          : "text-white/50 hover:text-white/85 hover:bg-white/4"
+                          ? "text-(--color-text) bg-(--color-glass) border border-(--glass-border)"
+                          : "text-(--color-text-muted) hover:text-(--color-text) hover:bg-(--color-glass)"
                         }
                       `}
                       aria-current={isActive ? "location" : undefined}
@@ -360,7 +363,7 @@ export default function Navbar() {
                           h-5 w-0.75 rounded-full transition-all duration-200
                           ${isActive
                             ? "bg-(--color-accent-gold)"
-                            : "bg-white/10 group-hover:bg-white/20"
+                            : "bg-(--glass-border) group-hover:bg-(--glass-border)"
                           }
                         `}
                       />
@@ -370,11 +373,13 @@ export default function Navbar() {
                 })}
               </nav>
 
-              {/* Bottom language toggle */}
+              {/* Bottom controls: theme + language toggles */}
               <div className="px-8 pb-10 pt-4">
-                <div className="mx-8 mb-6 h-px bg-linear-to-r from-transparent via-white/10 to-transparent" />
+                <div className="mx-8 mb-6 h-px bg-linear-to-r from-transparent via-(--glass-border) to-transparent" />
                 <div className="flex items-center gap-3">
-                  <span className="text-xs text-white/30 uppercase tracking-widest">
+                  <ThemeToggle />
+                  <div className="h-5 w-px bg-(--glass-border)" aria-hidden="true" />
+                  <span className="text-xs text-(--color-text-muted) uppercase tracking-widest">
                     Language
                   </span>
                   <LanguagePill language={language} setLanguage={setLanguage} />

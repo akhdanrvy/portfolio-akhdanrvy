@@ -96,7 +96,7 @@ function CompanyPopover({
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.2 }}
-        className="absolute inset-0 rounded-xl backdrop-blur-[2px] bg-black/20 z-10"
+        className="absolute inset-0 rounded-xl backdrop-blur-[2px] bg-bg/40 z-10"
         onClick={onClose}
       />
 
@@ -114,7 +114,7 @@ function CompanyPopover({
           'w-56 max-w-[calc(100vw-2rem)]',
           /* glass style */
           'rounded-xl border border-(--color-accent-gold)/40',
-          'bg-black/70 backdrop-blur-xl shadow-xl',
+          'bg-(--color-glass) backdrop-blur-xl shadow-xl',
           'p-4 flex flex-col items-center gap-3',
         ].join(' ')}
         /* stop clicks inside from bubbling to the overlay */
@@ -122,13 +122,13 @@ function CompanyPopover({
       >
         {/* caret */}
         <span
-          className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-black/70 border-r border-b border-accent-gold/40"
+          className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-(--color-glass) border-r border-b border-accent-gold/40"
           aria-hidden
         />
 
         <CompanyLogo src={item.companyLogo} name={item.company} />
 
-        <p className="font-heading font-bold text-white text-sm text-center leading-snug">
+        <p className="font-heading font-bold text-(--color-text) text-sm text-center leading-snug">
           {item.company}
         </p>
 
@@ -220,7 +220,7 @@ function TimelineCard({
         )}
 
         {/* role */}
-        <h3 className="font-heading text-lg font-bold text-white pr-28 leading-snug mb-1">
+        <h3 className="font-heading text-lg font-bold text-(--color-text) pr-28 leading-snug mb-1">
           {isEducation && (
             <TbSchool
               size={16}
@@ -235,7 +235,7 @@ function TimelineCard({
           <button
             type="button"
             onClick={handleCompanyClick}
-            className="flex items-center gap-1 text-sm text-left text-white/50 hover:text-white/80 transition-colors duration-150 cursor-pointer justify-start"
+            className="flex items-center gap-1 text-sm text-left text-(--color-text-muted) hover:text-(--color-text) transition-colors duration-150 cursor-pointer justify-start"
           >
             {item.company}
             <TbExternalLink size={12} className="shrink-0" />
@@ -250,12 +250,12 @@ function TimelineCard({
         </div>
 
         {/* period */}
-        <p className="text-xs text-white/35 mb-3 tracking-wide">{item.period}</p>
+        <p className="text-xs text-(--color-text-muted) mb-3 tracking-wide">{item.period}</p>
 
         {/* description */}
         <ul className="space-y-1.5 mb-4">
           {item.description.map((line, i) => (
-            <li key={i} className="flex gap-2 text-sm text-white/70 leading-relaxed">
+            <li key={i} className="flex gap-2 text-sm text-(--color-text-muted) leading-relaxed">
               <span className="mt-1.5 w-1 h-1 rounded-full bg-(--color-accent-pink) shrink-0" />
               {line}
             </li>
@@ -267,7 +267,7 @@ function TimelineCard({
           {item.tags.map((tag) => (
             <span
               key={tag}
-              className="text-xs px-2 py-0.5 rounded-full border border-(--glass-border) bg-white/5 text-white/60"
+              className="text-xs px-2 py-0.5 rounded-full border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted)"
             >
               {tag}
             </span>
@@ -332,7 +332,7 @@ export default function ExperienceSection() {
       {/* ── decorative kanji ──────────────────────────────────── */}
       <span
         aria-hidden
-        className="pointer-events-none select-none absolute right-4 top-24 font-heading text-[10rem] leading-none font-bold text-(--color-accent-gold) opacity-[0.08] writing-mode-vertical-rl"
+        className="pointer-events-none select-none absolute right-4 top-24 font-heading text-[10rem] leading-none font-bold text-(--color-text) opacity-[0.04] writing-mode-vertical-rl"
         style={{ writingMode: 'vertical-rl' }}
       >
         経験
@@ -359,7 +359,7 @@ export default function ExperienceSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="font-heading text-4xl md:text-5xl font-bold text-white mb-4"
+          className="font-heading text-4xl md:text-5xl font-bold text-(--color-text) mb-4"
         >
           {t('experience.title') as string}
         </motion.h2>
@@ -368,7 +368,7 @@ export default function ExperienceSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          className="text-base text-white/45 max-w-2xl mb-12"
+          className="text-base text-(--color-text-muted) max-w-2xl mb-12"
         >
           {locale.experience.subtitle}
         </motion.p>

@@ -67,7 +67,22 @@ export default function Home() {
             transition={{ duration: 0.25 }}
             onClick={scrollToTop}
             aria-label="Back to top"
-            className="fixed bottom-8 right-6 z-50 w-11 h-11 flex items-center justify-center rounded-full border border-white/15 bg-white/8 backdrop-blur-md text-white/70 hover:text-white hover:bg-white/15 hover:border-accent-gold/50 transition-colors shadow-lg"
+            className="fixed bottom-8 right-6 z-50 w-11 h-11 flex items-center justify-center rounded-full border backdrop-blur-md transition-all shadow-lg"
+            style={{
+              background: 'var(--color-glass)',
+              borderColor: 'var(--glass-border)',
+              color: 'var(--color-text-muted)',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.background = 'var(--color-surface)';
+              e.currentTarget.style.borderColor = 'var(--color-accent-gold)';
+              e.currentTarget.style.color = 'var(--color-accent-gold)';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.background = 'var(--color-glass)';
+              e.currentTarget.style.borderColor = 'var(--glass-border)';
+              e.currentTarget.style.color = 'var(--color-text-muted)';
+            }}
           >
             <TbArrowUp size={18} />
           </motion.button>
