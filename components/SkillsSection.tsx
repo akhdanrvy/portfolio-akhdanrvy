@@ -229,7 +229,7 @@ function SkillRadar() {
             key={l}
             points={polygonPts((l / 5) * maxR)}
             fill="none"
-            stroke={l === 5 ? "rgba(255,255,255,0.13)" : "rgba(255,255,255,0.055)"}
+            style={{ stroke: 'var(--color-text)', strokeOpacity: l === 5 ? 0.15 : 0.07 }}
             strokeWidth="1"
           />
         ))}
@@ -240,7 +240,7 @@ function SkillRadar() {
           return (
             <line key={s.label}
               x1={cx} y1={cy} x2={x2} y2={y2}
-              stroke="rgba(255,255,255,0.07)" strokeWidth="1"
+              style={{ stroke: 'var(--color-text)', strokeOpacity: 0.08 }} strokeWidth="1"
             />
           );
         })}
@@ -294,10 +294,9 @@ function SkillRadar() {
               x={lx} y={ly}
               textAnchor={textAnchors[i]}
               dominantBaseline="middle"
-              fill="rgba(255,255,255,0.42)"
               fontSize="7"
               fontFamily="var(--font-syne, sans-serif)"
-              style={{ letterSpacing: "0.09em", textTransform: "uppercase", userSelect: "none" }}
+              style={{ fill: 'var(--color-text-muted)', letterSpacing: "0.09em", textTransform: "uppercase", userSelect: "none" }}
             >
               {s.label}
             </text>
@@ -319,16 +318,16 @@ function SkillBadge({ skill, index }: { skill: Skill; index: number }) {
       transition={{ duration: 0.28, delay: index * 0.04, ease: "easeOut" }}
       whileHover={{ scale: 1.08 }}
       className="group flex cursor-default items-center gap-2.5 rounded-full
-                 border border-white/10 bg-white/5 px-4 py-2
+                 border border-(--glass-border) bg-(--color-glass) px-4 py-2
                  backdrop-blur-sm
                  transition-shadow duration-300
-                 hover:border-white/20
+                 hover:border-(--glass-border)
                  hover:[box-shadow:0_0_18px_rgba(244,184,193,0.22)]"
     >
-      <span className="text-base text-white/50 transition-colors duration-200 group-hover:text-white/80">
+      <span className="text-base text-(--color-text-muted) transition-colors duration-200 group-hover:text-(--color-text)">
         {skill.icon}
       </span>
-      <span className="text-sm font-medium text-white/65 transition-colors duration-200 group-hover:text-white/90">
+      <span className="text-sm font-medium text-(--color-text-muted) transition-colors duration-200 group-hover:text-(--color-text)">
         {skill.name}
       </span>
     </motion.div>
@@ -354,7 +353,7 @@ export default function SkillsSection() {
         aria-hidden="true"
         className="pointer-events-none select-none absolute left-0 top-1/2
                    -translate-y-1/2 font-heading font-bold leading-none
-                   text-[18vw] text-(--color-accent-gold) opacity-[0.08]
+                   text-[18vw] text-(--color-text) opacity-[0.04]
                    [writing-mode:vertical-rl]"
       >
         技術
@@ -372,10 +371,10 @@ export default function SkillsSection() {
           {/* Text */}
           <div className="flex-1">
             <SectionLabel label="02 / SKILLS" />
-            <h2 className="mt-4 font-heading text-4xl font-bold tracking-tight text-white/95 sm:text-5xl">
+            <h2 className="mt-4 font-heading text-4xl font-bold tracking-tight text-(--color-text) sm:text-5xl">
               {t("skills.title")}
             </h2>
-            <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/45">
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-(--color-text-muted)">
               {t("skills.subtitle")}
             </p>
           </div>
@@ -402,15 +401,15 @@ export default function SkillsSection() {
                             focus-visible:ring-accent-pink/50
                             ${isActive
                               ? "text-(--color-accent-pink)"
-                              : "text-white/40 hover:text-white/70"
+                              : "text-(--color-text-muted) hover:text-(--color-text)"
                             }`}
               >
                 {/* Framer Motion sliding background pill */}
                 {isActive && (
                   <motion.span
                     layoutId="skills-tab-indicator"
-                    className="absolute inset-0 rounded-full border border-white/10
-                               bg-white/6"
+                    className="absolute inset-0 rounded-full border border-(--glass-border)
+                               bg-(--color-glass)"
                     transition={{ type: "spring", stiffness: 380, damping: 32 }}
                   />
                 )}
@@ -454,10 +453,10 @@ export default function SkillsSection() {
         {/* Currently Learning */}
         <div className="mt-16">
           <div className="mb-5 flex items-center gap-4">
-            <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-white/35">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-(--color-text-muted)">
               Currently Learning
             </span>
-            <div className="h-px flex-1 bg-linear-to-r from-white/10 to-transparent" />
+            <div className="h-px flex-1 bg-linear-to-r from-(--glass-border) to-transparent" />
           </div>
 
           <div className="flex flex-wrap gap-3">

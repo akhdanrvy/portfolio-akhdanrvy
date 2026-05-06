@@ -12,21 +12,21 @@ export default function Footer() {
 
   return (
     <footer
-      className="relative border-t border-white/8"
+      className="relative border-t border-(--glass-border)"
       style={{
-        background: 'rgba(255,255,255,0.03)',
+        background: 'var(--color-bg-secondary)',
         backdropFilter: 'blur(12px)',
       }}
     >
       {/* ── main bar ───────────────────────────────────────────── */}
       <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
         {/* left — rights */}
-        <p className="text-xs text-white/35 order-2 sm:order-1">{rights}</p>
+        <p className="text-xs text-(--color-text-muted) order-2 sm:order-1">{rights}</p>
 
         {/* center — RVY logo */}
         <a
           href="#hero"
-          className="font-heading text-base font-bold tracking-widest text-white/70 hover:text-white transition-colors order-1 sm:order-2"
+          className="font-heading text-base font-bold tracking-widest text-(--color-text-muted) hover:text-(--color-text) transition-colors order-1 sm:order-2"
           aria-label="Back to top"
         >
           RVY
@@ -40,7 +40,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            className="w-8 h-8 flex items-center justify-center rounded-full border border-white/10 text-white/35 hover:text-white hover:border-white/30 transition-colors"
+            className="w-8 h-8 flex items-center justify-center rounded-full border border-(--glass-border) text-(--color-text-muted) hover:text-(--color-accent-gold) hover:border-(--glass-border) transition-colors"
           >
             <TbBrandGithub size={15} />
           </a>
@@ -49,14 +49,14 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            className="w-8 h-8 flex items-center justify-center rounded-full border border-white/10 text-white/35 hover:text-white hover:border-white/30 transition-colors"
+            className="w-8 h-8 flex items-center justify-center rounded-full border border-(--glass-border) text-(--color-text-muted) hover:text-(--color-accent-gold) hover:border-(--glass-border) transition-colors"
           >
             <TbBrandLinkedin size={15} />
           </a>
           <a
             href="mailto:akhdanravy@gmail.com"
             aria-label="Email"
-            className="w-8 h-8 flex items-center justify-center rounded-full border border-white/10 text-white/35 hover:text-white hover:border-white/30 transition-colors"
+            className="w-8 h-8 flex items-center justify-center rounded-full border border-(--glass-border) text-(--color-text-muted) hover:text-(--color-accent-gold) hover:border-(--glass-border) transition-colors"
           >
             <TbMail size={15} />
           </a>
@@ -64,8 +64,8 @@ export default function Footer() {
       </div>
 
       {/* ── built-with line ────────────────────────────────────── */}
-      <div className="border-t border-white/5 py-3 text-center">
-        <p className="text-xs text-white/20">{builtWith}</p>
+      <div className="border-t border-(--glass-border) py-3 text-center">
+        <p className="text-xs text-(--color-text-muted)">{builtWith}</p>
       </div>
     </footer>
   );

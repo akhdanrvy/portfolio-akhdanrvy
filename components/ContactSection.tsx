@@ -51,7 +51,7 @@ function FieldError({ msg }: { msg?: string }) {
           exit={{ opacity: 0, y: -4 }}
           transition={{ duration: 0.18 }}
           className="text-xs mt-1"
-          style={{ color: '#f4b8c1' }}
+          style={{ color: 'var(--color-accent-pink)' }}
         >
           {msg}
         </motion.p>
@@ -233,11 +233,11 @@ export default function ContactSection() {
 
   /* shared input style helpers */
   const inputBase: React.CSSProperties = {
-    background: 'rgba(255,255,255,0.05)',
-    border: '1px solid rgba(255,255,255,0.10)',
+    background: 'var(--color-glass)',
+    border: '1px solid var(--glass-border)',
     borderRadius: '8px',
     padding: '12px 16px',
-    color: '#f0f0f5',
+    color: 'var(--color-text)',
     fontSize: '14px',
     width: '100%',
     outline: 'none',
@@ -259,7 +259,7 @@ export default function ContactSection() {
       {/* ── background kanji watermark ──────────────────────────── */}
       <span
         aria-hidden
-        className="pointer-events-none select-none absolute inset-0 flex items-center justify-center font-heading text-[20vw] font-bold text-accent-gold opacity-[0.09] leading-none"
+        className="pointer-events-none select-none absolute inset-0 flex items-center justify-center font-heading text-[20vw] font-bold text-(--color-text) opacity-[0.04] leading-none"
         style={{ writingMode: 'horizontal-tb', zIndex: 0 }}
       >
         連絡
@@ -286,7 +286,7 @@ export default function ContactSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="font-heading text-4xl md:text-5xl font-bold text-white mb-3"
+          className="font-heading text-4xl md:text-5xl font-bold text-(--color-text) mb-3"
         >
           {t('contact.title') as string}
         </motion.h2>
@@ -296,7 +296,7 @@ export default function ContactSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          className="text-white/55 mb-12 max-w-xl"
+          className="text-(--color-text-muted) mb-12 max-w-xl"
         >
           {t('contact.subtitle') as string}
         </motion.p>
@@ -324,10 +324,10 @@ export default function ContactSection() {
                     <div className="w-16 h-16 rounded-full flex items-center justify-center bg-accent-gold/10 border border-accent-gold/30 mb-5">
                       <TbCheck size={32} className="text-accent-gold" />
                     </div>
-                    <h3 className="font-heading text-2xl font-bold text-white mb-3">
+                    <h3 className="font-heading text-2xl font-bold text-(--color-text) mb-3">
                       {t('contact.form.success_title') as string}
                     </h3>
-                    <p className="text-white/60 text-sm leading-relaxed max-w-sm">
+                    <p className="text-(--color-text-muted) text-sm leading-relaxed max-w-sm">
                       {(t('contact.form.success_message') as string).replace(
                         '{name}',
                         fields.name || 'there'
@@ -361,7 +361,7 @@ export default function ContactSection() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       {/* Name */}
                       <div className="flex flex-col gap-1">
-                        <label className="text-xs text-white/50 uppercase tracking-widest mb-0.5">
+                        <label className="text-xs text-(--color-text-muted) uppercase tracking-widest mb-0.5">
                           {t('contact.form.name') as string}
                         </label>
                         <input
@@ -382,7 +382,7 @@ export default function ContactSection() {
                           onBlur={(e) => {
                             if (!fieldErrors.name)
                               e.currentTarget.style.borderColor =
-                                'rgba(255,255,255,0.10)';
+                                'var(--glass-border)';
                           }}
                         />
                         <FieldError msg={fieldErrors.name} />
@@ -390,7 +390,7 @@ export default function ContactSection() {
 
                       {/* Email */}
                       <div className="flex flex-col gap-1">
-                        <label className="text-xs text-white/50 uppercase tracking-widest mb-0.5">
+                        <label className="text-xs text-(--color-text-muted) uppercase tracking-widest mb-0.5">
                           {t('contact.form.email') as string}
                         </label>
                         <input
@@ -411,7 +411,7 @@ export default function ContactSection() {
                           onBlur={(e) => {
                             if (!fieldErrors.email)
                               e.currentTarget.style.borderColor =
-                                'rgba(255,255,255,0.10)';
+                                'var(--glass-border)';
                           }}
                         />
                         <FieldError msg={fieldErrors.email} />
@@ -420,7 +420,7 @@ export default function ContactSection() {
 
                     {/* Message */}
                     <div className="flex flex-col gap-1">
-                      <label className="text-xs text-white/50 uppercase tracking-widest mb-0.5">
+                      <label className="text-xs text-(--color-text-muted) uppercase tracking-widest mb-0.5">
                         {t('contact.form.message') as string}
                       </label>
                       <textarea
@@ -444,7 +444,7 @@ export default function ContactSection() {
                         onBlur={(e) => {
                           if (!fieldErrors.message)
                             e.currentTarget.style.borderColor =
-                              'rgba(255,255,255,0.10)';
+                              'var(--glass-border)';
                         }}
                       />
                       <FieldError msg={fieldErrors.message} />
@@ -492,15 +492,15 @@ export default function ContactSection() {
                   <TbMail size={20} className="text-accent-pink" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs text-white/40 uppercase tracking-widest mb-1">
+                  <p className="text-xs text-(--color-text-muted) uppercase tracking-widest mb-1">
                     {t('contact.email_label') as string}
                   </p>
-                  <p className="text-sm text-white font-medium truncate mb-3">
+                  <p className="text-sm text-(--color-text) font-medium truncate mb-3">
                     akhdanravy@gmail.com
                   </p>
                   <button
                     onClick={copyEmail}
-                    className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+                    className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted) hover:text-(--color-text) hover:bg-(--color-glass-hover) transition-colors"
                   >
                     <TbCopy size={13} /> Copy address
                   </button>
@@ -522,17 +522,17 @@ export default function ContactSection() {
                   <TbBrandLinkedin size={20} className="text-blue-300" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs text-white/40 uppercase tracking-widest mb-1">
+                  <p className="text-xs text-(--color-text-muted) uppercase tracking-widest mb-1">
                     {t('contact.linkedin_label') as string}
                   </p>
-                  <p className="text-sm text-white font-medium mb-3">
+                  <p className="text-sm text-(--color-text) font-medium mb-3">
                     Akhdan Ravi Andaman
                   </p>
                   <a
                     href="https://www.linkedin.com/in/akhdan-ravi-andaman/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-white/60 hover:text-white hover:bg-white/10 transition-colors w-fit"
+                    className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted) hover:text-(--color-text) hover:bg-(--color-glass-hover) transition-colors w-fit"
                   >
                     <TbExternalLink size={13} /> Open profile
                   </a>

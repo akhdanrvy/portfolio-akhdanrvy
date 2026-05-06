@@ -1,5 +1,7 @@
 'use client';
 
+import { useTheme } from '@/hooks/useTheme';
+
 /* ------------------------------------------------------------------ */
 /* SakuraFall — floating sakura petals background effect               */
 /* ------------------------------------------------------------------ */
@@ -15,25 +17,32 @@ const PETALS = [
   { left: '93%', delay: '1.5s',  dur: '9.5s', size: 13, rot: -20 },
 ];
 
-function SakuraPetal({ size }: { size: number }) {
+function SakuraPetal({ size, isLight }: { size: number; isLight: boolean }) {
+  const petalFill    = isLight ? '#8a3a42' : '#f4b8c1';
+  const petalOpacity = isLight ? '0.35'    : '0.55';
+  const veinStroke   = isLight ? '#8a6a2a' : '#c9a84c';
+  const veinOpacity  = isLight ? '0.35'    : '0.40';
+
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
         d="M12 2 C8 2 4 6 4 10 C4 14 8 16 12 22 C16 16 20 14 20 10 C20 6 16 2 12 2Z"
-        fill="#f4b8c1"
-        opacity="0.55"
+        fill={petalFill}
+        opacity={petalOpacity}
       />
       <path
         d="M12 4 C10 7 8 9 9 12"
-        stroke="#c9a84c"
+        stroke={veinStroke}
         strokeWidth="0.5"
-        opacity="0.4"
+        opacity={veinOpacity}
       />
     </svg>
   );
 }
 
 export default function SakuraFall() {
+  const { theme } = useTheme();
+  const isLight = theme === 'light';
   return (
     <>
       <style>{`
@@ -62,7 +71,7 @@ export default function SakuraFall() {
             transform: `rotate(${p.rot}deg)`,
           }}
         >
-          <SakuraPetal size={p.size} />
+          <SakuraPetal size={p.size} isLight={isLight} />
         </span>
       ))}
     </>

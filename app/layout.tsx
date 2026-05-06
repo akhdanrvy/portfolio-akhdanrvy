@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Serif_JP, Syne } from "next/font/google";
 import { I18nProvider } from "@/context/i18nContext";
+import { ThemeProvider } from "@/context/themeContext";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 
@@ -97,13 +98,40 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-theme="dark"
       className={`${notoSerifJP.variable} ${syne.variable}`}
     >
+      <head>
+        {/* Prevent flash of unstyled theme (FOUC) by reading theme before React hydration */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const theme = localStorage.getItem('portfolio-theme');
+                  if (theme && (theme === 'dark' || theme === 'light')) {
+                    document.documentElement.setAttribute('data-theme', theme);
+                  } else {
+                    // Check system preference if no saved theme
+                    const prefersDark = !window.matchMedia('(prefers-color-scheme: light)').matches;
+                    document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+                  }
+                } catch (e) {
+                  // Fallback to dark if anything fails
+                  document.documentElement.setAttribute('data-theme', 'dark');
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className="min-h-dvh antialiased">
-        <I18nProvider>
-          <Navbar />
-          {children}
-        </I18nProvider>
+        <ThemeProvider>
+          <I18nProvider>
+            <Navbar />
+            {children}
+          </I18nProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

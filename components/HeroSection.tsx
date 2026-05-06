@@ -76,7 +76,7 @@ function SeigaihaBg() {
   return (
     <svg
       viewBox={`0 0 ${cols * R + R} ${rows * R * 0.75 + R}`}
-      className="absolute right-0 top-0 h-[85vh] w-auto text-white opacity-[0.045] pointer-events-none select-none"
+      className="absolute right-0 top-0 h-[85vh] w-auto text-(--color-text) opacity-[0.04] pointer-events-none select-none"
       aria-hidden="true"
       preserveAspectRatio="xMaxYMin meet"
     >
@@ -174,7 +174,7 @@ export default function HeroSection() {
                   <motion.div variants={itemVariants}>
                     <span
                       className="inline-flex items-center gap-2 rounded-full border
-                                 border-white/10 bg-white/5 px-4 py-1.5
+                                 border-(--glass-border) bg-(--color-glass) px-4 py-1.5
                                  text-xs font-semibold uppercase tracking-widest
                                  text-(--color-accent-pink) backdrop-blur-sm"
                     >
@@ -191,7 +191,7 @@ export default function HeroSection() {
                   <motion.h1
                     variants={itemVariants}
                     className="font-heading text-5xl font-bold leading-[1.12] tracking-tight
-                               text-white/95 sm:text-6xl xl:text-7xl"
+                               text-(--color-text) sm:text-6xl xl:text-7xl"
                   >
                     <span className="text-(--color-accent-gold)">A</span>
                     khdan{" "}
@@ -203,13 +203,13 @@ export default function HeroSection() {
                   {/* Typewriter subtitle */}
                   <motion.div
                     variants={itemVariants}
-                    className="flex items-center gap-2 text-lg font-medium text-white/70"
+                    className="flex items-center gap-2 text-lg font-medium text-(--color-text-muted)"
                   >
                     <span className="text-(--color-accent-pink) font-heading text-xl">&gt;</span>
                     <span className="font-body">
                       {typewritten}
                       <span
-                        className="inline-block w-0.5 h-5 bg-white/60 ml-0.5 align-middle"
+                        className="inline-block w-0.5 h-5 bg-(--color-text-muted) ml-0.5 align-middle"
                         style={{ animation: "blink 1s step-end infinite" }}
                       />
                     </span>
@@ -218,7 +218,7 @@ export default function HeroSection() {
                   {/* Description */}
                   <motion.p
                     variants={itemVariants}
-                    className="max-w-lg text-base leading-relaxed text-white/50"
+                    className="max-w-lg text-base leading-relaxed text-(--color-text-muted)"
                   >
                     {t("hero.description")}
                   </motion.p>
@@ -263,14 +263,17 @@ export default function HeroSection() {
                       href="https://drive.google.com/file/d/1P8so8OLR0XsfbyerpP2mB0ipOzK5yMUp/view?usp=drive_link"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full
-                                 bg-(--color-accent-gold) px-6 py-3
-                                 text-sm font-semibold text-bg
+                      className="inline-flex items-center gap-2 rounded-full px-6 py-3
+                                 text-sm font-semibold
                                  transition-all duration-300
                                  hover:brightness-110
                                  hover:shadow-[0_0_24px_rgba(201,168,76,0.40)]
                                  focus-visible:outline-none focus-visible:ring-2
                                  focus-visible:ring-accent-gold/60"
+                      style={{
+                        backgroundColor: 'var(--theme-bg-cv)',
+                        color: 'var(--theme-text-cv)',
+                      }}
                     >
                       <svg
                         viewBox="0 0 16 16"
@@ -297,10 +300,10 @@ export default function HeroSection() {
                         rel="noopener noreferrer"
                         aria-label={label}
                         className="flex h-9 w-9 items-center justify-center rounded-full
-                                   border border-white/10 bg-white/6 text-white/50
+                                   border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted)
                                    backdrop-blur-sm
                                    transition-all duration-200
-                                   hover:bg-white/10 hover:text-white hover:border-white/20
+                                   hover:bg-(--color-glass-hover) hover:text-(--color-text) hover:border-(--glass-border)
                                    hover:shadow-glass
                                    focus-visible:outline-none focus-visible:ring-2
                                    focus-visible:ring-accent-pink/60"
@@ -341,7 +344,7 @@ export default function HeroSection() {
                   <div
                     className="relative w-72 rounded-[20px] overflow-hidden"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.03) 100%)',
+                      background: 'linear-gradient(135deg, var(--color-glass) 0%, var(--color-surface) 100%)',
                       border: '1px solid var(--glass-border)',
                       backdropFilter: 'blur(var(--glass-blur))',
                       WebkitBackdropFilter: 'blur(var(--glass-blur))',
@@ -391,7 +394,7 @@ export default function HeroSection() {
                         aria-hidden="true"
                         className="absolute inset-0 pointer-events-none"
                         style={{
-                          background: 'linear-gradient(to bottom, transparent 55%, rgba(10,10,26,0.75) 100%)',
+                          background: 'linear-gradient(to bottom, transparent 55%, var(--color-bg) 100%)',
                         }}
                       />
                       {/* Monogram fallback (shown if no photo file) */}
@@ -401,8 +404,8 @@ export default function HeroSection() {
                                    bg-linear-to-br from-accent-pink/10 to-accent-gold/10 pt-22"
                       >
                         <span
-                          className="font-heading text-7xl font-bold text-white/90 select-none"
-                          style={{ textShadow: '0 0 40px rgba(201,168,76,0.5)' }}
+                          className="font-heading text-7xl font-bold select-none"
+                          style={{ color: 'rgba(255, 255, 255, 0.88)', textShadow: '0 0 40px rgba(201,168,76,0.5)' }}
                         >
                           RVY
                         </span>
@@ -417,10 +420,10 @@ export default function HeroSection() {
 
                     {/* Caption strip */}
                     <div className="px-5 py-4 flex flex-col gap-1">
-                      <p className="font-heading text-sm font-semibold text-white/85 tracking-wide">
+                      <p className="font-heading text-sm font-semibold text-(--color-text) tracking-wide">
                         Akhdan Ravi Andaman
                       </p>
-                      <p className="text-[11px] text-white/40 tracking-widest uppercase">
+                      <p className="text-[11px] text-(--color-text-muted) tracking-widest uppercase">
                         Bogor, Indonesia · IPB University
                       </p>
                     </div>
@@ -448,9 +451,9 @@ export default function HeroSection() {
                       >
                         <span
                           className="inline-block whitespace-nowrap rounded-full
-                                     border border-white/10 bg-white/8
+                                     border border-(--glass-border) bg-(--color-glass)
                                      px-3 py-1 text-[11px] font-semibold
-                                     text-white/80 backdrop-blur-sm
+                                     text-(--color-text-muted) backdrop-blur-sm
                                      shadow-[0_2px_12px_rgba(0,0,0,0.3)]"
                         >
                           {label}
@@ -464,11 +467,11 @@ export default function HeroSection() {
 
         {/* ── Scroll indicator ─────────────────────────────────────────── */}
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1">
-            <span className="text-[10px] uppercase tracking-[0.2em] text-white/25">scroll</span>
+            <span className="text-[10px] uppercase tracking-[0.2em] text-(--color-text-muted)">scroll</span>
             <motion.div
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-              className="text-white/30"
+              className="text-(--color-text-muted)"
             >
               <svg
                 viewBox="0 0 24 24"
