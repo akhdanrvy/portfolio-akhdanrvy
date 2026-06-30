@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslation } from "@/hooks/useTranslation";
 import type { Language } from "@/context/i18nContext";
@@ -110,6 +111,7 @@ function smoothScroll(
 
 /* ─── Main Component ─────────────────────────────────────────────────────── */
 export default function Navbar() {
+  const pathname = usePathname();
   const { t, language, setLanguage } = useTranslation();
 
   const [scrolled, setScrolled]       = useState(false);
@@ -159,6 +161,8 @@ export default function Navbar() {
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
+
+  if (pathname.startsWith("/admin")) return null;
 
   return (
     <>

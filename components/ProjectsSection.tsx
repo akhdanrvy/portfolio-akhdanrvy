@@ -13,25 +13,23 @@ import { TbStar, TbBrandGithub, TbExternalLink, TbX, TbCertificate } from 'react
 import { GlassCard } from '@/components/ui/GlassCard';
 import { useTranslation } from '@/hooks/useTranslation';
 import SectionPulse from '@/components/effects/SectionPulse';
-import enLocale from '@/locales/en.json';
-import idLocale from '@/locales/id.json';
 
 /* ------------------------------------------------------------------ */
 /* Types                                                                */
 /* ------------------------------------------------------------------ */
-interface ProjectItem {
-  id: number;
-  name: string;
-  year: string;
-  image?: string;
+export interface ProjectView {
+  id: string;
+  title: string;
+  slug: string;
   description: string;
-  tech: string[];
-  featured?: boolean;
-  hki?: boolean;
-  links?: {
-    github?: string;
-    live?: string;
-  };
+  techStack: string[];
+  demoUrl: string | null;
+  repoUrl: string | null;
+  imageUrl: string | null;
+  badgeLabel: string | null;
+  isFeatured: boolean;
+  displayOrder: number;
+  year: string;
 }
 
 /* ------------------------------------------------------------------ */
@@ -40,6 +38,13 @@ interface ProjectItem {
 function pad(n: number) {
   return String(n).padStart(2, '0');
 }
+
+const FALLBACK_GRADIENTS = [
+  'linear-gradient(135deg, rgba(201,168,76,0.18) 0%, rgba(244,184,193,0.10) 100%)',
+  'linear-gradient(135deg, rgba(99,179,237,0.18) 0%, rgba(201,168,76,0.10) 100%)',
+  'linear-gradient(135deg, rgba(154,230,180,0.18) 0%, rgba(244,184,193,0.10) 100%)',
+  'linear-gradient(135deg, rgba(244,184,193,0.18) 0%, rgba(201,168,76,0.10) 100%)',
+];
 
 /* ------------------------------------------------------------------ */
 /* 3-D Tilt card wrapper                                               */
@@ -61,8 +66,8 @@ function TiltCard({
     const el = cardRef.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width;   // 0–1
-    const py = (e.clientY - rect.top)  / rect.height;  // 0–1
+    const px = (e.clientX - rect.left) / rect.width;
+    const py = (e.clientY - rect.top)  / rect.height;
     setTilt({ x: (py - 0.5) * 10, y: (px - 0.5) * -10 });
   }, []);
 
@@ -86,7 +91,6 @@ function TiltCard({
         willChange: 'transform',
       }}
     >
-      {/* top gradient border — visible on hover */}
       <div
         className="absolute inset-x-0 top-0 h-0.5 rounded-t-2xl pointer-events-none z-10"
         style={{
@@ -107,10 +111,11 @@ function ProjectModal({
   project,
   onClose,
 }: {
-  project: ProjectItem;
+  project: ProjectView;
   onClose: () => void;
 }) {
-  /* close on Escape */
+  const { t } = useTranslation();
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -119,7 +124,6 @@ function ProjectModal({
     return () => window.removeEventListener('keydown', handler);
   }, [onClose]);
 
-  /* lock body scroll */
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => { document.body.style.overflow = ''; };
@@ -154,11 +158,11 @@ function ProjectModal({
           </button>
 
           {/* project image */}
-          {project.image && (
+          {project.imageUrl && (
             <div className="relative w-full h-48 overflow-hidden mb-5 rounded-t-2xl">
               <Image
-                src={project.image}
-                alt={project.name}
+                src={project.imageUrl}
+                alt={project.title}
                 fill
                 sizes="512px"
                 className="object-cover object-top"
@@ -167,7 +171,6 @@ function ProjectModal({
                 className="absolute inset-x-0 bottom-0 h-16 pointer-events-none"
                 style={{ background: 'linear-gradient(to bottom, transparent, var(--color-bg))' }}
               />
-              {/* top accent line */}
               <div
                 className="absolute inset-x-0 top-0 h-0.5"
                 style={{ background: 'linear-gradient(to right, #f4b8c1, #c9a84c)' }}
@@ -175,30 +178,28 @@ function ProjectModal({
             </div>
           )}
 
-          {/* top accent line (when no image) */}
-          {!project.image && (
+          {!project.imageUrl && (
             <div
               className="absolute inset-x-0 top-0 h-0.5"
               style={{ background: 'linear-gradient(to right, #f4b8c1, #c9a84c)' }}
             />
           )}
 
-          {/* content */}
           <div className="pt-2">
             <div className="flex items-start gap-3 mb-4 pr-8">
               <div>
                 <div className="flex items-center gap-2 flex-wrap mb-1">
                   <h3 className="font-heading text-xl font-bold text-(--color-text) leading-snug">
-                    {project.name}
+                    {project.title}
                   </h3>
-                  {project.featured && (
+                  {project.isFeatured && (
                     <span className="flex items-center gap-1 text-xs px-2 py-0.5 rounded-full border border-accent-gold/40 bg-accent-gold/10 text-accent-gold">
                       <TbStar size={10} /> FEATURED
                     </span>
                   )}
-                  {project.hki && (
+                  {project.badgeLabel && (
                     <span className="flex items-center gap-1 text-xs px-2 py-0.5 rounded-full border border-accent-gold/40 bg-accent-gold/10 text-accent-gold">
-                      <TbCertificate size={10} /> HKI
+                      <TbCertificate size={10} /> {project.badgeLabel}
                     </span>
                   )}
                 </div>
@@ -210,39 +211,39 @@ function ProjectModal({
 
             {/* tech tags */}
             <div className="flex flex-wrap gap-1.5 mb-6">
-              {project.tech.map((t) => (
+              {project.techStack.map((tech) => (
                 <span
-                  key={t}
+                  key={tech}
                   className="text-xs px-2.5 py-1 rounded-full border border-accent-pink/30 bg-accent-pink/5 text-accent-pink"
                 >
-                  {t}
+                  {tech}
                 </span>
               ))}
             </div>
 
             {/* links */}
-            {project.links && (project.links.github || project.links.live) && (
+            {(project.repoUrl || project.demoUrl) && (
               <div className="flex gap-3">
-                {project.links.github && (
+                {project.repoUrl && (
                   <a
-                    href={project.links.github}
+                    href={project.repoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-lg border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted) hover:text-(--color-text) hover:bg-(--color-glass-hover) transition-colors"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <TbBrandGithub size={15} /> GitHub
+                    <TbBrandGithub size={15} /> {t('projects.btn_github') as string}
                   </a>
                 )}
-                {project.links.live && (
+                {project.demoUrl && (
                   <a
-                    href={project.links.live}
+                    href={project.demoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-lg border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted) hover:text-(--color-text) hover:bg-(--color-glass-hover) transition-colors"
                     onClick={(e) => e.stopPropagation()}
                   >
-                    <TbExternalLink size={15} /> Live
+                    <TbExternalLink size={15} /> {t('projects.btn_live') as string}
                   </a>
                 )}
               </div>
@@ -261,39 +262,32 @@ function CardBody({
   project,
   featured = false,
 }: {
-  project: ProjectItem;
+  project: ProjectView;
   featured?: boolean;
 }) {
+  const { t } = useTranslation();
   const [imgError, setImgError] = useState(false);
 
-  /* gradient colours per project id for fallback */
-  const FALLBACK_GRADIENTS: Record<number, string> = {
-    1: 'linear-gradient(135deg, rgba(201,168,76,0.18) 0%, rgba(244,184,193,0.10) 100%)',
-    2: 'linear-gradient(135deg, rgba(99,179,237,0.18) 0%, rgba(201,168,76,0.10) 100%)',
-    3: 'linear-gradient(135deg, rgba(154,230,180,0.18) 0%, rgba(244,184,193,0.10) 100%)',
-    4: 'linear-gradient(135deg, rgba(244,184,193,0.18) 0%, rgba(201,168,76,0.10) 100%)',
-  };
-  const fallbackGradient = FALLBACK_GRADIENTS[project.id] ?? FALLBACK_GRADIENTS[1];
+  const fallbackGradient = FALLBACK_GRADIENTS[project.displayOrder % FALLBACK_GRADIENTS.length];
 
   return (
-    <GlassCard noPadding className={`relative overflow-hidden h-full flex flex-col`} noAnimatedBorder>
+    <GlassCard noPadding className="relative overflow-hidden h-full flex flex-col" noAnimatedBorder>
       {/* ── Project image ─────────────────────────────────────── */}
       <div
         className={`relative w-full overflow-hidden shrink-0 ${
           featured ? 'h-56 md:h-64' : 'h-44'
         }`}
       >
-        {project.image && !imgError ? (
+        {project.imageUrl && !imgError ? (
           <Image
-            src={project.image}
-            alt={project.name}
+            src={project.imageUrl}
+            alt={project.title}
             fill
             sizes={featured ? '(max-width:768px) 100vw, 896px' : '(max-width:640px) 100vw, 400px'}
             className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
             onError={() => setImgError(true)}
           />
         ) : (
-          /* Fallback: coloured gradient + project number */
           <div
             className="absolute inset-0 flex items-center justify-center"
             style={{ background: fallbackGradient }}
@@ -302,53 +296,44 @@ function CardBody({
               className="font-heading font-bold text-(--color-text) opacity-[0.10] leading-none select-none"
               style={{ fontSize: featured ? '9rem' : '5rem' }}
             >
-              {pad(project.id)}
+              {pad(project.displayOrder)}
             </span>
           </div>
         )}
-        {/* bottom fade overlay */}
         <div
           className="absolute inset-x-0 bottom-0 h-16 pointer-events-none"
-          style={{
-            background:
-              'linear-gradient(to bottom, transparent, var(--color-bg))',
-          }}
+          style={{ background: 'linear-gradient(to bottom, transparent, var(--color-bg))' }}
         />
-        {/* top accent line */}
         <div
           className="absolute inset-x-0 top-0 h-0.5 pointer-events-none"
-          style={{
-            background: 'linear-gradient(to right, #f4b8c1, #c9a84c)',
-            opacity: 0.6,
-          }}
+          style={{ background: 'linear-gradient(to right, #f4b8c1, #c9a84c)', opacity: 0.6 }}
         />
       </div>
 
       {/* ── Card text content ─────────────────────────────────── */}
       <div className={`relative flex flex-col flex-1 ${featured ? 'p-8' : 'p-6'}`}>
-        {/* faint project number */}
+        {/* faint project number watermark */}
         <span
           aria-hidden
           className={`absolute select-none pointer-events-none font-heading font-bold text-(--color-text) opacity-[0.04] leading-none ${
             featured ? 'text-[10rem] -bottom-6 -right-4' : 'text-[6rem] -bottom-4 -right-2'
           }`}
         >
-          {pad(project.id)}
+          {pad(project.displayOrder)}
         </span>
 
         {/* badges row */}
         <div className="flex items-center gap-2 flex-wrap mb-3">
-          {project.featured && (
+          {project.isFeatured && (
             <span className="flex items-center gap-1 text-xs px-2 py-0.5 rounded-full border border-accent-gold/40 bg-accent-gold/10 text-accent-gold font-medium">
               <TbStar size={11} /> FEATURED
             </span>
           )}
-          {project.hki && (
+          {project.badgeLabel && (
             <span className="flex items-center gap-1 text-xs px-2 py-0.5 rounded-full border border-accent-gold/40 bg-accent-gold/10 text-accent-gold font-medium">
-              <TbCertificate size={11} /> HKI / Copyrighted
+              <TbCertificate size={11} /> {project.badgeLabel}
             </span>
           )}
-          {/* year badge — top-right for non-featured */}
           {!featured && (
             <span className="ml-auto text-xs px-2 py-0.5 rounded-full border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted)">
               {project.year}
@@ -365,7 +350,7 @@ function CardBody({
             featured ? 'text-2xl md:text-3xl' : 'text-lg'
           }`}
         >
-          {project.name}
+          {project.title}
         </h3>
 
         <p className={`text-(--color-text-muted) leading-relaxed mb-5 ${featured ? 'text-base' : 'text-sm'}`}>
@@ -374,7 +359,7 @@ function CardBody({
 
         {/* tech tags */}
         <div className="flex flex-wrap gap-1.5 mb-5 mt-auto">
-          {project.tech.map((tech) => (
+          {project.techStack.map((tech) => (
             <span
               key={tech}
               className="text-xs px-2.5 py-0.5 rounded-full border border-accent-pink/30 bg-accent-pink/5 text-accent-pink"
@@ -385,30 +370,30 @@ function CardBody({
         </div>
 
         {/* links row */}
-        {project.links && (project.links.github || project.links.live) && (
+        {(project.repoUrl || project.demoUrl) && (
           <div className="flex items-center gap-2 mt-auto">
-            {project.links.github && (
+            {project.repoUrl && (
               <a
-                href={project.links.github}
+                href={project.repoUrl}
                 aria-label="GitHub"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
                 className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-lg border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted) hover:text-(--color-text) hover:bg-(--color-glass-hover) transition-colors"
               >
-                <TbBrandGithub size={14} /> GitHub
+                <TbBrandGithub size={14} /> {t('projects.btn_github') as string}
               </a>
             )}
-            {project.links.live && (
+            {project.demoUrl && (
               <a
-                href={project.links.live}
+                href={project.demoUrl}
                 aria-label="Live"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
                 className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-lg border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted) hover:text-(--color-text) hover:bg-(--color-glass-hover) transition-colors"
               >
-                <TbExternalLink size={14} /> Live
+                <TbExternalLink size={14} /> {t('projects.btn_live') as string}
               </a>
             )}
           </div>
@@ -416,23 +401,22 @@ function CardBody({
       </div>
     </GlassCard>
   );
-}/* ------------------------------------------------------------------ */
+}
+
+/* ------------------------------------------------------------------ */
 /* Main Section                                                         */
 /* ------------------------------------------------------------------ */
-export default function ProjectsSection() {
-  const { t, language } = useTranslation();
-  const [activeProject, setActiveProject] = useState<ProjectItem | null>(null);
+export default function ProjectsSection({ projects }: { projects: ProjectView[] }) {
+  const { t } = useTranslation();
+  const [activeProject, setActiveProject] = useState<ProjectView | null>(null);
 
-  const locale = language === 'id' ? idLocale : enLocale;
-  const projects = locale.projects.items as unknown as ProjectItem[];
-  const featured  = projects.find((p) => p.featured) ?? projects[0];
-  const rest       = projects.filter((p) => !p.featured);
+  const featured = projects.find((p) => p.isFeatured) ?? projects[0];
+  const rest      = projects.filter((p) => !p.isFeatured);
 
   return (
     <section id="projects" className="relative py-16 md:py-20 lg:py-24 px-4 overflow-hidden">
       <SectionPulse variant="gold-pink" topLeft="55%" topRight="25%" />
 
-      {/* ── decorative kanji ──────────────────────────────────── */}
       <span
         aria-hidden
         className="pointer-events-none select-none absolute left-4 top-24 font-heading text-[10rem] leading-none font-bold text-(--color-text) opacity-[0.04]"
@@ -442,7 +426,7 @@ export default function ProjectsSection() {
       </span>
 
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
-        {/* ── section label ─────────────────────────────────── */}
+        {/* section label */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -456,7 +440,6 @@ export default function ProjectsSection() {
           <span className="h-px w-10 bg-accent-pink/40" />
         </motion.div>
 
-        {/* ── heading ───────────────────────────────────────── */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -474,45 +457,62 @@ export default function ProjectsSection() {
           transition={{ duration: 0.5, delay: 0.15 }}
           className="text-base text-(--color-text-muted) max-w-2xl mb-12"
         >
-          {locale.projects.subtitle}
+          {t('projects.subtitle') as string}
         </motion.p>
 
-        {/* ── featured card ─────────────────────────────────── */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: 'easeOut' as const }}
-          className="mb-8"
-        >
-          <TiltCard onClick={() => setActiveProject(featured)}>
-            <CardBody project={featured} featured />
-          </TiltCard>
-        </motion.div>
-
-        {/* ── grid: remaining 3 ─────────────────────────────── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {rest.map((project, index) => (
+        {/* empty state */}
+        {projects.length === 0 ? (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="py-16 text-center text-(--color-text-muted) text-sm"
+          >
+            Belum ada project.
+          </motion.div>
+        ) : (
+          <>
+            {/* featured card */}
             <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 + index * 0.1, ease: 'easeOut' as const }}
-              className="flex flex-col"
+              transition={{ duration: 0.6, ease: 'easeOut' as const }}
+              className="mb-8"
             >
-              <TiltCard
-                className="flex-1 flex flex-col"
-                onClick={() => setActiveProject(project)}
-              >
-                <CardBody project={project} />
+              <TiltCard onClick={() => setActiveProject(featured)}>
+                <CardBody project={featured} featured />
               </TiltCard>
             </motion.div>
-          ))}
-        </div>
+
+            {/* grid: remaining */}
+            {rest.length > 0 && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {rest.map((project, index) => (
+                  <motion.div
+                    key={project.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.1 + index * 0.1, ease: 'easeOut' as const }}
+                    className="flex flex-col"
+                  >
+                    <TiltCard
+                      className="flex-1 flex flex-col"
+                      onClick={() => setActiveProject(project)}
+                    >
+                      <CardBody project={project} />
+                    </TiltCard>
+                  </motion.div>
+                ))}
+              </div>
+            )}
+          </>
+        )}
       </div>
 
-      {/* ── modal ─────────────────────────────────────────────── */}
+      {/* modal */}
       <AnimatePresence>
         {activeProject && (
           <ProjectModal

@@ -123,6 +123,8 @@
   "projects": {
     "title": "Projects",
     "subtitle": "A selection of work I've built — from mobile apps to web platforms.",
+    "btn_github": "GitHub",
+    "btn_live": "Live",
     "items": [
       {
         "id": 1,
@@ -161,7 +163,7 @@
       {
         "id": 4,
         "name": "Company Profile Website",
-        "year": "2024",
+        "year": "2023",
         "type": "Web Dev",
         "image": "/assets/projects/tsu_web.png",
         "description": "Built the frontend interface for a professional training and certification company. Designed to present the company's services and credentials in a clean, professional layout. Developed using Laravel with a MySQL database.",

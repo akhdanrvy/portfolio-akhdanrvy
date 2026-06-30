@@ -123,6 +123,8 @@
   "projects": {
     "title": "Proyek",
     "subtitle": "Kumpulan karya yang pernah saya bangun — dari aplikasi mobile hingga platform web.",
+    "btn_github": "GitHub",
+    "btn_live": "Live",
     "items": [
       {
         "id": 1,
@@ -162,7 +164,7 @@
       {
         "id": 4,
         "name": "Company Profile Website",
-        "year": "2024",
+        "year": "2023",
         "type": "Web Dev",
         "image": "/assets/projects/tsu_web.png",
         "description": "Membangun antarmuka frontend untuk perusahaan pelatihan dan sertifikasi profesional. Dirancang untuk menampilkan layanan dan kredensial perusahaan dalam tampilan yang bersih dan profesional. Dikembangkan menggunakan Laravel dengan database MySQL.",
