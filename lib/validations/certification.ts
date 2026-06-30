@@ -14,7 +14,7 @@ export const certificationSchema = z
   .object({
     name:          z.string().min(1, "Nama sertifikasi wajib diisi"),
     issuer:        z.string().min(1, "Penerbit wajib diisi"),
-    issueDate:     z.coerce.date({ required_error: "Tanggal terbit wajib diisi" }),
+    issueDate:     z.coerce.date({ message: "Tanggal terbit wajib diisi" }),
     expiryDate:    optionalDate,
     credentialUrl: optionalUrl,
     imageUrl:      optionalUrl,
