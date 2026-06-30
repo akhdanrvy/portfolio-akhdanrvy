@@ -15,10 +15,11 @@ This is my personal portfolio website, built to showcase my work, experience, an
 ## ✨ Features
 
 - 🎌 **Glassmorphism × Japanese Theme** — deep navy base, sakura pink & gold accents, decorative kanji elements
+- 🌗 **Light / Dark Theme** — system-preference aware, persisted to `localStorage`, zero flash on load
 - 🌐 **Bilingual (EN/ID)** — language switcher powered by React Context i18n (no external library)
 - 🎬 **Rich Animations** — kanji rain intro, animate on scroll, hover interactions, spring physics
 - 📱 **Fully Responsive** — optimized for mobile, tablet, and desktop
-- 📧 **Contact Form** — integrated with Resend for real email delivery
+- 📧 **Contact Form** — integrated with Resend for real email delivery (notification + auto-reply)
 - 🗂️ **Sections** — Hero, About, Skills, Experience, Projects, Innovations, Certifications, Contact
 
 ---
@@ -27,8 +28,9 @@ This is my personal portfolio website, built to showcase my work, experience, an
 
 | Layer | Technology |
 |---|---|
-| Framework | Next.js 14+ (App Router) |
-| Styling | Tailwind CSS + Custom CSS Variables |
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 + CSS Custom Properties |
 | Animation | Framer Motion + @react-spring/web |
 | i18n | React Context (JSON locale files) |
 | Email | Resend API (Route Handler) |
@@ -58,15 +60,17 @@ This is my personal portfolio website, built to showcase my work, experience, an
 │   ├── CertificationSection.tsx
 │   ├── ContactSection.tsx
 │   ├── Footer.tsx
-│   ├── ui/                 # GlassCard, LanguageToggle
+│   ├── ui/                 # GlassCard, ThemeToggle, LanguageToggle
 │   └── effects/            # LoadingScreen, SakuraFall, ScrollProgress, SectionPulse
 ├── context/
-│   └── i18nContext.tsx
+│   ├── i18nContext.tsx
+│   └── themeContext.tsx
 ├── locales/
 │   ├── en.json
 │   └── id.json
 ├── hooks/
-│   └── useTranslation.ts
+│   ├── useTranslation.ts
+│   └── useTheme.ts
 ├── lib/
 │   └── utils.ts
 ├── types/
