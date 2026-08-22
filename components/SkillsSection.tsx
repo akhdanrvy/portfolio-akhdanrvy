@@ -10,7 +10,7 @@ import {
   SiGit, SiGithub, SiGitlab, SiWordpress,
 } from "react-icons/si";
 import { TbApi, TbScript } from "react-icons/tb";
-import { useSpring, animated, to } from "@react-spring/web";
+import { useSprings, animated, to } from "@react-spring/web";
 import { useTranslation } from "@/hooks/useTranslation";
 import SectionPulse from "@/components/effects/SectionPulse";
 
@@ -114,14 +114,11 @@ function SkillRadar() {
   const svgRef = useRef<SVGSVGElement>(null);
 
   /* ── per-vertex springs ── */
-  const springs = stats.map((_, i) =>
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useSpring({
-      x: positions[i].x,
-      y: positions[i].y,
-      config: { tension: 180, friction: 12, mass: 1 },
-    })
-  );
+  const [springs, springsApi] = useSprings(stats.length, (i) => ({
+    x: positions[i].x,
+    y: positions[i].y,
+    config: { tension: 180, friction: 12, mass: 1 },
+  }));
 
   /* interpolate the "points" string from all springs */
   const animatedPoints = to(
@@ -158,8 +155,7 @@ function SkillRadar() {
     if (activeIdx === null) return;
     const { x, y } = getSVGPoint(e);
     setPositions(prev => prev.map((p, i) => (i === activeIdx ? { x, y } : p)));
-    springs[activeIdx].x.set(x);
-    springs[activeIdx].y.set(y);
+    springsApi.start((i) => (i === activeIdx ? { x, y, immediate: true } : {}));
   };
 
   const onSVGPointerUp = (e: React.PointerEvent<SVGSVGElement>) => {
@@ -167,8 +163,7 @@ function SkillRadar() {
     svgRef.current?.releasePointerCapture(e.pointerId);
     const [ox, oy] = origins[activeIdx];
     setPositions(prev => prev.map((p, i) => (i === activeIdx ? { x: ox, y: oy } : p)));
-    springs[activeIdx].x.start(ox);
-    springs[activeIdx].y.start(oy);
+    springsApi.start((i) => (i === activeIdx ? { x: ox, y: oy, immediate: false } : {}));
     setActiveIdx(null);
   };
 

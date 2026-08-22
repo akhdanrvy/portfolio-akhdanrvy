@@ -44,8 +44,7 @@
   /* Glass system — light theme */
   --glass-border:       rgba(26, 18, 8, 0.07);
   --shadow-glass:       0 8px 32px rgba(26, 18, 8, 0.07);
-  --shadow-glow-pink:   0 0 20px rgba(181, 104, 110, 0.15);
-  --glass-blur:         blur(16px);
+  --glass-blur:         16px;
 
   /* CV Button Theme — light mode */
   --theme-bg-cv:        #8a6a2a;

@@ -7,7 +7,7 @@ export default function Footer() {
   const { t } = useTranslation();
   const year = new Date().getFullYear();
 
-  const rights = (t('footer.rights') as string).replace('{year}', String(year));
+  const rights = t('footer.rights', { year: String(year) });
   const builtWith = t('footer.built_with') as string;
 
   return (
@@ -36,7 +36,7 @@ export default function Footer() {
         {/* right — social icons */}
         <div className="flex items-center gap-3 order-3">
           <a
-            href="https://github.com/"
+            href="https://github.com/akhdanrvy"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"

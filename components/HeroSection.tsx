@@ -377,6 +377,25 @@ export default function HeroSection() {
 
                     {/* Photo area */}
                     <div className="relative h-80 w-full overflow-hidden">
+                      {/* Monogram fallback (shown if no photo file / error) */}
+                      <div
+                        aria-hidden="true"
+                        className="absolute inset-0 flex flex-col items-center justify-center
+                                   bg-linear-to-br from-accent-pink/10 to-accent-gold/10 pt-22"
+                      >
+                        <span
+                          className="font-heading text-7xl font-bold select-none text-(--color-text)"
+                          style={{ textShadow: '0 0 40px rgba(201,168,76,0.5)' }}
+                        >
+                          RVY
+                        </span>
+                        <span
+                          className="font-heading text-2xl mt-1 select-none text-(--color-accent-gold)"
+                        >
+                          匠
+                        </span>
+                      </div>
+
                       <Image
                         src="/images/portrait/profile-img-akhdan ravi.jpeg"
                         alt="Akhdan Ravi Andaman"
@@ -397,25 +416,6 @@ export default function HeroSection() {
                           background: 'linear-gradient(to bottom, transparent 55%, var(--color-bg) 100%)',
                         }}
                       />
-                      {/* Monogram fallback (shown if no photo file) */}
-                      <div
-                        aria-hidden="true"
-                        className="absolute inset-0 flex flex-col items-center justify-center
-                                   bg-linear-to-br from-accent-pink/10 to-accent-gold/10 pt-22"
-                      >
-                        <span
-                          className="font-heading text-7xl font-bold select-none"
-                          style={{ color: 'rgba(255, 255, 255, 0.88)', textShadow: '0 0 40px rgba(201,168,76,0.5)' }}
-                        >
-                          RVY
-                        </span>
-                        <span
-                          className="font-heading text-2xl mt-1 select-none"
-                          style={{ color: '#c9a84c99' }}
-                        >
-                          匠
-                        </span>
-                      </div>
                     </div>
 
                     {/* Caption strip */}

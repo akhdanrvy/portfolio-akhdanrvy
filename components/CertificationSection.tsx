@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { TbChevronLeft, TbChevronRight, TbCertificate, TbExternalLink } from 'react-icons/tb';
 import SectionPulse from '@/components/effects/SectionPulse';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -246,11 +247,12 @@ export default function CertificationSection({ certifications }: { certification
                       />
 
                       {cert.imageUrl ? (
-                        /* eslint-disable-next-line @next/next/no-img-element */
-                        <img
+                        <Image
                           src={cert.imageUrl}
                           alt={cert.name}
-                          className="w-full h-full object-cover"
+                          fill
+                          sizes="(max-width: 768px) 100vw, 320px"
+                          className="object-cover"
                         />
                       ) : (
                         <CertPlaceholder cert={cert} />
