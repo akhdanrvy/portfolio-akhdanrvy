@@ -145,7 +145,7 @@ function autoReplyEmailHtml(name: string, message: string): string {
         <tr>
           <td style="background:#0a0a1a;padding:24px 40px;">
             <p style="margin:0;font-size:13px;color:#c9a84c;font-weight:600;">Akhdan Ravi Andaman</p>
-            <p style="margin:4px 0 0;font-size:12px;color:#888;">App Developer &amp; Fullstack Web Developer</p>
+            <p style="margin:4px 0 0;font-size:12px;color:#888;">Software Engineer &amp; Business Development Specialist</p>
           </td>
         </tr>
       </table>

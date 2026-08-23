@@ -53,7 +53,7 @@ export const innovationSchema = z.object({
     .nullable()
     .transform((val) => (val && val.trim() ? val.trim() : null)),
   displayOrder: z
-    .number({ invalid_type_error: "Display order harus berupa angka" })
+    .number({ message: "Display order harus berupa angka" })
     .int("Display order harus bilangan bulat")
     .min(0, "Display order tidak boleh negatif")
     .default(0),
