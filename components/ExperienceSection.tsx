@@ -12,23 +12,23 @@ import { TbExternalLink, TbSchool } from 'react-icons/tb';
 import { GlassCard } from '@/components/ui/GlassCard';
 import { useTranslation } from '@/hooks/useTranslation';
 import SectionPulse from '@/components/effects/SectionPulse';
-import enLocale from '@/locales/en.json';
-import idLocale from '@/locales/id.json';
+import { CarouselControls } from '@/components/ui/CarouselControls';
 
 /* ------------------------------------------------------------------ */
 /* Types                                                                */
 /* ------------------------------------------------------------------ */
-interface ExperienceItem {
-  id: number;
+export interface ExperienceView {
+  id: string;
   role: string;
   company: string;
-  companyUrl?: string;
-  companyLogo?: string;
+  companyUrl: string | null;
+  companyLogo: string | null;
   period: string;
-  type: 'Full-time' | 'Independent Study' | 'Internship' | 'Education';
-  current?: boolean;
+  type: string;
+  current: boolean;
   description: string[];
   tags: string[];
+  displayOrder: number;
 }
 
 /* ------------------------------------------------------------------ */
@@ -51,7 +51,7 @@ function getInitials(name: string): string {
 /* ------------------------------------------------------------------ */
 /* Company Logo w/ fallback                                             */
 /* ------------------------------------------------------------------ */
-function CompanyLogo({ src, name }: { src?: string; name: string }) {
+function CompanyLogo({ src, name }: { src?: string | null; name: string }) {
   const [errored, setErrored] = useState(false);
 
   if (!src || errored) {
@@ -85,7 +85,7 @@ function CompanyPopover({
   item,
   onClose,
 }: {
-  item: ExperienceItem;
+  item: ExperienceView;
   onClose: () => void;
 }) {
   return (
@@ -157,16 +157,18 @@ function CompanyPopover({
 /* ------------------------------------------------------------------ */
 function TimelineCard({
   item,
-  side,
-  index,
+  side = 'left',
+  index = 0,
   openId,
   setOpenId,
+  isMobile = false,
 }: {
-  item: ExperienceItem;
-  side: 'left' | 'right';
-  index: number;
-  openId: number | null;
-  setOpenId: (id: number | null) => void;
+  item: ExperienceView;
+  side?: 'left' | 'right';
+  index?: number;
+  openId: string | null;
+  setOpenId: (id: string | null) => void;
+  isMobile?: boolean;
 }) {
   const isLeft = side === 'left';
   const isEducation = item.type === 'Education';
@@ -175,6 +177,93 @@ function TimelineCard({
   function handleCompanyClick(e: React.MouseEvent) {
     e.stopPropagation();
     setOpenId(isOpen ? null : item.id);
+  }
+
+  if (isMobile) {
+    return (
+      <div className="relative w-full h-full">
+        <GlassCard
+          className="relative overflow-visible h-full flex flex-col justify-between"
+          onClick={() => isOpen && setOpenId(null)}
+        >
+          <div>
+            {/* type badge */}
+            <span
+              className={`absolute top-4 right-4 text-xs px-2 py-0.5 rounded-full border font-medium tracking-wide ${
+                TYPE_STYLES[item.type] ?? 'text-(--color-accent-gold) border-(--color-accent-gold)/40 bg-(--color-accent-gold)/10'
+              }`}
+            >
+              {item.type}
+            </span>
+
+            {/* current position badge */}
+            {item.current && (
+              <span className="inline-flex items-center gap-1.5 text-xs px-2.5 py-0.5 rounded-full border border-green-400/50 bg-green-400/10 text-green-400 font-semibold tracking-wide mb-3">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-60" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-green-400" />
+                </span>
+                CURRENT
+              </span>
+            )}
+
+            {/* role */}
+            <h3 className="font-heading text-base font-bold text-(--color-text) pr-20 leading-snug mb-1">
+              {isEducation && (
+                <TbSchool
+                  size={16}
+                  className="inline-block mr-1.5 text-purple-300 -mt-0.5"
+                />
+              )}
+              {item.role}
+            </h3>
+
+            {/* company */}
+            <div className="relative mt-2 mb-1 w-full">
+              <button
+                type="button"
+                onClick={handleCompanyClick}
+                className="flex items-center gap-1 text-sm text-left text-(--color-text-muted) hover:text-(--color-text) transition-colors duration-150 cursor-pointer justify-start"
+              >
+                {item.company}
+                <TbExternalLink size={12} className="shrink-0" />
+              </button>
+
+              <AnimatePresence>
+                {isOpen && (
+                  <CompanyPopover item={item} onClose={() => setOpenId(null)} />
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* period */}
+            <p className="text-xs text-(--color-text-muted) mb-3 tracking-wide">{item.period}</p>
+
+            {/* description */}
+            <ul className="space-y-1.5 mb-4">
+              {item.description.map((line, i) => (
+                <li key={i} className="flex gap-2 text-xs text-(--color-text-muted) leading-relaxed">
+                  <span className="mt-1 w-1 h-1 rounded-full bg-(--color-accent-pink) shrink-0" />
+                  {line}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* tags */}
+          <div className="flex flex-wrap gap-1 mt-auto pt-2">
+            {item.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-[11px] px-2 py-0.5 rounded-full border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted)"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </GlassCard>
+      </div>
+    );
   }
 
   return (
@@ -202,7 +291,7 @@ function TimelineCard({
         {/* type badge */}
         <span
           className={`absolute top-4 right-4 text-xs px-2 py-0.5 -mt-2 lg:-mt-2 -mr-4 lg:-mr-2 rounded-full border font-medium tracking-wide ${
-            TYPE_STYLES[item.type] ?? TYPE_STYLES['Full-time']
+            TYPE_STYLES[item.type] ?? 'text-(--color-accent-gold) border-(--color-accent-gold)/40 bg-(--color-accent-gold)/10'
           }`}
         >
           {item.type}
@@ -281,14 +370,20 @@ function TimelineCard({
 /* ------------------------------------------------------------------ */
 /* Main Section                                                         */
 /* ------------------------------------------------------------------ */
-export default function ExperienceSection() {
-  const { t, language } = useTranslation();
+export default function ExperienceSection({
+  experiences,
+}: {
+  experiences: ExperienceView[];
+}) {
+  const { t } = useTranslation();
 
   const sectionRef = useRef<HTMLDivElement>(null);
   const lineRef    = useRef<HTMLDivElement>(null);
+  const mobileCarouselRef = useRef<HTMLDivElement>(null);
+  const [mobileIndex, setMobileIndex] = useState(0);
 
   /* which card's company popover is open (by item.id, or null) */
-  const [openId, setOpenId] = useState<number | null>(null);
+  const [openId, setOpenId] = useState<string | null>(null);
 
   /* close on Escape or scroll */
   const closePopover = useCallback(() => setOpenId(null), []);
@@ -318,8 +413,36 @@ export default function ExperienceSection() {
   });
   const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
-  const locale = language === 'id' ? idLocale : enLocale;
-  const items = locale.experience.items as ExperienceItem[];
+  /* Mobile carousel handlers */
+  const handleMobileScroll = useCallback(() => {
+    const el = mobileCarouselRef.current;
+    if (!el) return;
+    const card = el.firstElementChild as HTMLElement | null;
+    const cardWidth = card ? card.offsetWidth + 16 : el.offsetWidth;
+    const newIdx = Math.round(el.scrollLeft / cardWidth);
+    setMobileIndex(Math.max(0, Math.min(newIdx, experiences.length - 1)));
+  }, [experiences.length]);
+
+  const scrollToMobileIndex = useCallback((index: number) => {
+    const el = mobileCarouselRef.current;
+    if (!el) return;
+    const target = el.children[index] as HTMLElement | undefined;
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+  }, []);
+
+  const handlePrev = useCallback(() => {
+    if (mobileIndex > 0) {
+      scrollToMobileIndex(mobileIndex - 1);
+    }
+  }, [mobileIndex, scrollToMobileIndex]);
+
+  const handleNext = useCallback(() => {
+    if (mobileIndex < experiences.length - 1) {
+      scrollToMobileIndex(mobileIndex + 1);
+    }
+  }, [mobileIndex, experiences.length, scrollToMobileIndex]);
 
   return (
     <section
@@ -370,55 +493,102 @@ export default function ExperienceSection() {
           transition={{ duration: 0.5, delay: 0.15 }}
           className="text-base text-(--color-text-muted) max-w-2xl mb-12"
         >
-          {locale.experience.subtitle}
+          {t('experience.subtitle') as string}
         </motion.p>
 
         {/* ── timeline wrapper ──────────────────────────────── */}
-        <div className="relative">
-          {/* animated vertical line */}
+        {experiences.length === 0 ? (
           <motion.div
-            ref={lineRef}
-            style={{ scaleY, originY: 0 }}
-            className={[
-              'absolute top-0 bottom-0 w-px',
-              'bg-linear-to-b from-accent-pink/60 via-accent-gold/50 to-accent-pink/20',
-              /* desktop: center  |  mobile: 8px from left */
-              'left-2 md:left-1/2 md:-translate-x-px',
-            ].join(' ')}
-          />
-
-          {/* ── items ─────────────────────────────────────── */}
-          <div className="flex flex-col gap-12">
-            {items.map((item, index) => {
-              /* desktop alternates; mobile always right */
-              const side: 'left' | 'right' = index % 2 === 0 ? 'left' : 'right';
-
-              return (
-                <div key={item.id} className="relative flex items-start">
-                  {/* dot on the timeline */}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="py-16 text-center text-(--color-text-muted) text-sm"
+          >
+            Belum ada data pengalaman.
+          </motion.div>
+        ) : (
+          <>
+            {/* ── Mobile Layout: Horizontal Snap Carousel + Bottom Controls ── */}
+            <div className="block md:hidden">
+              <div
+                ref={mobileCarouselRef}
+                onScroll={handleMobileScroll}
+                className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-2 -mx-4 px-6 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              >
+                {experiences.map((item) => (
                   <div
-                    className={[
-                      'absolute z-10 w-3 h-3 rounded-full border-2 border-(--color-accent-gold) bg-(--color-bg)',
-                      'left-2 -translate-x-1/2 mt-5',
-                      'md:left-1/2 md:-translate-x-1/2',
-                    ].join(' ')}
-                  />
-
-                  {/* card — on mobile always pushed right; on desktop alternate */}
-                  <div className="w-full pl-8 md:pl-0">
+                    key={item.id}
+                    className="snap-center shrink-0 w-[85vw] max-w-[340px] flex flex-col"
+                  >
                     <TimelineCard
                       item={item}
-                      side={side}
-                      index={index}
+                      side="left"
+                      index={0}
                       openId={openId}
                       setOpenId={setOpenId}
+                      isMobile
                     />
                   </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+                ))}
+              </div>
+
+              {/* Bottom Carousel Controls */}
+              <CarouselControls
+                currentIndex={mobileIndex}
+                total={experiences.length}
+                onPrev={handlePrev}
+                onNext={handleNext}
+                onSelect={scrollToMobileIndex}
+                accent="pink"
+              />
+            </div>
+
+            {/* ── Desktop Layout: Vertical Timeline (Untouched) ── */}
+            <div className="hidden md:block relative">
+              {/* animated vertical line */}
+              <motion.div
+                ref={lineRef}
+                style={{ scaleY, originY: 0 }}
+                className={[
+                  'absolute top-0 bottom-0 w-px',
+                  'bg-linear-to-b from-accent-pink/60 via-accent-gold/50 to-accent-pink/20',
+                  'left-1/2 -translate-x-px',
+                ].join(' ')}
+              />
+
+              {/* ── items ─────────────────────────────────────── */}
+              <div className="flex flex-col gap-12">
+                {experiences.map((item, index) => {
+                  const side: 'left' | 'right' = index % 2 === 0 ? 'left' : 'right';
+
+                  return (
+                    <div key={item.id} className="relative flex items-start">
+                      {/* dot on the timeline */}
+                      <div
+                        className={[
+                          'absolute z-10 w-3 h-3 rounded-full border-2 border-(--color-accent-gold) bg-(--color-bg)',
+                          'left-1/2 -translate-x-1/2 mt-5',
+                        ].join(' ')}
+                      />
+
+                      {/* card alternating */}
+                      <div className="w-full">
+                        <TimelineCard
+                          item={item}
+                          side={side}
+                          index={index}
+                          openId={openId}
+                          setOpenId={setOpenId}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </section>
   );

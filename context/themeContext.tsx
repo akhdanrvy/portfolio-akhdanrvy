@@ -27,25 +27,23 @@ const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 /* ─── Provider ───────────────────────────────────────────────────────────── */
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>('dark');
+  const [theme, setThemeState] = useState<Theme>('light');
   const [mounted, setMounted] = useState(false);
 
-  /* Hydrate from localStorage and system preference once on the client */
+  /* Hydrate from localStorage once on the client */
   useEffect(() => {
     startTransition(() => {
       try {
-        // First, check localStorage
         const stored = localStorage.getItem(STORAGE_KEY) as Theme | null;
 
         if (stored && (stored === 'dark' || stored === 'light')) {
           setThemeState(stored);
         } else {
-          // If not stored, check system preference
-          const prefersDark = !window.matchMedia('(prefers-color-scheme: light)').matches;
-          setThemeState(prefersDark ? 'dark' : 'light');
+          setThemeState('light');
         }
       } catch {
-        /* localStorage or matchMedia unavailable — use default */
+        /* localStorage unavailable — fallback to light */
+        setThemeState('light');
       }
 
       setMounted(true);
@@ -76,7 +74,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
    * server and initial client renders match, avoiding hydration mismatches.
    */
   const contextValue: ThemeContextValue = {
-    theme: mounted ? theme : 'dark',
+    theme: mounted ? theme : 'light',
     setTheme,
     toggleTheme,
   };

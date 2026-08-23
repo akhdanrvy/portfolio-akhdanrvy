@@ -13,19 +13,35 @@ export const metadata: Metadata = {
 export default async function AdminProjectsPage() {
   const projects = await getProjects();
 
+  const isMaxReached = projects.length >= 4;
+
   return (
     <div className="p-6 md:p-8 space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h1 className="font-heading text-2xl font-bold text-(--color-text)">
-          Projects
-        </h1>
-        <Link
-          href="/admin/projects/new"
-          className="rounded-lg px-4 py-2 text-sm font-semibold bg-accent-gold text-black hover:opacity-90 transition-opacity"
-        >
-          + Tambah Project
-        </Link>
+        <div>
+          <h1 className="font-heading text-2xl font-bold text-(--color-text)">
+            Projects
+          </h1>
+          <p className="text-xs text-(--color-text-muted) mt-0.5">
+            {projects.length} / 4 project terpakai
+          </p>
+        </div>
+        {isMaxReached ? (
+          <span
+            title="Maksimal 4 project tercapai"
+            className="rounded-lg px-4 py-2 text-sm font-semibold bg-(--color-glass) border border-(--glass-border) text-(--color-text-muted) opacity-60 cursor-not-allowed"
+          >
+            Maksimal 4 Project Tercapai
+          </span>
+        ) : (
+          <Link
+            href="/admin/projects/new"
+            className="rounded-lg px-4 py-2 text-sm font-semibold bg-accent-gold text-black hover:opacity-90 transition-opacity"
+          >
+            + Tambah Project
+          </Link>
+        )}
       </div>
 
       {/* Table */}

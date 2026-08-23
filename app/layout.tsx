@@ -98,7 +98,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      data-theme="dark"
+      data-theme="light"
+      suppressHydrationWarning
       className={`${notoSerifJP.variable} ${syne.variable}`}
     >
       <head>
@@ -112,13 +113,10 @@ export default function RootLayout({
                   if (theme && (theme === 'dark' || theme === 'light')) {
                     document.documentElement.setAttribute('data-theme', theme);
                   } else {
-                    // Check system preference if no saved theme
-                    const prefersDark = !window.matchMedia('(prefers-color-scheme: light)').matches;
-                    document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+                    document.documentElement.setAttribute('data-theme', 'light');
                   }
                 } catch (e) {
-                  // Fallback to dark if anything fails
-                  document.documentElement.setAttribute('data-theme', 'dark');
+                  document.documentElement.setAttribute('data-theme', 'light');
                 }
               })();
             `,

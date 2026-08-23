@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import {
   useRef,
@@ -17,26 +17,24 @@ import {
 import { GlassCard } from "@/components/ui/GlassCard";
 import SectionPulse from "@/components/effects/SectionPulse";
 import { useTranslation } from "@/hooks/useTranslation";
-import enLocale from "@/locales/en.json";
-import idLocale from "@/locales/id.json";
+import { CarouselControls } from "@/components/ui/CarouselControls";
 
 /* ------------------------------------------------------------------ */
 /* Types                                                                */
 /* ------------------------------------------------------------------ */
-interface InnovationItem {
-  id: number;
+export interface InnovationView {
+  id: string;
   name: string;
   year: string;
   type: string;
-  award?: string;
-  image?: string;
+  award: string | null;
+  image: string | null;
   description: string;
   tech: string[];
-  links?: {
-    live?: string;
-    hki?: string;
-    journal?: string;
-  };
+  liveUrl: string | null;
+  hkiUrl: string | null;
+  journalUrl: string | null;
+  displayOrder: number;
 }
 
 /* ------------------------------------------------------------------ */
@@ -97,21 +95,165 @@ function TiltCard({
 /* ------------------------------------------------------------------ */
 /* Card Component                                                       */
 /* ------------------------------------------------------------------ */
-function InnovationCard({ item, index }: { item: InnovationItem; index: number }) {
+function InnovationCard({ item, index = 0, isMobile = false }: { item: InnovationView; index?: number; isMobile?: boolean }) {
   const [imgError, setImgError] = useState(false);
 
-  /* gradient colours per project id for fallback */
-  const FALLBACK_GRADIENTS: Record<number, string> = {
-    1: 'linear-gradient(135deg, rgba(201,168,76,0.18) 0%, rgba(244,184,193,0.10) 100%)',
-    2: 'linear-gradient(135deg, rgba(99,179,237,0.18) 0%, rgba(201,168,76,0.10) 100%)',
-    3: 'linear-gradient(135deg, rgba(154,230,180,0.18) 0%, rgba(244,184,193,0.10) 100%)',
-    4: 'linear-gradient(135deg, rgba(244,184,193,0.18) 0%, rgba(201,168,76,0.10) 100%)',
-  };
-  const fallbackGradient = FALLBACK_GRADIENTS[item.id] ?? FALLBACK_GRADIENTS[1];
+  /* gradient colours per order for fallback */
+  const FALLBACK_GRADIENTS = [
+    'linear-gradient(135deg, rgba(201,168,76,0.18) 0%, rgba(244,184,193,0.10) 100%)',
+    'linear-gradient(135deg, rgba(99,179,237,0.18) 0%, rgba(201,168,76,0.10) 100%)',
+    'linear-gradient(135deg, rgba(154,230,180,0.18) 0%, rgba(244,184,193,0.10) 100%)',
+  ];
+  const fallbackGradient = FALLBACK_GRADIENTS[(item.displayOrder - 1) % FALLBACK_GRADIENTS.length] ?? FALLBACK_GRADIENTS[0];
 
-  const hasHKI = item.links?.hki;
-  const hasJournal = item.links?.journal;
-  const hasLive = item.links?.live;
+  const hasHKI = Boolean(item.hkiUrl);
+  const hasJournal = Boolean(item.journalUrl);
+  const hasLive = Boolean(item.liveUrl);
+
+  const cardContent = (
+    <TiltCard className="flex-1 flex flex-col h-full">
+      <GlassCard
+        noPadding
+        className="relative overflow-hidden h-full flex flex-col"
+        noAnimatedBorder
+      >
+        {/* Award chip — positioned at top */}
+        {item.award && (
+          <div className="absolute top-42 left-6 z-20 flex items-center gap-1 rounded-full px-2 py-0.5 border border-accent-gold/40 bg-accent-gold/20 text-accent-gold text-xs font-medium tracking-wide backdrop-blur-sm shadow-md">
+            <TbTrophy size={11} /> {item.award}
+          </div>
+        )}
+
+        {/* ── Image / gradient area ─────────────────────────── */}
+        <div className="relative w-full h-44 overflow-hidden shrink-0">
+          {item.image && !imgError ? (
+            <Image
+              src={item.image}
+              alt={item.name}
+              fill
+              sizes="(max-width:640px) 100vw, 400px"
+              className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+              onError={() => setImgError(true)}
+            />
+          ) : (
+            /* Fallback: coloured gradient + project number */
+            <div
+              className="absolute inset-0 flex items-center justify-center"
+              style={{ background: fallbackGradient }}
+            >
+              <span
+                className="font-heading font-bold text-(--color-text) opacity-[0.10] leading-none select-none"
+                style={{ fontSize: "5rem" }}
+              >
+                {String(item.displayOrder).padStart(2, "0")}
+              </span>
+            </div>
+          )}
+
+          <div
+            className="absolute inset-x-0 bottom-0 h-16 pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(to bottom, transparent, var(--color-bg))",
+            }}
+          />
+
+          <div
+            className="absolute inset-x-0 top-0 h-0.5 pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(to right, #f4b8c1, #c9a84c)",
+              opacity: 0.6,
+            }}
+          />
+        </div>
+
+        {/* ── Content strip ─────────────────────────────────── */}
+        <div className="relative flex flex-col flex-1 p-6">
+          {/* faint number watermark */}
+          <span
+            aria-hidden
+            className="absolute select-none pointer-events-none font-heading font-bold text-(--color-text) opacity-[0.04] leading-none text-[6rem] -bottom-4 -right-2"
+          >
+            {String(item.displayOrder).padStart(2, "0")}
+          </span>
+
+          {/* title */}
+          <h3 className="font-heading text-lg font-bold text-(--color-text) leading-snug mb-2">
+            {item.name}
+          </h3>
+
+          {/* year + type */}
+          <div className="flex items-center gap-2 mb-4">
+            <span className="text-xs text-(--color-text-muted)">{item.year}</span>
+            <span className="text-xs px-2 py-0.5 rounded-full border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted)">
+              {item.type}
+            </span>
+          </div>
+
+          {/* description */}
+          <p className="text-sm text-(--color-text-muted) leading-relaxed mb-5">
+            {item.description}
+          </p>
+
+          {/* tech tags */}
+          <div className="flex flex-wrap gap-1.5 mb-5 mt-auto">
+            {item.tech.map((tech) => (
+              <span
+                key={tech}
+                className="text-xs px-2.5 py-0.5 rounded-full border border-accent-pink/30 bg-accent-pink/5 text-accent-pink"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+
+          {/* links — badges row */}
+          {(hasLive || hasHKI || hasJournal) && (
+            <div className="flex items-center gap-2 mt-auto flex-wrap">
+              {hasLive && (
+                <a
+                  href={item.liveUrl!}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="View Live Demo"
+                  className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-lg border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted) hover:text-(--color-text) hover:bg-(--color-glass-hover) transition-colors"
+                >
+                  <TbExternalLink size={14} /> Live
+                </a>
+              )}
+              {hasHKI && (
+                <a
+                  href={item.hkiUrl!}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="View HKI Certificate"
+                  className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-lg border border-accent-gold/30 bg-accent-gold/10 text-accent-gold hover:bg-accent-gold/20 transition-colors"
+                >
+                  <TbFileCheck size={14} /> HKI
+                </a>
+              )}
+              {hasJournal && (
+                <a
+                  href={item.journalUrl!}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Read Journal"
+                  className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-lg border border-accent-pink/30 bg-accent-pink/10 text-accent-pink hover:bg-accent-pink/20 transition-colors"
+                >
+                  <TbBook size={14} /> Journal
+                </a>
+              )}
+            </div>
+          )}
+        </div>
+      </GlassCard>
+    </TiltCard>
+  );
+
+  if (isMobile) {
+    return <div className="flex flex-col h-full">{cardContent}</div>;
+  }
 
   return (
     <motion.div
@@ -121,144 +263,7 @@ function InnovationCard({ item, index }: { item: InnovationItem; index: number }
       transition={{ duration: 0.5, delay: 0.1 + index * 0.12, ease: "easeOut" }}
       className="flex flex-col h-full"
     >
-      <TiltCard className="flex-1 flex flex-col">
-        <GlassCard
-          noPadding
-          className="relative overflow-hidden h-full flex flex-col"
-          noAnimatedBorder
-        >
-          {/* Award chip — positioned at top */}
-          {item.award && (
-            <div className="absolute top-42 left-6 z-20 flex items-center gap-0.5 rounded-full px-1 py-0.5 border border-accent-gold/40 bg-accent-gold/15 text-accent-gold text-xs font-xs tracking-widest backdrop-blur-sm">
-              <TbTrophy size={8} /> {item.award}
-            </div>
-          )}
-
-          {/* ── Image / gradient area ─────────────────────────── */}
-          <div className="relative w-full h-44 overflow-hidden shrink-0">
-            {item.image && !imgError ? (
-              <Image
-                src={item.image}
-                alt={item.name}
-                fill
-                sizes="(max-width:640px) 100vw, 400px"
-                className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                onError={() => setImgError(true)}
-              />
-            ) : (
-              /* Fallback: coloured gradient + project number */
-              <div
-                className="absolute inset-0 flex items-center justify-center"
-                style={{ background: fallbackGradient }}
-              >
-                <span
-                  className="font-heading font-bold text-(--color-text) opacity-[0.10] leading-none select-none"
-                  style={{ fontSize: "5rem" }}
-                >
-                  {String(item.id).padStart(2, "0")}
-                </span>
-              </div>
-            )}
-
-            <div
-              className="absolute inset-x-0 bottom-0 h-16 pointer-events-none"
-              style={{
-                background:
-                  "linear-gradient(to bottom, transparent, var(--color-bg))",
-              }}
-            />
-
-            <div
-              className="absolute inset-x-0 top-0 h-0.5 pointer-events-none"
-              style={{
-                background:
-                  "linear-gradient(to right, #f4b8c1, #c9a84c)",
-                opacity: 0.6,
-              }}
-            />
-          </div>
-
-          {/* ── Content strip ─────────────────────────────────── */}
-          <div className="relative flex flex-col flex-1 p-6">
-            {/* faint number watermark */}
-            <span
-              aria-hidden
-              className="absolute select-none pointer-events-none font-heading font-bold text-(--color-text) opacity-[0.04] leading-none text-[6rem] -bottom-4 -right-2"
-            >
-              {String(item.id).padStart(2, "0")}
-            </span>
-
-            {/* title */}
-            <h3 className="font-heading text-lg font-bold text-(--color-text) leading-snug mb-2">
-              {item.name}
-            </h3>
-
-            {/* year + type */}
-            <div className="flex items-center gap-2 mb-4">
-              <span className="text-xs text-(--color-text-muted)">{item.year}</span>
-              <span className="text-xs px-2 py-0.5 rounded-full border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted)">
-                {item.type}
-              </span>
-            </div>
-
-            {/* description */}
-            <p className="text-sm text-(--color-text-muted) leading-relaxed mb-5">
-              {item.description}
-            </p>
-
-            {/* tech tags */}
-            <div className="flex flex-wrap gap-1.5 mb-5 mt-auto">
-              {item.tech.map((tech) => (
-                <span
-                  key={tech}
-                  className="text-xs px-2.5 py-0.5 rounded-full border border-accent-pink/30 bg-accent-pink/5 text-accent-pink"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-
-            {/* links — badges row */}
-            {(hasLive || hasHKI || hasJournal) && (
-              <div className="flex items-center gap-2 mt-auto flex-wrap">
-                {hasLive && (
-                  <a
-                    href={item.links!.live!}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="View Live Demo"
-                    className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-lg border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted) hover:text-(--color-text) hover:bg-(--color-glass-hover) transition-colors"
-                  >
-                    <TbExternalLink size={14} /> Live
-                  </a>
-                )}
-                {hasHKI && (
-                  <a
-                    href={item.links!.hki!}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="View HKI Certificate"
-                    className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-lg border border-accent-gold/30 bg-accent-gold/10 text-accent-gold hover:bg-accent-gold/20 transition-colors"
-                  >
-                    <TbFileCheck size={14} /> HKI
-                  </a>
-                )}
-                {hasJournal && (
-                  <a
-                    href={item.links!.journal!}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="Read Journal"
-                    className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-lg border border-accent-pink/30 bg-accent-pink/10 text-accent-pink hover:bg-accent-pink/20 transition-colors"
-                  >
-                    <TbBook size={14} /> Journal
-                  </a>
-                )}
-              </div>
-            )}
-          </div>
-        </GlassCard>
-      </TiltCard>
+      {cardContent}
     </motion.div>
   );
 }
@@ -266,10 +271,45 @@ function InnovationCard({ item, index }: { item: InnovationItem; index: number }
 /* ------------------------------------------------------------------ */
 /* Main Section                                                         */
 /* ------------------------------------------------------------------ */
-export default function InnovationSection() {
-  const { language } = useTranslation();
-  const locale = language === "id" ? idLocale : enLocale;
-  const innovations = locale.innovations.items as unknown as InnovationItem[];
+export default function InnovationSection({
+  innovations,
+}: {
+  innovations: InnovationView[];
+}) {
+  const { t } = useTranslation();
+
+  const mobileCarouselRef = useRef<HTMLDivElement>(null);
+  const [mobileIndex, setMobileIndex] = useState(0);
+
+  const handleMobileScroll = useCallback(() => {
+    const el = mobileCarouselRef.current;
+    if (!el) return;
+    const card = el.firstElementChild as HTMLElement | null;
+    const cardWidth = card ? card.offsetWidth + 16 : el.offsetWidth;
+    const newIdx = Math.round(el.scrollLeft / cardWidth);
+    setMobileIndex(Math.max(0, Math.min(newIdx, innovations.length - 1)));
+  }, [innovations.length]);
+
+  const scrollToMobileIndex = useCallback((index: number) => {
+    const el = mobileCarouselRef.current;
+    if (!el) return;
+    const target = el.children[index] as HTMLElement | undefined;
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+  }, []);
+
+  const handlePrev = useCallback(() => {
+    if (mobileIndex > 0) {
+      scrollToMobileIndex(mobileIndex - 1);
+    }
+  }, [mobileIndex, scrollToMobileIndex]);
+
+  const handleNext = useCallback(() => {
+    if (mobileIndex < innovations.length - 1) {
+      scrollToMobileIndex(mobileIndex + 1);
+    }
+  }, [mobileIndex, innovations.length, scrollToMobileIndex]);
 
   return (
     <section
@@ -307,7 +347,7 @@ export default function InnovationSection() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="font-heading text-4xl md:text-5xl font-bold text-(--color-text) mb-4"
         >
-          {locale.innovations.title}
+          {t("innovations.title") as string}
         </motion.h2>
 
         <motion.p
@@ -317,14 +357,51 @@ export default function InnovationSection() {
           transition={{ duration: 0.5, delay: 0.15 }}
           className="text-base text-(--color-text-muted) max-w-2xl mb-12"
         >
-          {locale.innovations.subtitle}
+          {t("innovations.subtitle") as string}
         </motion.p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {innovations.map((item, index) => (
-            <InnovationCard key={item.id} item={item} index={index} />
-          ))}
-        </div>
+        {innovations.length === 0 ? (
+          <div className="py-16 text-center text-(--color-text-muted) text-sm">
+            Belum ada data inovasi.
+          </div>
+        ) : (
+          <>
+            {/* ── Mobile Layout: Horizontal Snap Carousel + Bottom Controls ── */}
+            <div className="block md:hidden">
+              <div
+                ref={mobileCarouselRef}
+                onScroll={handleMobileScroll}
+                className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-2 -mx-4 px-6 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              >
+                {innovations.map((item) => (
+                  <div
+                    key={item.id}
+                    className="snap-center shrink-0 w-[85vw] max-w-[340px] flex flex-col"
+                  >
+                    <InnovationCard item={item} isMobile />
+                  </div>
+                ))}
+              </div>
+
+              {/* Bottom Carousel Controls */}
+              <CarouselControls
+                currentIndex={mobileIndex}
+                total={innovations.length}
+                onPrev={handlePrev}
+                onNext={handleNext}
+                onSelect={scrollToMobileIndex}
+                accent="gold"
+              />
+            </div>
+
+            {/* ── Desktop Layout: 3-column Grid (Untouched) ── */}
+            <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {innovations.map((item, index) => (
+                <InnovationCard key={item.id} item={item} index={index} />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </section>
   );

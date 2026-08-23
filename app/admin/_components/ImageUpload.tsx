@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
 interface ImageUploadProps {
-  folder: "projects" | "certifications";
+  folder: "projects" | "certifications" | "experiences" | "innovations";
   currentUrl?: string | null;
   onUploadComplete: (url: string) => void;
   onUploadError: (error: string) => void;

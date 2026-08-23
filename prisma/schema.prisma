@@ -38,3 +38,42 @@ model Certification {
 
   @@map("certifications")
 }
+
+model Experience {
+  id           String   @id @default(cuid())
+  role         String
+  company      String
+  companyUrl   String?
+  companyLogo  String?
+  period       String
+  type         String   // Full-time | Independent Study | Internship | Education
+  current      Boolean  @default(false)
+  description  String[]
+  tags         String[]
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("experiences")
+}
+
+model Innovation {
+  id           String   @id @default(cuid())
+  name         String
+  year         String
+  type         String
+  award        String?
+  image        String?
+  description  String
+  tech         String[]
+  liveUrl      String?
+  hkiUrl       String?
+  journalUrl   String?
+  displayOrder Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("innovations")
+}
+
+

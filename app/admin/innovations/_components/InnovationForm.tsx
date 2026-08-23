@@ -3,9 +3,9 @@
 import { useState, useTransition, KeyboardEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import type { Project } from "@prisma/client";
+import type { Innovation } from "@prisma/client";
 import { cn } from "@/lib/utils";
-import { createProject, updateProject } from "../actions";
+import { createInnovation, updateInnovation } from "../actions";
 import { ImageUpload } from "../../_components/ImageUpload";
 
 /* ── TechStack tag input ─────────────────────────────────────────── */
@@ -40,7 +40,6 @@ function TechStackInput({
 
   return (
     <div className="space-y-2">
-      {/* Tags */}
       {tags.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {tags.map((tag, i) => (
@@ -61,13 +60,12 @@ function TechStackInput({
           ))}
         </div>
       )}
-      {/* Input */}
       <div className="flex gap-2">
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Ketik tech, tekan Enter atau Tambah"
+          placeholder="Ketik teknologi, tekan Enter atau Tambah"
           className={cn(
             "flex-1 rounded-lg px-4 py-2.5 text-sm",
             "bg-(--color-glass) border border-(--glass-border)",
@@ -91,7 +89,7 @@ function TechStackInput({
 /* ── Main form ───────────────────────────────────────────────────── */
 interface Props {
   mode: "create" | "edit";
-  initialData?: Project;
+  initialData?: Innovation;
   totalCount?: number;
 }
 
@@ -109,45 +107,25 @@ function FieldError({ errors, name }: { errors: Record<string, string[]>; name: 
   return <p className="text-xs text-accent-pink mt-1">{msgs[0]}</p>;
 }
 
-export function ProjectForm({ mode, initialData, totalCount }: Props) {
+export function InnovationForm({ mode, initialData, totalCount }: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
-  const [title, setTitle]             = useState(initialData?.title ?? "");
-  const [description, setDescription] = useState(initialData?.description ?? "");
-  const [techStack, setTechStack]     = useState<string[]>(initialData?.techStack ?? []);
-  const [demoUrl, setDemoUrl]         = useState(initialData?.demoUrl ?? "");
-  const [repoUrl, setRepoUrl]         = useState(initialData?.repoUrl ?? "");
-  const [badgeLabel, setBadgeLabel]   = useState(initialData?.badgeLabel ?? "");
-  const [isFeatured, setIsFeatured]   = useState(initialData?.isFeatured ?? false);
-  const [displayOrder, setDisplayOrder] = useState(initialData?.displayOrder ?? (initialData?.isFeatured ? 1 : 2));
-  const [imageUrl, setImageUrl]       = useState(initialData?.imageUrl ?? "");
-  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [name, setName]                 = useState(initialData?.name ?? "");
+  const [year, setYear]                 = useState(initialData?.year ?? new Date().getFullYear().toString());
+  const [type, setType]                 = useState(initialData?.type ?? "Web Dev");
+  const [award, setAward]               = useState(initialData?.award ?? "");
+  const [description, setDescription]   = useState(initialData?.description ?? "");
+  const [tech, setTech]                 = useState<string[]>(initialData?.tech ?? []);
+  const [liveUrl, setLiveUrl]           = useState(initialData?.liveUrl ?? "");
+  const [hkiUrl, setHkiUrl]             = useState(initialData?.hkiUrl ?? "");
+  const [journalUrl, setJournalUrl]     = useState(initialData?.journalUrl ?? "");
+  const [displayOrder, setDisplayOrder] = useState(initialData?.displayOrder ?? 1);
+  const [image, setImage]               = useState(initialData?.image ?? "");
+  const [uploadError, setUploadError]   = useState<string | null>(null);
 
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
   const [globalError, setGlobalError] = useState<string | null>(null);
-
-  function handleFeaturedChange(checked: boolean) {
-    setIsFeatured(checked);
-    if (checked) {
-      setDisplayOrder(1);
-    } else {
-      if (mode === "edit") {
-        setDisplayOrder(initialData?.displayOrder && initialData.displayOrder > 1 ? initialData.displayOrder : 2);
-      } else {
-        setDisplayOrder(2);
-      }
-    }
-  }
-
-  function handleOrderChange(val: number) {
-    setDisplayOrder(val);
-    if (val === 1) {
-      setIsFeatured(true);
-    } else {
-      setIsFeatured(false);
-    }
-  }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -157,23 +135,25 @@ export function ProjectForm({ mode, initialData, totalCount }: Props) {
 
     startTransition(async () => {
       const fd = new FormData();
-      fd.set("title",        title);
+      fd.set("name",         name);
+      fd.set("year",         year);
+      fd.set("type",         type);
+      fd.set("award",        award);
       fd.set("description",  description);
-      fd.set("techStack",    JSON.stringify(techStack));
-      fd.set("demoUrl",      demoUrl);
-      fd.set("repoUrl",      repoUrl);
-      fd.set("imageUrl",     imageUrl);
-      fd.set("badgeLabel",   badgeLabel);
-      fd.set("isFeatured",   isFeatured ? "true" : "false");
-      fd.set("displayOrder", String(isFeatured ? 1 : displayOrder));
+      fd.set("tech",         JSON.stringify(tech));
+      fd.set("liveUrl",      liveUrl);
+      fd.set("hkiUrl",       hkiUrl);
+      fd.set("journalUrl",   journalUrl);
+      fd.set("image",        image);
+      fd.set("displayOrder", String(displayOrder));
 
       const result =
         mode === "create"
-          ? await createProject(fd)
-          : await updateProject(initialData!.id, fd);
+          ? await createInnovation(fd)
+          : await updateInnovation(initialData!.id, fd);
 
       if (result.success) {
-        router.push("/admin/projects");
+        router.push("/admin/innovations");
       } else {
         setGlobalError(result.error);
         if (result.errors) setFieldErrors(result.errors);
@@ -189,19 +169,70 @@ export function ProjectForm({ mode, initialData, totalCount }: Props) {
         </div>
       )}
 
-      {/* Title */}
+      {/* Name */}
       <div>
         <label className="block text-xs font-semibold uppercase tracking-widest text-(--color-text-muted) font-heading mb-1.5">
-          Judul <span className="text-accent-pink">*</span>
+          Nama Inovasi / Riset <span className="text-accent-pink">*</span>
         </label>
-        <input value={title} onChange={(e) => setTitle(e.target.value)} disabled={isPending} className={INPUT} placeholder="Nama project" />
-        <FieldError errors={fieldErrors} name="title" />
+        <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          disabled={isPending}
+          className={INPUT}
+          placeholder="mis. Village Waste Bank Calculation Website"
+        />
+        <FieldError errors={fieldErrors} name="name" />
+      </div>
+
+      {/* Year, Type & Award */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div>
+          <label className="block text-xs font-semibold uppercase tracking-widest text-(--color-text-muted) font-heading mb-1.5">
+            Tahun <span className="text-accent-pink">*</span>
+          </label>
+          <input
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+            disabled={isPending}
+            className={INPUT}
+            placeholder="2025"
+          />
+          <FieldError errors={fieldErrors} name="year" />
+        </div>
+
+        <div>
+          <label className="block text-xs font-semibold uppercase tracking-widest text-(--color-text-muted) font-heading mb-1.5">
+            Tipe <span className="text-accent-pink">*</span>
+          </label>
+          <input
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            disabled={isPending}
+            className={INPUT}
+            placeholder="mis. Web Dev, Mobile Dev"
+          />
+          <FieldError errors={fieldErrors} name="type" />
+        </div>
+
+        <div>
+          <label className="block text-xs font-semibold uppercase tracking-widest text-(--color-text-muted) font-heading mb-1.5">
+            Award / Penghargaan
+          </label>
+          <input
+            value={award}
+            onChange={(e) => setAward(e.target.value)}
+            disabled={isPending}
+            className={INPUT}
+            placeholder="mis. © Copyrighted / HKI"
+          />
+          <FieldError errors={fieldErrors} name="award" />
+        </div>
       </div>
 
       {/* Description */}
       <div>
         <label className="block text-xs font-semibold uppercase tracking-widest text-(--color-text-muted) font-heading mb-1.5">
-          Deskripsi <span className="text-accent-pink">*</span>
+          Deskripsi Inovasi <span className="text-accent-pink">*</span>
         </label>
         <textarea
           value={description}
@@ -209,7 +240,7 @@ export function ProjectForm({ mode, initialData, totalCount }: Props) {
           disabled={isPending}
           rows={4}
           className={cn(INPUT, "resize-y")}
-          placeholder="Deskripsi singkat project"
+          placeholder="Jelaskan latar belakang, dampak, dan inovasi yang dibangun..."
         />
         <FieldError errors={fieldErrors} name="description" />
       </div>
@@ -217,110 +248,110 @@ export function ProjectForm({ mode, initialData, totalCount }: Props) {
       {/* Tech Stack */}
       <div>
         <label className="block text-xs font-semibold uppercase tracking-widest text-(--color-text-muted) font-heading mb-1.5">
-          Tech Stack <span className="text-accent-pink">*</span>
+          Teknologi / Tools <span className="text-accent-pink">*</span>
         </label>
         <TechStackInput
-          tags={techStack}
-          onChange={setTechStack}
-          error={fieldErrors["techStack"]?.[0]}
+          tags={tech}
+          onChange={setTech}
+          error={fieldErrors["tech"]?.[0]}
         />
       </div>
 
-      {/* Demo & Repo URLs */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {/* Links */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div>
           <label className="block text-xs font-semibold uppercase tracking-widest text-(--color-text-muted) font-heading mb-1.5">
-            Demo URL
+            Live URL
           </label>
-          <input value={demoUrl} onChange={(e) => setDemoUrl(e.target.value)} disabled={isPending} className={INPUT} placeholder="https://..." />
-          <FieldError errors={fieldErrors} name="demoUrl" />
+          <input
+            value={liveUrl}
+            onChange={(e) => setLiveUrl(e.target.value)}
+            disabled={isPending}
+            className={INPUT}
+            placeholder="https://..."
+          />
+          <FieldError errors={fieldErrors} name="liveUrl" />
         </div>
         <div>
           <label className="block text-xs font-semibold uppercase tracking-widest text-(--color-text-muted) font-heading mb-1.5">
-            Repo URL
+            HKI Certificate URL
           </label>
-          <input value={repoUrl} onChange={(e) => setRepoUrl(e.target.value)} disabled={isPending} className={INPUT} placeholder="https://github.com/..." />
-          <FieldError errors={fieldErrors} name="repoUrl" />
+          <input
+            value={hkiUrl}
+            onChange={(e) => setHkiUrl(e.target.value)}
+            disabled={isPending}
+            className={INPUT}
+            placeholder="https://pdki-indonesia..."
+          />
+          <FieldError errors={fieldErrors} name="hkiUrl" />
+        </div>
+        <div>
+          <label className="block text-xs font-semibold uppercase tracking-widest text-(--color-text-muted) font-heading mb-1.5">
+            Journal URL
+          </label>
+          <input
+            value={journalUrl}
+            onChange={(e) => setJournalUrl(e.target.value)}
+            disabled={isPending}
+            className={INPUT}
+            placeholder="https://journal..."
+          />
+          <FieldError errors={fieldErrors} name="journalUrl" />
         </div>
       </div>
 
-      {/* Badge Label */}
+      {/* Display Order */}
       <div>
-        <label className="block text-xs font-semibold uppercase tracking-widest text-(--color-text-muted) font-heading mb-1.5">
-          Badge Label
+        <label className="block text-xs font-semibold uppercase tracking-widest text-(--color-text-muted) font-heading mb-1.5 whitespace-nowrap">
+          Display Order (Maksimal 3 Inovasi)
         </label>
-        <input value={badgeLabel} onChange={(e) => setBadgeLabel(e.target.value)} disabled={isPending} className={INPUT} placeholder="mis. HKI, Open Source" />
-        <FieldError errors={fieldErrors} name="badgeLabel" />
-      </div>
-
-      {/* Featured & Order */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center">
-        <div>
-          <label className="flex items-center gap-2 cursor-pointer select-none">
-            <input
-              type="checkbox"
-              checked={isFeatured}
-              onChange={(e) => handleFeaturedChange(e.target.checked)}
-              disabled={isPending}
-              className="w-4 h-4 rounded accent-[var(--color-accent-gold)]"
-            />
-            <span className="text-sm font-medium text-(--color-text)">
-              Featured (Tampil Paling Atas & Terbesar)
-            </span>
-          </label>
-          <p className="text-[11px] text-(--color-text-muted) mt-1">
-            {isFeatured
-              ? "Project ini otomatis menempati Urutan #1 sebagai Featured Project."
-              : "Project reguler, akan tampil di grid di bawah Featured."}
-          </p>
-        </div>
-
-        <div>
-          <label className="block text-xs font-semibold uppercase tracking-widest text-(--color-text-muted) font-heading mb-1.5 whitespace-nowrap">
-            Display Order
-          </label>
-          {isFeatured ? (
+        {mode === "create" ? (
+          <div>
             <div className={cn(INPUT, "flex items-center text-accent-gold font-bold bg-accent-gold/10 border-accent-gold/40 cursor-default")}>
-              ★ #1 (Featured Project)
+              #1 (Otomatis Teratas)
             </div>
-          ) : mode === "create" ? (
-            <div className={cn(INPUT, "flex items-center text-(--color-text) bg-(--color-glass) border-(--glass-border) cursor-default")}>
-              #2 (Otomatis Setelah Featured)
-            </div>
-          ) : (
+            <p className="text-[11px] text-(--color-text-muted) mt-1">
+              Inovasi baru otomatis menempati posisi #1, data lainnya bergeser turun.
+            </p>
+          </div>
+        ) : (
+          <div>
             <select
               value={displayOrder}
-              onChange={(e) => handleOrderChange(Number(e.target.value))}
+              onChange={(e) => setDisplayOrder(Number(e.target.value))}
               disabled={isPending}
               className={cn(INPUT, "cursor-pointer font-bold text-accent-gold")}
             >
               {Array.from(
-                { length: Math.min(Math.max(totalCount ?? 1, displayOrder, 2), 4) },
+                { length: Math.min(Math.max(totalCount ?? 1, displayOrder, 1), 3) },
                 (_, i) => i + 1
               ).map((num) => (
                 <option key={num} value={num} className="bg-(--color-bg) text-(--color-text)">
-                  {num === 1 ? "★ Urutan #1 (Set Featured)" : `Urutan #${num}`} {num === initialData?.displayOrder ? "(Saat Ini)" : ""}
+                  Urutan #{num} {num === initialData?.displayOrder ? "(Saat Ini)" : ""}
                 </option>
               ))}
             </select>
-          )}
-          <FieldError errors={fieldErrors} name="displayOrder" />
-        </div>
+            <p className="text-[11px] text-(--color-text-muted) mt-1">
+              Urutan lain otomatis menyesuaikan (tidak akan ada nomor kembar).
+            </p>
+          </div>
+        )}
+        <FieldError errors={fieldErrors} name="displayOrder" />
       </div>
 
       {/* Image Upload */}
       <div>
         <label className="block text-xs font-semibold uppercase tracking-widest text-(--color-text-muted) font-heading mb-1.5">
-          Gambar
+          Gambar Inovasi
         </label>
         <ImageUpload
-          folder="projects"
-          currentUrl={imageUrl || null}
-          onUploadComplete={(url) => { setImageUrl(url); setUploadError(null); }}
+          folder="innovations"
+          currentUrl={image || null}
+          onUploadComplete={(url) => { setImage(url); setUploadError(null); }}
           onUploadError={(err) => setUploadError(err)}
         />
         {uploadError && <p className="text-xs text-accent-pink mt-1">{uploadError}</p>}
-        <FieldError errors={fieldErrors} name="imageUrl" />
+        <FieldError errors={fieldErrors} name="image" />
       </div>
 
       {/* Actions */}
@@ -332,10 +363,10 @@ export function ProjectForm({ mode, initialData, totalCount }: Props) {
         >
           {isPending
             ? mode === "create" ? "Menyimpan..." : "Memperbarui..."
-            : mode === "create" ? "Simpan Project" : "Perbarui Project"}
+            : mode === "create" ? "Simpan Inovasi" : "Perbarui Inovasi"}
         </button>
         <Link
-          href="/admin/projects"
+          href="/admin/innovations"
           className="text-sm text-(--color-text-muted) hover:text-(--color-text) transition-colors"
         >
           Batal

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getProjectById } from "@/lib/data/projects";
+import { getProjectById, getProjects } from "@/lib/data/projects";
 import { ProjectForm } from "../../_components/ProjectForm";
 
 export const metadata: Metadata = {
@@ -14,7 +14,10 @@ export default async function EditProjectPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const project = await getProjectById(id);
+  const [project, allProjects] = await Promise.all([
+    getProjectById(id),
+    getProjects(),
+  ]);
 
   if (!project) notFound();
 
@@ -24,7 +27,11 @@ export default async function EditProjectPage({
         Edit Project
       </h1>
       <p className="text-sm text-(--color-text-muted) mb-6">{project.title}</p>
-      <ProjectForm mode="edit" initialData={project} />
+      <ProjectForm
+        mode="edit"
+        initialData={project}
+        totalCount={allProjects.length}
+      />
     </div>
   );
 }

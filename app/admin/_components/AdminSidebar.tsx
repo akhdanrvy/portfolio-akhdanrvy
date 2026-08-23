@@ -9,6 +9,8 @@ const NAV = [
   { label: "Dashboard",       href: "/admin",                exact: true  },
   { label: "Projects",        href: "/admin/projects",       exact: false },
   { label: "Certifications",  href: "/admin/certifications", exact: false },
+  { label: "Experiences",     href: "/admin/experiences",    exact: false },
+  { label: "Innovations",     href: "/admin/innovations",    exact: false },
 ] as const;
 
 export function AdminSidebar() {

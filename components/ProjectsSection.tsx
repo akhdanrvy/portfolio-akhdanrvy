@@ -13,6 +13,7 @@ import { TbStar, TbBrandGithub, TbExternalLink, TbX, TbCertificate } from 'react
 import { GlassCard } from '@/components/ui/GlassCard';
 import { useTranslation } from '@/hooks/useTranslation';
 import SectionPulse from '@/components/effects/SectionPulse';
+import { CarouselControls } from '@/components/ui/CarouselControls';
 
 /* ------------------------------------------------------------------ */
 /* Types                                                                */
@@ -409,9 +410,41 @@ function CardBody({
 export default function ProjectsSection({ projects }: { projects: ProjectView[] }) {
   const { t } = useTranslation();
   const [activeProject, setActiveProject] = useState<ProjectView | null>(null);
+  const mobileCarouselRef = useRef<HTMLDivElement>(null);
+  const [mobileIndex, setMobileIndex] = useState(0);
 
-  const featured = projects.find((p) => p.isFeatured) ?? projects[0];
+  const featured  = projects.find((p) => p.isFeatured) ?? projects[0];
   const rest      = projects.filter((p) => !p.isFeatured);
+
+  const handleMobileScroll = useCallback(() => {
+    const el = mobileCarouselRef.current;
+    if (!el) return;
+    const card = el.firstElementChild as HTMLElement | null;
+    const cardWidth = card ? card.offsetWidth + 16 : el.offsetWidth;
+    const newIdx = Math.round(el.scrollLeft / cardWidth);
+    setMobileIndex(Math.max(0, Math.min(newIdx, rest.length - 1)));
+  }, [rest.length]);
+
+  const scrollToMobileIndex = useCallback((index: number) => {
+    const el = mobileCarouselRef.current;
+    if (!el) return;
+    const target = el.children[index] as HTMLElement | undefined;
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+  }, []);
+
+  const handlePrev = useCallback(() => {
+    if (mobileIndex > 0) {
+      scrollToMobileIndex(mobileIndex - 1);
+    }
+  }, [mobileIndex, scrollToMobileIndex]);
+
+  const handleNext = useCallback(() => {
+    if (mobileIndex < rest.length - 1) {
+      scrollToMobileIndex(mobileIndex + 1);
+    }
+  }, [mobileIndex, rest.length, scrollToMobileIndex]);
 
   return (
     <section id="projects" className="relative py-16 md:py-20 lg:py-24 px-4 overflow-hidden">
@@ -473,41 +506,96 @@ export default function ProjectsSection({ projects }: { projects: ProjectView[] 
           </motion.div>
         ) : (
           <>
-            {/* featured card */}
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: 'easeOut' as const }}
-              className="mb-8"
-            >
-              <TiltCard onClick={() => setActiveProject(featured)}>
-                <CardBody project={featured} featured />
-              </TiltCard>
-            </motion.div>
-
-            {/* grid: remaining */}
-            {rest.length > 0 && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {rest.map((project, index) => (
-                  <motion.div
-                    key={project.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.1 + index * 0.1, ease: 'easeOut' as const }}
-                    className="flex flex-col"
-                  >
+            {/* ── Mobile Layout: Standalone Featured Hero + Remaining Projects Carousel ── */}
+            <div className="block md:hidden">
+              {/* Standalone Featured Card */}
+              {featured && (
+                <div className="flex justify-center -mx-4 px-6 mb-8">
+                  <div className="w-[85vw] max-w-[340px] shrink-0 flex flex-col">
                     <TiltCard
-                      className="flex-1 flex flex-col"
-                      onClick={() => setActiveProject(project)}
+                      className="flex-1 flex flex-col h-full"
+                      onClick={() => setActiveProject(featured)}
                     >
-                      <CardBody project={project} />
+                      <CardBody project={featured} />
                     </TiltCard>
-                  </motion.div>
-                ))}
-              </div>
-            )}
+                  </div>
+                </div>
+              )}
+
+              {/* Remaining Projects Carousel */}
+              {rest.length > 0 && (
+                <div>
+                  <div
+                    ref={mobileCarouselRef}
+                    onScroll={handleMobileScroll}
+                    className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-2 -mx-4 px-6 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                  >
+                    {rest.map((project) => (
+                      <div
+                        key={project.id}
+                        className="snap-center shrink-0 w-[85vw] max-w-[340px] flex flex-col"
+                      >
+                        <TiltCard
+                          className="flex-1 flex flex-col h-full"
+                          onClick={() => setActiveProject(project)}
+                        >
+                          <CardBody project={project} />
+                        </TiltCard>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Bottom Carousel Controls */}
+                  <CarouselControls
+                    currentIndex={mobileIndex}
+                    total={rest.length}
+                    onPrev={handlePrev}
+                    onNext={handleNext}
+                    onSelect={scrollToMobileIndex}
+                    accent="gold"
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* ── Desktop Layout: Featured on top + Grid below (Untouched) ── */}
+            <div className="hidden md:block">
+              {/* featured card */}
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, ease: 'easeOut' as const }}
+                className="mb-8"
+              >
+                <TiltCard onClick={() => setActiveProject(featured)}>
+                  <CardBody project={featured} featured />
+                </TiltCard>
+              </motion.div>
+
+              {/* grid: remaining */}
+              {rest.length > 0 && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {rest.map((project, index) => (
+                    <motion.div
+                      key={project.id}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: 0.1 + index * 0.1, ease: 'easeOut' as const }}
+                      className="flex flex-col"
+                    >
+                      <TiltCard
+                        className="flex-1 flex flex-col"
+                        onClick={() => setActiveProject(project)}
+                      >
+                        <CardBody project={project} />
+                      </TiltCard>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
+            </div>
           </>
         )}
       </div>

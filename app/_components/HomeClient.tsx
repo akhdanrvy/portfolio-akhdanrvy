@@ -7,9 +7,11 @@ import HeroSection from '@/components/HeroSection';
 import AboutSection from '@/components/AboutSection';
 import SkillsSection from '@/components/SkillsSection';
 import ExperienceSection from '@/components/ExperienceSection';
+import type { ExperienceView } from '@/components/ExperienceSection';
 import ProjectsSection from '@/components/ProjectsSection';
 import type { ProjectView } from '@/components/ProjectsSection';
 import InnovationSection from '@/components/InnovationSection';
+import type { InnovationView } from '@/components/InnovationSection';
 import CertificationSection from '@/components/CertificationSection';
 import type { CertificationView } from '@/components/CertificationSection';
 import ContactSection from '@/components/ContactSection';
@@ -20,9 +22,16 @@ import LoadingScreen from '@/components/effects/LoadingScreen';
 interface Props {
   projects: ProjectView[];
   certifications: CertificationView[];
+  experiences: ExperienceView[];
+  innovations: InnovationView[];
 }
 
-export default function HomeClient({ projects, certifications }: Props) {
+export default function HomeClient({
+  projects,
+  certifications,
+  experiences,
+  innovations,
+}: Props) {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -55,9 +64,9 @@ export default function HomeClient({ projects, certifications }: Props) {
         <HeroSection />
         <AboutSection />
         <SkillsSection />
-        <ExperienceSection />
+        <ExperienceSection experiences={experiences} />
         <ProjectsSection projects={projects} />
-        <InnovationSection />
+        <InnovationSection innovations={innovations} />
         <CertificationSection certifications={certifications} />
         <ContactSection />
       </motion.main>
