@@ -187,28 +187,32 @@ function TimelineCard({
           onClick={() => isOpen && setOpenId(null)}
         >
           <div>
-            {/* type badge */}
-            <span
-              className={`absolute top-4 right-4 text-xs px-2 py-0.5 rounded-full border font-medium tracking-wide ${
-                TYPE_STYLES[item.type] ?? 'text-(--color-accent-gold) border-(--color-accent-gold)/40 bg-(--color-accent-gold)/10'
-              }`}
-            >
-              {item.type}
-            </span>
-
-            {/* current position badge */}
-            {item.current && (
-              <span className="inline-flex items-center gap-1.5 text-xs px-2.5 py-0.5 rounded-full border border-green-400/50 bg-green-400/10 text-green-400 font-semibold tracking-wide mb-3">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-60" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-green-400" />
+            {/* Top Badges Row */}
+            <div className="flex items-center justify-between gap-2 flex-wrap mb-3">
+              {item.current ? (
+                <span className="inline-flex items-center gap-1.5 text-xs px-2.5 py-0.5 rounded-full border border-green-400/50 bg-green-400/10 text-green-400 font-semibold tracking-wide">
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-60" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-green-400" />
+                  </span>
+                  CURRENT
                 </span>
-                CURRENT
+              ) : (
+                <span />
+              )}
+
+              {/* type badge */}
+              <span
+                className={`text-xs px-2 py-0.5 rounded-full border font-medium tracking-wide ${
+                  TYPE_STYLES[item.type] ?? 'text-(--color-accent-gold) border-(--color-accent-gold)/40 bg-(--color-accent-gold)/10'
+                }`}
+              >
+                {item.type}
               </span>
-            )}
+            </div>
 
             {/* role */}
-            <h3 className="font-heading text-base font-bold text-(--color-text) pr-20 leading-snug mb-1">
+            <h3 className="font-heading text-base font-bold text-(--color-text) leading-snug mb-1">
               {isEducation && (
                 <TbSchool
                   size={16}
@@ -288,28 +292,32 @@ function TimelineCard({
         className="relative overflow-visible"
         onClick={() => isOpen && setOpenId(null)}
       >
-        {/* type badge */}
-        <span
-          className={`absolute top-4 right-4 text-xs px-2 py-0.5 -mt-2 lg:-mt-2 -mr-4 lg:-mr-2 rounded-full border font-medium tracking-wide ${
-            TYPE_STYLES[item.type] ?? 'text-(--color-accent-gold) border-(--color-accent-gold)/40 bg-(--color-accent-gold)/10'
-          }`}
-        >
-          {item.type}
-        </span>
-
-        {/* current position badge */}
-        {item.current && (
-          <span className="absolute top-4 text-xs px-2.5 py-0.5 rounded-full border border-green-400/50 bg-green-400/10 text-green-400 font-semibold tracking-wide flex items-center gap-1.5 mt-10 lg:mt-4">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-60" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-green-400" />
+        {/* Top Badges Row */}
+        <div className="flex items-center justify-between gap-2 flex-wrap mb-3">
+          {item.current ? (
+            <span className="inline-flex items-center gap-1.5 text-xs px-2.5 py-0.5 rounded-full border border-green-400/50 bg-green-400/10 text-green-400 font-semibold tracking-wide">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-60" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-green-400" />
+              </span>
+              CURRENT
             </span>
-            CURRENT
+          ) : (
+            <span />
+          )}
+
+          {/* type badge */}
+          <span
+            className={`text-xs px-2 py-0.5 rounded-full border font-medium tracking-wide ${
+              TYPE_STYLES[item.type] ?? 'text-(--color-accent-gold) border-(--color-accent-gold)/40 bg-(--color-accent-gold)/10'
+            }`}
+          >
+            {item.type}
           </span>
-        )}
+        </div>
 
         {/* role */}
-        <h3 className="font-heading text-lg font-bold text-(--color-text) pr-28 leading-snug mb-1">
+        <h3 className="font-heading text-lg font-bold text-(--color-text) leading-snug mb-1">
           {isEducation && (
             <TbSchool
               size={16}
@@ -320,7 +328,7 @@ function TimelineCard({
         </h3>
 
         {/* company — clickable anchor for the popover */}
-        <div className="relative mt-8 mb-1 w-full">
+        <div className="relative mt-2 mb-1 w-full">
           <button
             type="button"
             onClick={handleCompanyClick}
