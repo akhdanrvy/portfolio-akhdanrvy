@@ -30,7 +30,6 @@ export interface ProjectView {
   badgeLabel: string | null;
   isFeatured: boolean;
   displayOrder: number;
-  year: string;
 }
 
 /* ------------------------------------------------------------------ */
@@ -189,7 +188,7 @@ function ProjectModal({
           <div className="pt-2">
             <div className="flex items-start gap-3 mb-4 pr-8">
               <div>
-                <div className="flex items-center gap-2 flex-wrap mb-1">
+                <div className="flex items-center gap-2 flex-wrap">
                   <h3 className="font-heading text-xl font-bold text-(--color-text) leading-snug">
                     {project.title}
                   </h3>
@@ -204,7 +203,6 @@ function ProjectModal({
                     </span>
                   )}
                 </div>
-                <span className="text-xs text-(--color-text-muted) tracking-wide">{project.year}</span>
               </div>
             </div>
 
@@ -324,26 +322,19 @@ function CardBody({
         </span>
 
         {/* badges row */}
-        <div className="flex items-center gap-2 flex-wrap mb-3">
-          {project.isFeatured && (
-            <span className="flex items-center gap-1 text-xs px-2 py-0.5 rounded-full border border-accent-gold/40 bg-accent-gold/10 text-accent-gold font-medium">
-              <TbStar size={11} /> FEATURED
-            </span>
-          )}
-          {project.badgeLabel && (
-            <span className="flex items-center gap-1 text-xs px-2 py-0.5 rounded-full border border-accent-gold/40 bg-accent-gold/10 text-accent-gold font-medium">
-              <TbCertificate size={11} /> {project.badgeLabel}
-            </span>
-          )}
-          {!featured && (
-            <span className="ml-auto text-xs px-2 py-0.5 rounded-full border border-(--glass-border) bg-(--color-glass) text-(--color-text-muted)">
-              {project.year}
-            </span>
-          )}
-        </div>
-
-        {featured && (
-          <span className="block text-xs text-(--color-text-muted) tracking-wide mb-2">{project.year}</span>
+        {(project.isFeatured || project.badgeLabel) && (
+          <div className="flex items-center gap-2 flex-wrap mb-3">
+            {project.isFeatured && (
+              <span className="flex items-center gap-1 text-xs px-2 py-0.5 rounded-full border border-accent-gold/40 bg-accent-gold/10 text-accent-gold font-medium">
+                <TbStar size={11} /> FEATURED
+              </span>
+            )}
+            {project.badgeLabel && (
+              <span className="flex items-center gap-1 text-xs px-2 py-0.5 rounded-full border border-accent-gold/40 bg-accent-gold/10 text-accent-gold font-medium">
+                <TbCertificate size={11} /> {project.badgeLabel}
+              </span>
+            )}
+          </div>
         )}
 
         <h3

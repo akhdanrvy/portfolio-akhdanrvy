@@ -9,280 +9,45 @@
   },
 
   "hero": {
-    "greeting": "Halo, saya",
-    "title": "Akhdan Ravi Andaman",
     "subtitle": "App Developer & Fullstack Web Developer",
-    "description": "Software engineer dengan minat yang besar dalam membangun produk dalam platform mobile dan web. Dari Bangkit Academy hingga aplikasi produksi — saya mewujudkan ide-ide, menyukai pengalaman unik, dan memiliki selera desain yang tajam.",
+    "description": "Software Engineer & Business Development Specialist dengan fokus membangun solusi mobile, web, dan sistem enterprise yang scalable. Dari Bangkit Academy hingga studi Magister di STEI ITB dan implementasi aplikasi produksi skala nyata — saya menyelaraskan keandalan teknis dengan nilai strategis bisnis.",
     "cta_primary": "Lihat Karya Saya",
     "cta_secondary": "Lihat CV Saya"
   },
 
   "about": {
     "title": "Tentang Saya",
-    "paragraph_1": "Saya Akhdan Ravi Andaman — Mobile dan Fullstack Web Developer asal Bogor, Indonesia. Saya adalah lulusan Teknologi Rekayasa Perangkat Lunak dari IPB University (IPK 3.67/4.00), dengan pengalaman langsung di Bangkit Academy by Google, Tokopedia, Gojek & Traveloka, serta sebagai App Developer di PT Mitra Graha Integrasi.",
-
-    "paragraph_2": "Fokus utama saya adalah mobile development menggunakan React Native, Kotlin, dan Flutter — membangun aplikasi berkualitas tinggi untuk iOS dan Android. Di sisi web, saya mengembangkan frontend modern dengan Next.js dan Vue.js, didukung arsitektur fullstack yang solid.",
-
-    "paragraph_3": "Namun saya lebih dari sekadar developer. Saya berpengalaman sebagai Tour Leader yang memandu rombongan wisata internasional — mengasah kemampuan komunikasi, adaptabilitas, dan kepekaan lintas budaya. Saya mampu berkolaborasi dengan tim global serta mengerjakan kode yang siap produksi."
+    "paragraph_1": "Saya Akhdan Ravi Andaman — seorang Software Engineer & Business Development Specialist yang berbasis di Bogor, Indonesia. Saya merupakan lulusan Sarjana Terapan (D4) Rekayasa Perangkat Lunak dari IPB University (IPK 3.67/4.00) dan saat ini sedang menempuh studi Magister Sistem dan Teknologi Informasi di STEI Institut Teknologi Bandung (ITB).",
+    "paragraph_2": "Perjalanan profesional saya mencakup pengembangan aplikasi mobile di Altvira Technology, integrasi sistem di PT Mitra Graha Integrasi, serta program akselerasi Bangkit Academy (Google, GoTo, Traveloka). Di sisi rekayasa perangkat lunak, saya berfokus membangun aplikasi mobile iOS & Android berperforma tinggi menggunakan Kotlin, Flutter, dan React Native, serta antarmuka web modern dengan Next.js, React, dan arsitektur full-stack.",
+    "paragraph_3": "Lebih dari sekadar developer, saya memimpin inisiatif teknologi-bisnis dan tata kelola rantai pasok impor di PT Representasi Mitra Mandiri. Didukung pengalaman memandu delegasi internasional sebagai Tour Leader, saya memadukan presisi teknis dengan komunikasi lintas budaya, kepemimpinan adaptif, dan eksekusi produk yang siap bersaing secara global."
   },
 
   "skills": {
     "title": "Keahlian & Teknologi",
-    "subtitle": "Dari mobile hingga web — inilah yang mendukung karya saya.",
-    "categories": {
-      "mobile": {
-        "label": "Pengembangan Mobile",
-        "items": ["React Native", "Kotlin", "Flutter", "Swift", "Android Studio", "Xcode", "Unity (AR/3D)"]
-      },
-      "frontend": {
-        "label": "Frontend & Web",
-        "items": ["Next.js", "Vue.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"]
-      },
-      "backend": {
-        "label": "Backend & Database",
-        "items": ["Node.js", "Laravel", "Prisma ORM", "MySQL", "PostgreSQL", "REST API"]
-      },
-      "tools": {
-        "label": "Tools & Cloud",
-        "items": ["Git", "GitHub", "Google Cloud Platform", "Apps Script", "Figma", "Postman"]
-      }
-    }
+    "subtitle": "Dari mobile hingga web — inilah yang mendukung karya saya."
   },
 
   "experience": {
     "title": "Pengalaman & Pendidikan",
-    "subtitle": "Peran dan pengalaman yang membentuk saya menjadi developer.",
-    "items": [
-      {
-        "id": 1,
-        "role": "App Developer",
-        "company": "PT. Mitra Graha Integrasi",
-        "companyUrl": "https://migrasi.id",
-        "companyLogo": "/assets/logos/migrasi.png",
-        "period": "Nov 2025 – Sekarang",
-        "type": "Internship",
-        "current": true,
-        "description": [
-          "Mengembangkan dan memelihara aplikasi iOS menggunakan Swift untuk klien-klien di industri konsultasi IT.",
-          "Berkolaborasi dengan tim lintas fungsi untuk menerjemahkan kebutuhan bisnis menjadi fitur mobile yang terpolish.",
-          "Terlibat dalam seluruh siklus pengembangan perangkat lunak, mulai dari perencanaan dan desain hingga deployment dan dukungan teknis."
-        ],
-        "tags": ["iOS", "Swift", "IT Consulting"]
-      },
-      {
-        "id": 2,
-        "role": "Mobile Developer",
-        "company": "PT. Godongijo Asri – The Waterfall Resto & Monster Fishing Lake",
-        "companyUrl": "https://godongijo.com",
-        "companyLogo": "/assets/logos/godongijo.png",
-        "period": "Jul 2024 – Des 2024",
-        "type": "Internship",
-        "description": [
-          "Memimpin pengembangan pengalaman mobile berbasis Augmented Reality untuk bisnis wisata alam dan kuliner.",
-          "Merancang dan membangun aset 3D interaktif yang diintegrasikan ke dalam aplikasi Android menggunakan Unity.",
-          "Menghadirkan fitur AR yang meningkatkan pengalaman pengunjung dan dipresentasikan langsung kepada manajemen perusahaan.",
-          "Mendapatkan pengalaman nyata dalam menjembatani desain kreatif dan rekayasa mobile dalam konteks bisnis sesungguhnya."
-        ],
-        "tags": ["Augmented Reality", "Unity", "3D Assets", "Android"]
-      },
-      {
-        "id": 3,
-        "role": "Mobile Developer",
-        "company": "Bangkit Academy by Google, Tokopedia, Gojek & Traveloka",
-        "companyUrl": "https://www.dicoding.com/programs/bangkit",
-        "companyLogo": "/assets/logos/bangkit.png",
-        "period": "Feb 2024 – Jun 2024",
-        "type": "Independent Study",
-        "description": [
-          "Terpilih mengikuti program Bangkit Academy — program bergengsi yang dipimpin Google bersama Tokopedia, Gojek, dan Traveloka.",
-          "Mengambil jalur Android dengan fokus pada Kotlin dan integrasi Machine Learning ke dalam aplikasi mobile.",
-          "Berkolaborasi dalam proyek capstone bersama tim beranggotakan enam orang, menerapkan model ML ke dalam aplikasi Android.",
-          "Mengasah praktik version control dan pengembangan kolaboratif melalui alur kerja GitHub yang intensif."
-        ],
-        "tags": ["Kotlin", "Android", "Machine Learning", "GitHub"]
-      },
-      {
-        "id": 4,
-        "role": "Sarjana Terapan – Rekayasa Perangkat Lunak",
-        "company": "IPB University, Bogor",
-        "companyUrl": "https://ipb.ac.id",
-        "companyLogo": "/assets/logos/ipb.png",
-        "period": "Agu 2021 – Agu 2025",
-        "type": "Education",
-        "description": [
-          "Lulus dengan IPK 3,67 / 4,00 pada program Rekayasa Perangkat Lunak Terapan.",
-          "Kurikulum mencakup pengembangan mobile, rekayasa web, arsitektur perangkat lunak, basis data, dan desain UI/UX.",
-          "Berperan aktif dalam organisasi di kampus. Berposisi sebagai wakil ketua dalam Himpunan Mahasiswa Teknologi Informasi yang ada di kampus.",
-          "Aktif berkontribusi dalam komunitas teknologi kampus dan tim proyek perangkat lunak sepanjang masa studi."
-        ],
-        "tags": ["Software Engineering", "Mobile Dev", "Web Dev"]
-      }
-    ]
+    "subtitle": "Peran dan pengalaman yang membentuk saya menjadi developer."
   },
 
   "projects": {
     "title": "Proyek",
     "subtitle": "Kumpulan karya yang pernah saya bangun — dari aplikasi mobile hingga platform web.",
     "btn_github": "GitHub",
-    "btn_live": "Live",
-    "items": [
-      {
-        "id": 1,
-        "name": "Company Profile Website — PT Mitra Graha Integrasi",
-        "year": "2026",
-        "type": "Web Dev",
-        "image": "/assets/projects/migrasi_web.png",
-        "description": "Membangun antarmuka frontend untuk perusahaan IT Solution yang bergerak di bidang audio visual dan integrasi sistem. Dikembangkan menggunakan Next.js dan NestJS, dengan Prisma ORM dan MySQL sebagai database. Berkolaborasi bersama tim melalui GitLab dan di-hosting di VPS pribadi.",
-        "tech": ["Next.js", "NestJS", "Prisma ORM", "MySQL", "GitLab", "TypeScript"],
-        "featured": true,
-        "links": {
-          "live": "https://migrasi.id/"
-        }
-      },
-      {
-        "id": 2,
-        "name": "ReflectQ iOS & Mobile",
-        "year": "2025",
-        "type": "Mobile Dev",
-        "image": "/assets/projects/reflectq_mobile.png",
-        "description": "Mengembangkan aplikasi mobile lintas platform untuk Android dan iOS yang berfokus pada peningkatan kesejahteraan spiritual pengguna. Dibangun dengan React Native dan Expo Framework, menggunakan Supabase sebagai database backend dan TypeScript untuk keamanan tipe data.",
-        "tech": ["React Native", "Expo", "Supabase", "TypeScript", "iOS", "Android"],
-        "links": {
-          "live": "https://rflq.netlify.app/"
-        }
-      },
-      {
-        "id": 3,
-        "name": "Caloriewise",
-        "year": "2024",
-        "type": "Mobile Dev",
-        "image": "/assets/projects/caloriewise_mobile.png",
-        "description": "Aplikasi Android berbasis Kotlin yang dikembangkan saat mengikuti Bangkit Academy dari Google, Tokopedia, Gojek & Traveloka. Aplikasi ini membantu pengguna melacak asupan kalori menggunakan machine learning dan TensorFlow Lite untuk pengenalan makanan. Berkolaborasi via GitHub sebagai Android Developer.",
-        "tech": ["Kotlin", "Android", "TensorFlow Lite", "Machine Learning", "GitHub"],
-        "hki": true
-      },
-      {
-        "id": 4,
-        "name": "Company Profile Website",
-        "year": "2023",
-        "type": "Web Dev",
-        "image": "/assets/projects/tsu_web.png",
-        "description": "Membangun antarmuka frontend untuk perusahaan pelatihan dan sertifikasi profesional. Dirancang untuk menampilkan layanan dan kredensial perusahaan dalam tampilan yang bersih dan profesional. Dikembangkan menggunakan Laravel dengan database MySQL.",
-        "tech": ["Laravel", "PHP", "MySQL", "HTML", "CSS", "Bootstrap"],
-        "links": {
-          "live": "https://technosain.com/home"
-        }
-      }
-    ]
+    "btn_live": "Live"
   },
 
   "innovations": {
     "title": "Inovasi",
-    "subtitle": "Karya berbasis penelitian yang melampaui layar — berpenghargaan, dipublikasikan, dan berdampak.",
-    "items": [
-      {
-        "id": 1,
-        "name": "Website Perhitungan Bank Sampah Desa",
-        "year": "2023",
-        "type": "Web Dev",
-        "award": "Juara 2 — Kompetisi Nasional",
-        "image": "/assets/innovations/banksampah_web.png",
-        "description": "Perancangan dan pembuatan website pencatatan bank sampah bertemakan 'Pemberdayaan Pemuda Desa Sukajaya Menggunakan Bank Sampah Berbasis Digital melalui Program Bersih Desa'. Proyek ini berhasil meraih Juara 2 tingkat nasional pada program P2MD yang diselenggarakan oleh Kemendikbud.",
-        "tech": ["Laravel", "PHP", "MySQL", "HTML", "CSS", "Bootstrap"],
-        "links": {
-          "live": "https://micro-p2md.vercel.app"
-        }
-      },
-      {
-        "id": 2,
-        "name": "Game Edukasi Pemilahan Sampah Berbasis Android",
-        "year": "2024",
-        "type": "Mobile Dev",
-        "award": "© Hak Cipta / HKI Terdaftar",
-        "image": "/assets/innovations/erush_mobile.png",
-        "description": "Game mobile Android berbasis Unity yang dirancang untuk mendidik pemain cara memilah berbagai jenis sampah melalui gameplay yang menarik dengan beberapa tingkat kesulitan. Penelitian ini telah resmi terdaftar dan memiliki Hak Kekayaan Intelektual (HKI) di Indonesia.",
-        "tech": ["Unity", "Android", "C#", "Game Development", "OOP"],
-        "links": {
-          "hki": "https://pdki-indonesia.dgip.go.id:/link/45433030323032343230393139387c636f70797269676874"
-        }
-      },
-      {
-        "id": 3,
-        "name": "Sistem Monitoring Informasi Serverless (MONIKA)",
-        "year": "2025",
-        "type": "Web Dev",
-        "award": "Dipublikasikan — Jurnal",
-        "image": "/assets/innovations/monika_web.png",
-        "description": "Mengembangkan sistem monitoring serverless menggunakan Google Workspace, dengan Google Cloud untuk penyimpanan, Google Apps Script untuk scripting backend, dan Google Sites sebagai antarmuka web. Penelitian ini dipresentasikan di Seminar Nasional Karsa Nusantara dan dipublikasikan di jurnal Melekit.",
-        "tech": ["Google Workspace", "Google Cloud", "Google Apps Script", "Google Sites", "Google Sheets"],
-        "links": {
-          "live": "https://sites.google.com/view/monikasvipb/beranda",
-          "journal": "https://melekit-if.uwks.ac.id/melekit/article/view/411"
-        }
-      }
-    ]
+    "subtitle": "Karya berbasis penelitian yang melampaui layar — berpenghargaan, dipublikasikan, dan berdampak."
   },
 
   "certifications": {
     "title": "Sertifikasi",
     "subtitle": "Pembelajaran berkelanjutan, secara resmi diakui.",
-    "view_certificate": "Lihat Sertifikat",
-    "items": [
-      {
-        "id": 1,
-        "title": "Software Engineer",
-        "issuer": "Badan Nasional Sertifikasi Profesi (BNSP)",
-        "year": "2025",
-        "category": "Profesional",
-        "src": "/assets/certificates/cert_softwareengineer.png",
-        "link": "https://drive.google.com/file/d/1ULr3Z-09kLK6gOktJdlNm5Ujx9xYQta-/view?usp=drive_link"
-      },
-      {
-        "id": 2,
-        "title": "Google AI Essentials",
-        "issuer": "Google",
-        "year": "2026",
-        "category": "AI & Cloud",
-        "src": "/assets/certificates/cert_googleai.png",
-        "link": "https://drive.google.com/file/d/1D_v3bv4j1Bh3SsGvrVSIgtrUrjAnu9Iu/view?usp=drive_link"
-      },
-      {
-        "id": 3,
-        "title": "Mobile Development",
-        "issuer": "Bangkit Academy oleh Google, Tokopedia, Gojek & Traveloka",
-        "year": "2024",
-        "category": "Mobile Dev",
-        "src": "/assets/certificates/cert_mdbangkit.png",
-        "link": "https://drive.google.com/file/d/1UgYFYcWs56flJ-D5fUip60Jd0092Ya-s/view?usp=drive_link"
-      },
-      {
-        "id": 4,
-        "title": "Wakil Ketua — HIMAVO Micro IT",
-        "issuer": "HIMAVO Micro IT Student Association, IPB University",
-        "year": "2023",
-        "category": "Kepemimpinan",
-        "src": "/assets/certificates/cert_vicepresidentmicroit.png",
-        "link": "https://drive.google.com/file/d/1Y0Z5JusZcZYnMhnIKgq6Z4hZJVbLWsUU/view?usp=drive_link"
-      },
-      {
-        "id": 5,
-        "title": "Presenter — Seminar Nasional Karsa Nusantara",
-        "issuer": "Seminar Nasional Karsa Nusantara",
-        "year": "2025",
-        "category": "Prestasi",
-        "src": "/assets/certificates/cert_karsanusantara.png",
-        "link": "https://drive.google.com/file/d/1uMXsAs6MoYj0RizQSvHarFJN5nstZtP-/view?usp=drive_link"
-      },
-      {
-        "id": 6,
-        "title": "Kemampuan Bahasa Inggris — C2 Proficient (72/100)",
-        "issuer": "EF SET",
-        "year": "2025",
-        "category": "Bahasa",
-        "src": "/assets/certificates/cert_efset.png",
-        "link": "https://drive.google.com/file/d/10axyDFcmiiD0jsCwVpOiFJCi9Ja0xz40/view?usp=drive_link"
-      }
-    ]
+    "view_certificate": "Lihat Sertifikat"
   },
 
   "contact": {
@@ -300,7 +65,6 @@
       "success_message": "Terima kasih sudah menghubungi! Saya akan membalas dalam 1\u20132 hari kerja.",
       "send_another": "Kirim Pesan Lain",
       "error_generic": "Terjadi kesalahan. Silakan email saya langsung ke akhdanravy@gmail.com",
-      "error_validation": "Mohon periksa form dan coba lagi.",
       "name_placeholder": "Nama lengkap kamu",
       "email_placeholder": "email@kamu.com",
       "message_placeholder": "Ceritakan tentang proyekmu atau sekedar menyapa...",
@@ -311,8 +75,7 @@
       "message_error_required": "Pesan wajib diisi",
       "message_error_min": "Pesan minimal 10 karakter"
     },
-    "toast_copied": "Email berhasil disalin!",
-    "modal_message": "Terima kasih sudah menghubungi saya! Saya akan segera membalas pesan Anda."
+    "toast_copied": "Email berhasil disalin!"
   },
 
   "footer": {

@@ -220,7 +220,7 @@ function FieldError({ errors, name }: { errors: Record<string, string[]>; name: 
 
 const TYPE_OPTIONS = ["Full-time", "Internship", "Independent Study", "Education"] as const;
 
-export function ExperienceForm({ mode, initialData }: Props) {
+export function ExperienceForm({ mode, initialData, totalCount }: Props) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 

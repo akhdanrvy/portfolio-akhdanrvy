@@ -4,10 +4,10 @@ import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   SiReact, SiKotlin, SiFlutter, SiDart, SiUnity, SiSwift,
-  SiNextdotjs, SiVuedotjs, SiTypescript, SiHtml5, SiCss,
-  SiTailwindcss, SiBootstrap, SiFigma,
+  SiNextdotjs, SiVuedotjs, SiTypescript,
+  SiTailwindcss, SiFigma,
   SiLaravel, SiPhp, SiMysql, SiPrisma, SiGooglecloud, SiNodedotjs,
-  SiGit, SiGithub, SiGitlab, SiWordpress,
+  SiGithub, SiGitlab, SiWordpress,
 } from "react-icons/si";
 import { TbApi, TbScript } from "react-icons/tb";
 import { useSprings, animated, to } from "@react-spring/web";
@@ -37,10 +37,7 @@ const SKILLS: Skill[] = [
   { name: "Vue.js",       icon: <SiVuedotjs />,     category: "Frontend" },
   { name: "React",        icon: <SiReact />,         category: "Frontend" },
   { name: "TypeScript",   icon: <SiTypescript />,    category: "Frontend" },
-  { name: "HTML",         icon: <SiHtml5 />,         category: "Frontend" },
-  { name: "CSS",          icon: <SiCss />,           category: "Frontend" },
   { name: "Tailwind CSS", icon: <SiTailwindcss />,   category: "Frontend" },
-  { name: "Bootstrap",    icon: <SiBootstrap />,     category: "Frontend" },
   { name: "Figma",        icon: <SiFigma />,         category: "Frontend" },
   // Backend & DB
   { name: "Laravel",      icon: <SiLaravel />,       category: "Backend & DB" },
@@ -51,7 +48,6 @@ const SKILLS: Skill[] = [
   { name: "REST API",     icon: <TbApi />,           category: "Backend & DB" },
   { name: "Node.js",      icon: <SiNodedotjs />,     category: "Backend & DB" },
   // Tools
-  { name: "Git",              icon: <SiGit />,              category: "Tools" },
   { name: "GitHub",           icon: <SiGithub />,           category: "Tools" },
   { name: "GitLab",           icon: <SiGitlab />,           category: "Tools" },
   { name: "Google Workspace", icon: <SiGooglecloud />,      category: "Tools" },
@@ -62,7 +58,7 @@ const SKILLS: Skill[] = [
 
 const TABS: TabKey[] = ["All", "Mobile", "Frontend", "Backend & DB", "Tools"];
 
-const LEARNING_BADGES = ["Go/Golang", "Automation Testing", "DevOps", "Vibe Coding 0-5"];
+const LEARNING_BADGES = ["Automation Testing", "Ads Manager", "Vibe Coding 0-5"];
 
 /* ─── Section label ──────────────────────────────────────────────────────── */
 function SectionLabel({ label }: { label: string }) {
@@ -88,7 +84,7 @@ function SkillRadar() {
     { label: "Backend",  score: 4, angle: 30   },
     { label: "QA",       score: 4, angle: 90   },
     { label: "Teamwork", score: 5, angle: 150  },
-    { label: "Security", score: 3, angle: 210  },
+    { label: "Security", score: 4, angle: 210  },
   ];
 
   const pt = (angle: number, r: number): [number, number] => [
@@ -333,11 +329,19 @@ function SkillBadge({ skill, index }: { skill: Skill; index: number }) {
 export default function SkillsSection() {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<TabKey>("All");
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const filtered =
     activeTab === "All"
       ? SKILLS
       : SKILLS.filter((s) => s.category === activeTab);
+
+  const shouldShowMobileToggle = filtered.length > 6;
+
+  const handleTabChange = (tab: TabKey) => {
+    setActiveTab(tab);
+    setIsExpanded(false);
+  };
 
   return (
     <section id="skills" className="relative overflow-hidden py-16 md:py-20 lg:py-24">
@@ -389,7 +393,7 @@ export default function SkillsSection() {
                 key={tab}
                 role="tab"
                 aria-selected={isActive}
-                onClick={() => setActiveTab(tab)}
+                onClick={() => handleTabChange(tab)}
                 className={`relative px-5 py-2 text-sm font-medium tracking-wide
                             rounded-full transition-colors duration-200
                             focus-visible:outline-none focus-visible:ring-2
@@ -427,23 +431,81 @@ export default function SkillsSection() {
         <div
           role="tabpanel"
           aria-label={`${activeTab} skills`}
-          className="min-h-30"
+          className="relative min-h-30"
         >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.15 }}
-              className="flex flex-wrap gap-3"
-            >
-              {filtered.map((skill, i) => (
-                <SkillBadge key={`${activeTab}-${skill.name}`} skill={skill} index={i} />
-              ))}
-            </motion.div>
-          </AnimatePresence>
+          <div
+            className={`transition-all duration-500 ease-in-out ${
+              !isExpanded && shouldShowMobileToggle
+                ? "max-md:max-h-[140px] max-md:overflow-hidden"
+                : "max-md:max-h-[1200px]"
+            }`}
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15 }}
+                className="flex flex-wrap gap-3"
+              >
+                {filtered.map((skill, i) => (
+                  <SkillBadge key={`${activeTab}-${skill.name}`} skill={skill} index={i} />
+                ))}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Bottom fade mask when collapsed on mobile */}
+          {!isExpanded && shouldShowMobileToggle && (
+            <div
+              aria-hidden="true"
+              className="md:hidden absolute inset-x-0 bottom-0 h-16 pointer-events-none"
+              style={{
+                background:
+                  "linear-gradient(to bottom, transparent 0%, var(--color-bg) 100%)",
+              }}
+            />
+          )}
         </div>
+
+        {/* Mobile Scroll / Load more indicator button */}
+        {shouldShowMobileToggle && (
+          <div className="flex md:hidden justify-center mt-5">
+            <button
+              type="button"
+              onClick={() => setIsExpanded((prev) => !prev)}
+              className="group flex flex-col items-center gap-1 cursor-pointer py-1 select-none focus-visible:outline-none"
+              aria-expanded={isExpanded}
+              aria-label={isExpanded ? "Show fewer skills" : "Show more skills"}
+            >
+              <span className="text-[10px] uppercase tracking-[0.25em] text-(--color-text-muted) transition-colors group-hover:text-(--color-accent-pink)">
+                {isExpanded ? "LESS" : "MORE"}
+              </span>
+              <motion.div
+                animate={{ y: isExpanded ? [0, -4, 0] : [0, 5, 0] }}
+                transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+                className="text-(--color-text-muted) transition-colors group-hover:text-(--color-accent-pink)"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-4 w-4"
+                >
+                  {isExpanded ? (
+                    <path d="M18 15l-6-6-6 6" />
+                  ) : (
+                    <path d="M6 9l6 6 6-6" />
+                  )}
+                </svg>
+              </motion.div>
+            </button>
+          </div>
+        )}
 
         {/* Currently Learning */}
         <div className="mt-16">

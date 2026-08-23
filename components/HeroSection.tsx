@@ -260,7 +260,7 @@ export default function HeroSection() {
 
                     {/* Download CV */}
                     <a
-                      href="https://drive.google.com/file/d/1P8so8OLR0XsfbyerpP2mB0ipOzK5yMUp/view?usp=drive_link"
+                      href="https://drive.google.com/file/d/1fAh92luqvLRoT7c5GMrY0m3TLziDFxiI/view?usp=drive_link"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 rounded-full px-6 py-3
@@ -424,7 +424,7 @@ export default function HeroSection() {
                         Akhdan Ravi Andaman
                       </p>
                       <p className="text-[11px] text-(--color-text-muted) tracking-widest uppercase">
-                        Bogor, Indonesia · IPB University
+                        Bogor, Indonesia · STEI ITB & TRPL IPB
                       </p>
                     </div>
 

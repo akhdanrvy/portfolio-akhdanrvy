@@ -18,12 +18,6 @@ function SectionLabel({ label }: { label: string }) {
   );
 }
 
-/* ─── Stats ──────────────────────────────────────────────────────────────── */
-const STATS = [
-  { value: "3+", label: "Years\nExperience" },
-  { value: "4+", label: "Completed\nProjects" },
-  { value: "10+", label: "Technologies\nUsed" },
-];
 
 /* ─── Fun items ──────────────────────────────────────────────────────────── */
 const FUN_ITEMS = [
@@ -34,8 +28,8 @@ const FUN_ITEMS = [
 
 /* ─── Highlight tags ─────────────────────────────────────────────────────── */
 const HIGHLIGHT_TAGS = [
-  "IPB University",
-  "GPA 3.67",
+  "STEI ITB",
+  "GPA 3.67 at TRPL IPB",
   "Bogor, Indonesia",
   "Mobile & Web Dev",
 ];
@@ -138,39 +132,74 @@ export default function AboutSection() {
               viewport={{ once: true, margin: "-60px" }}
               className="lg:relative lg:z-20 lg:-mt-2 lg:ml-4"
             >
-              <GlassCard className="flex flex-col gap-3">
-                <div className="flex items-start gap-3">
-                  {/* Building icon */}
-                <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg
-                                  border border-(--glass-border) bg-(--color-glass)">
-                  <Image
-                    src="/icons/logo_migrasi-new-rect.png"
-                    alt="Building icon"
-                    width={16}
-                    height={16}
-                    className="h-6 w-6 object-contain"
-                  />
-                </div>
-                  <div>
-                    <p className="text-[11px] uppercase tracking-widest text-(--color-text-muted)">
-                      Current Position
-                    </p>
-                    <p className="mt-0.5 text-sm font-semibold text-(--color-text)">
-                      PT. Mitra Graha Integrasi
-                    </p>
-                    <p className="text-xs text-(--color-text-muted)">App Developer</p>
+              <GlassCard className="flex flex-col gap-4">
+                {/* Position 1 */}
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-start gap-3">
+                    <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-(--glass-border) bg-(--color-glass)">
+                      <Image
+                        src="/icons/logo_migrasi-new-rect.png"
+                        alt="Altvira Technology"
+                        width={16}
+                        height={16}
+                        className="h-6 w-6 object-contain"
+                      />
+                    </div>
+                    <div>
+                      <p className="text-[11px] uppercase tracking-widest text-(--color-text-muted)">
+                        Current Position
+                      </p>
+                      <p className="mt-0.5 text-sm font-semibold text-(--color-text)">
+                        Altvira Technology
+                      </p>
+                      <p className="text-xs text-(--color-text-muted)">Mobile Application Developer</p>
+                    </div>
+                  </div>
+
+                  {/* Availability badge */}
+                  <div className="flex items-center gap-2 pl-11">
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-60" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
+                    </span>
+                    <span className="text-[11px] font-medium text-green-400">Open to Freelance / Available for Projects</span>
                   </div>
                 </div>
 
-                {/* Availability badge */}
-                <div className="flex items-center gap-2 mt-2">
-                  {/* Pulsing green dot */}
-                  <span className="relative flex h-2.5 w-2.5">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full
-                                     bg-green-400 opacity-60" />
-                    <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-400" />
-                  </span>
-                  <span className="text-xs font-medium text-green-400">Open to Freelance</span>
+                {/* Divider */}
+                <div className="h-px w-full bg-linear-to-r from-transparent via-(--glass-border) to-transparent" />
+
+                {/* Position 2 */}
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-start gap-3">
+                    <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-(--glass-border) bg-(--color-glass)">
+                      <Image
+                        src="/icons/logo_migrasi-new-rect.png"
+                        alt="PT Representasi Mitra Mandiri"
+                        width={16}
+                        height={16}
+                        className="h-6 w-6 object-contain"
+                      />
+                    </div>
+                    <div>
+                      <p className="text-[11px] uppercase tracking-widest text-(--color-text-muted)">
+                        Current Position
+                      </p>
+                      <p className="mt-0.5 text-sm font-semibold text-(--color-text)">
+                        PT Representasi Mitra Mandiri
+                      </p>
+                      <p className="text-xs text-(--color-text-muted)">Business Development Officer</p>
+                    </div>
+                  </div>
+
+                  {/* Availability badge */}
+                  <div className="flex items-center gap-2 pl-11">
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-60" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
+                    </span>
+                    <span className="text-[11px] font-medium text-green-400">Open for Collaboration</span>
+                  </div>
                 </div>
               </GlassCard>
             </motion.div>

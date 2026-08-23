@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getExperiences } from "@/lib/data/experiences";
 import { ExperienceForm } from "../_components/ExperienceForm";
 
 export const metadata: Metadata = {
@@ -6,7 +7,9 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function NewExperiencePage() {
+export default async function NewExperiencePage() {
+  const experiences = await getExperiences();
+
   return (
     <div className="p-6 md:p-8">
       <h1 className="font-heading text-2xl font-bold text-(--color-text) mb-1">
@@ -15,7 +18,7 @@ export default function NewExperiencePage() {
       <p className="text-sm text-(--color-text-muted) mb-6">
         Tambahkan riwayat karir, magang, studi independen, atau pendidikan baru.
       </p>
-      <ExperienceForm mode="create" />
+      <ExperienceForm mode="create" totalCount={experiences.length} />
     </div>
   );
 }

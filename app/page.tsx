@@ -19,10 +19,7 @@ export default async function Home() {
   ]);
 
   const projects: ProjectView[] = rawProjects.map(
-    ({ createdAt, updatedAt: _u, ...rest }) => ({
-      ...rest,
-      year: createdAt.getFullYear().toString(),
-    })
+    ({ createdAt: _c, updatedAt: _u, ...rest }) => rest
   );
 
   const certifications: CertificationView[] = rawCerts.map(
