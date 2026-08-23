@@ -138,7 +138,7 @@ export default function AboutSection() {
                   <div className="flex items-start gap-3">
                     <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-(--glass-border) bg-(--color-glass)">
                       <Image
-                        src="/icons/logo_migrasi-new-rect.png"
+                        src="/assets/logos/altvira_teks.png"
                         alt="Altvira Technology"
                         width={16}
                         height={16}
@@ -174,7 +174,7 @@ export default function AboutSection() {
                   <div className="flex items-start gap-3">
                     <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-(--glass-border) bg-(--color-glass)">
                       <Image
-                        src="/icons/logo_migrasi-new-rect.png"
+                        src="/assets/logos/RMM_logo.png"
                         alt="PT Representasi Mitra Mandiri"
                         width={16}
                         height={16}
